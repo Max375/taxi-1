@@ -41,7 +41,6 @@ class Order extends Component {
                            </button>
                        </div>
 
-
                                    <select>
                                        <option value="Наличными">Наличными</option>
                                        <option value="Банковской картой">Банковской картой</option>

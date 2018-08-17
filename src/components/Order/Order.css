@@ -34,6 +34,7 @@
     height: 59px;
     padding: 15px 17px;
     resize: none;
+    font-size: 16px;
     color: #ced6eb;
 }
 
@@ -62,14 +63,6 @@
     display: block
 }
 
-.dop-services:active,
-.order-econom:active {
-    width: 80%;
-    margin: 20px auto;
-    -webkit-transition: width .25s ease;
-    -o-transition: width .25s ease;
-    transition: width .25s ease
-}
 
 .order-econom {
     background-color: #ffac00;
