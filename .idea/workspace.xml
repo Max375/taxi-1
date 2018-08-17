@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="00a25063-8b47-4428-a221-1ee978683807" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -449,7 +450,7 @@
       <workItem from="1534254992758" duration="6056000" />
       <workItem from="1534323201457" duration="16246000" />
       <workItem from="1534409324915" duration="21600000" />
-      <workItem from="1534497000782" duration="254000" />
+      <workItem from="1534497000782" duration="503000" />
     </task>
     <servers />
   </component>
@@ -458,6 +459,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.1380597" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
