@@ -1,0 +1,140 @@
+.remember{
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.remember label{
+    font-size: 16px;
+    color: #d5dbed;
+    display: inline-block;
+    position: relative;
+}
+
+.remember input[type=checkbox] {
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    text-indent: 0
+}
+
+.remember input[type=checkbox]:after {
+    font-family: 'times new roman';
+    line-height: 15px;
+    position: absolute;
+    top: 0;
+    margin-top: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    content: '';
+    -webkit-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #ced6eb;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.remember input[type=checkbox]:checked:after {
+    content: "";
+    color: #ffac00;
+    font-size: 40px
+}
+
+.enter-input__input--invalid{
+    border-color: red;
+}
+
+.wrapper {
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    padding: 75px 0;
+    position: relative;
+}
+
+.screen_wp {
+    min-height: 100vh;
+    display: flex;
+    width: 100%;
+    padding: 15px;
+}
+
+.logo img {
+    width: 80%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.logo p {
+    color: #ffac00;
+    font-size: 21px;
+    margin-top: 15px;
+}
+
+
+.enter-input__input {
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ced6eb;
+    margin: 10px 0 5px 0;
+    padding: 15px 0;
+    text-indent: 15px;
+    border-radius: 3px;
+    outline: 0;
+}
+
+.remember {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+
+.enter {
+    background-color: #710fc9;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    padding: 15px 0;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    width: 80%;
+    font-size: 18px;
+}
+
+.reg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #710fc9;
+    font-size: 18px;
+}
+
+remember input[type=checkbox] {
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    text-indent: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.reg img {
+    height: 25px;
+    margin-left: 10px;
+}

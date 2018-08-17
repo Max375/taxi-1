@@ -1,0 +1,52 @@
+.top-bar{
+    width: 100%;
+    padding: 0 15px 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: center;
+    border-bottom: 1px solid #c7cfe3;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.top-bar--menu{
+    list-style: none;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+
+.top-bar--menu li{
+    display: inline-block;
+    line-height: 37px;
+}
+
+
+.top-bar--menu button{
+    position: relative;
+    font-size: 20px;
+    background-color: transparent;
+    border: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.top-bar--menu button.active:after{
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -12px;
+    content: ' ';
+    border-bottom: 3px solid #710fc9;
+}
+
+.top-bar--toggle-button{
+    width: 30px;
+    margin-top: 15px;
+}
+
+.top-bar--dot-button{
+    width: 30px;
+    margin-top: 22px;
+}

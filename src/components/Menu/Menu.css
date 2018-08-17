@@ -1,0 +1,119 @@
+
+.menu {
+    min-height: 100vh;
+    font-family: Ubuntu;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: #fff;
+    z-index: 10000;
+    overflow: auto;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transition: -webkit-transform .2s ease;
+    transition: -webkit-transform .2s ease;
+    -o-transition: transform .2s ease;
+    transition: transform .2s ease;
+    transition: transform .2s ease, -webkit-transform .2s ease;
+    font-size: 16px;
+    width: 100%;
+    max-width: 290px;
+}
+
+.menu .name {
+    font-weight: 900;
+    font-size: 16px
+}
+
+.menu .count {
+    font-size: 14px
+}
+
+.menu .count span {
+    color: #ffac00;
+    font-size: 18px;
+    font-weight: 900
+}
+
+.menu .distance {
+    font-size: 14px
+}
+
+.menu .distance span {
+    color: #00b600;
+    font-size: 18px;
+    font-weight: 900
+}
+
+.menu ul {
+    margin: 0;
+    padding: 30px
+}
+
+.menu ul.first {
+    border-bottom: 1px solid #ced6eb
+}
+
+.menu ul li {
+    list-style-type: none;
+    display: block;
+    padding: 20px 0
+}
+
+.menu ul li a {
+    color: #000;
+    font-size: 18px
+}
+
+.menu ul li img {
+    width: 35px;
+    margin-right: 20px
+}
+
+.menu-open{
+    transform: translate(0);
+}
+
+.menu-top{
+    background-color: #710fc9;
+    color: #fff;
+    padding: 15px;
+}
+
+.menu-top--name{
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.menu-top--count{
+    font-size: 14px;
+}
+
+
+.menu-top--distance{
+    font-size: 14px;
+}
+
+.menu-bonus{
+    background-color: #ffac00;
+    color: #fff;
+}
+
+.menu-bonus--count{
+    font-size: 18px;
+    padding: 0 15px;
+}
+.menu-bg{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.3);
+    height: 100vh;
+    display: none;
+}
+.menu-bg-open{
+    display: block;
+    z-index: 10000;
+}
