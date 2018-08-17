@@ -7,6 +7,6 @@ export default function Load(){
     return (
             <div className="load">
                 <img className="animated infinite flash" src={loadImage} />
-			</div>
+</div>
         );
 }

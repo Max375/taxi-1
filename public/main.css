@@ -2060,40 +2060,6 @@ textarea::placeholder {
     letter-spacing: 1px
 }
 
-.dop-services,
-.econom {
-    text-align: center;
-    margin: 20px 0 30px 0;
-    width: 100%
-}
-
-.dop-services a,
-.econom a {
-    color: #fff;
-    padding: 15px 5px;
-    display: block
-}
-
-.dop-services:active,
-.econom:active {
-    width: 80%;
-    margin: 20px auto;
-    -webkit-transition: width .25s ease;
-    -o-transition: width .25s ease;
-    transition: width .25s ease
-}
-
-.econom {
-    background-color: #ffac00;
-    -webkit-border-radius: 5px;
-    border-radius: 5px
-}
-
-.dop-services {
-    background-color: #710fc9;
-    -webkit-border-radius: 5px;
-    border-radius: 5px
-}
 
 select {
     width: 100%;
@@ -2138,9 +2104,6 @@ select {
 .numbers .minus,
 .numbers .plus {
     background-color: #710fc9;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    margin-top: 20px
 }
 
 .numbers .minus span,
@@ -2157,7 +2120,6 @@ select {
     background-color: #710fc9;
     text-align: center;
     display: inline-block;
-    margin-top: 30px
 }
 
 .to-order a {
