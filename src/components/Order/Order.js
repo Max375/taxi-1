@@ -31,21 +31,22 @@ class Order extends Component {
                        </div>
 
                                <textarea className="comment-text" placeholder="Комментарий к заказу"></textarea>
+                       <div className="btn-wp">
+                           <button className="order-econom">
+                               Эконом
+                           </button>
 
-                                   <button className="order-econom">
-                                       Эконом
-                                   </button>
+                           <button className="dop-services">
+                               Доп. услуги
+                           </button>
+                       </div>
 
-                                   <button className="dop-services">
-                                       Доп. услуги
-                                   </button>
 
-                               <div className="col-xs-10 col-xs-offset-1">
                                    <select>
                                        <option value="Наличными">Наличными</option>
                                        <option value="Банковской картой">Банковской картой</option>
                                    </select>
-                               </div>
+
 
                                <div className="price">
                                    Расстояние / рекомендуемая стоимость
