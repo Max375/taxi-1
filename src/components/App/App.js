@@ -21,7 +21,6 @@ class App extends Component {
     }
 
     render() {
-        console.log('render');
         return this.props.app.currentScreen || <Load />;
     }
 }
@@ -31,5 +30,7 @@ const mapStateToProps = (state) => {
     console.log(state);
     return state;
 };
+
+    
 
 export default connect(mapStateToProps)(App)

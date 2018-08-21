@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import burger from './burger.svg';
-import dots from './dots.svg';
+import burger from '../../assets/img/burger.svg';
+import dots from '../../assets/img/dots.svg';
 import './TopBar.css';
 import Menu from "../Menu/Menu";
 

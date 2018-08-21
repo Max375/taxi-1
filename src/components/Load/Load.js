@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react';
-import loadImage from './Logo.gif';
-import './Load.css';
+
+import LoadImg from '../../assets/img/load.gif';
 
 export default function Load(){
 
     return (
             <div className="load">
-                <img className="animated infinite flash" src={loadImage} />
+                <img className="animated infinite flash" src={LoadImg} />
 </div>
         );
 }

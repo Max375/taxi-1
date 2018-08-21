@@ -1,6 +1,7 @@
 import {SET_USER_INFO} from  "./actionList";
 
 export default function userLoginAction(data) {
+    localStorage.setItem('token',data.token);
     return{
         type: SET_USER_INFO,
         payload:{

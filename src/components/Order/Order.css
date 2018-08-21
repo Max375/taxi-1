@@ -153,3 +153,16 @@
     font-size: 24px;
 }
 
+
+
+
+.numbers-active .minus{
+    background-color: #f24841
+}
+.numbers-active .plus{
+    background-color: #00b600
+}
+
+.numbers-active .count{
+    color: #ffab04
+}

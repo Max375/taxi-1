@@ -3,3 +3,11 @@ export const CHANGE_SCREEN = 'CHANGE_SCREEN';
 export const CHANGE_PHONE = 'CHANGE_PHONE';
 
 export const SET_USER_INFO = 'SET_USER_INFO';
+
+export const SET_ORDER_START_POINT = 'SET_ORDER_START_POINT';
+
+export const SET_ORDER_END_POINT = 'SET_END_START_POINT';
+
+export const SET_ORDER_PRICE = 'SET_ORDER_PRICE';
+
+

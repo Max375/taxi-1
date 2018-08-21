@@ -4,6 +4,8 @@ import Load from '../components/Load/Load';
 
 import user from './userReducer';
 import app from  './appReducer';
+import order from  './orderReducer';
+
 
 const initialState = {
     app: {
@@ -18,6 +20,7 @@ const initialState = {
 export default combineReducers({
     app,
     user,
+    order,
 })
 
 

@@ -1,4 +1,4 @@
-﻿const URL = 'http://taxi/client_api.php';
+﻿const URL = 'https://test.kak-pravilno.by/taxi/client_api.php';
 
 
 export const HTTP_STATUS_USER_INACTIVE = 426;

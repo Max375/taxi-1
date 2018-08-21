@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Logo.css';
 
-import LogoImage from  './Logo.png';
+import LogoImage from '../../assets/img/Logo.png';
 
 
 export default function Logo(){

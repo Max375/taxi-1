@@ -7,27 +7,53 @@ import Menu from '../Menu/Menu';
 import OrderInput from '../OrderInput/OrderInput'
 import TopBar from "../TopBar/TopBar";
 
+import setOrderStartPoint from '../../actions/setOrderStartPoint';
+import setOrderEndPoint from '../../actions/setOrderEndPoint';
+
+import changeScreenAction from "../../actions/changeScreenAction";
+import Load from '../Load/Load';
+
+import Map from '../Map/Map';
+
+
+
+
 
 class Order extends Component {
         constructor(props) {
             super(props);
-            this.state = {isMenuVisible: false};
+
+
+            this.state = {isMenuVisible: false, count: 7};
         }
+
+
+        onChangeEndPoint(optionSelected,action) {
+            this.props.dispatch(setOrderEndPoint(optionSelected.value));
+        }
+
+
+        onChangeStartPoint(optionSelected,action) {
+           this.props.dispatch(setOrderStartPoint(optionSelected.value));
+        }
+
 
         render(){
         return(
-           <div>
+            <React.Fragment>
+
+            <div>
                    <div>
                        <TopBar/>
 
                        <div className='order-wp'>
-                           <OrderInput token={this.props.token} />
+                           <OrderInput  onChangeCallback={this.onChangeStartPoint.bind(this)} token={this.props.token} />
                            <input className="order-wp entrance" type="text" placeholder="Подъезд" />
                        </div>
 
 
                        <div className="order-wp">
-                           <OrderInput/>
+                           <OrderInput onChangeCallback={this.onChangeEndPoint.bind(this)}/>
                        </div>
 
                                <textarea className="comment-text" placeholder="Комментарий к заказу"></textarea>
@@ -49,28 +75,45 @@ class Order extends Component {
 
                                <div className="price">
                                    Расстояние / рекомендуемая стоимость
-                                   <div className="price-count">--<span>--</span></div>
+                                   <div className="price-count">{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? '7р' : '--'}<span>{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? '14км' : '--'}</span></div>
                                </div>
 
-                       <div className="numbers">
-                           <button className="minus">-1</button>
-                           <div className="count"><span>0 р</span></div>
-                           <button className="plus">+1</button>
+
+                       <div className={(this.props.order.endPoint != null && this.props.order.startPoint != null) ? 'numbers numbers-active' : 'menu-bg'}>
+                           <button className="minus" onClick={
+                               ()=>{this.setState({count: --this.state.count})
+                               }
+                           }>-1</button>
+                           <div className="count"><span>{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? this.state.count : '0'} р</span></div>
+                           <button className="plus" onClick={
+                               ()=>{this.setState({count: ++this.state.count})}
+                           }>+1</button>
                        </div>
 
-                               <button className="to-order">
+                               <button className="to-order" onClick={()=>{
+                                   if (this.props.order.endPoint != null && this.props.order.startPoint != null){
+                                       this.props.dispatch(changeScreenAction(<Load />))}
+                               }
+                               } >
                                    Заказать
                                </button>
                            </div>
                    </div>
-        )
-}
 
+                <Map/>
+
+            </React.Fragment>
+
+                )
+    }
 }
 
 
 const mapStateToProps = (state) => {
-    return state.user;
+    return {
+        user: state.user,
+        order: state.order,
+    };
 };
 
 export default connect(mapStateToProps)(Order);
