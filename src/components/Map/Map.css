@@ -45,3 +45,8 @@
 .map-button--active{
     background-color: gold;
 }
+
+
+.pay-type{
+    font-size: 16px
+}

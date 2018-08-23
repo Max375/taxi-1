@@ -153,7 +153,19 @@
     font-size: 24px;
 }
 
+.plus-dot {
+    font-size: 16px;
+    text-align: right;
+    color: #710fc9;
+    margin: 5px 0;
+    background-color: transparent;
+    border: 0px;
+    float: right;
+}
 
+.plus-dot:focus{
+    outline: 0px;
+}
 
 
 .numbers-active .minus{
@@ -166,3 +178,4 @@
 .numbers-active .count{
     color: #ffab04
 }
+

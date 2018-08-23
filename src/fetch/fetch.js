@@ -41,6 +41,8 @@ export const sendPin = function(phone, pin){
     });
 };
 
+
+
 export const getStreet = function (street, token) {
     return fetch(URL,{
         method: 'POST',
@@ -50,6 +52,18 @@ export const getStreet = function (street, token) {
             data: {
                 street: street
             }
+        })
+    })
+};
+
+
+export const getDistance = function (data, token) {
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'get_recommended_price',
+            token: '$2y$10$kEo.dji3aa0qProwpzunQOqkQ1N5YIlV4Xu6ZeOTO2QnCOQmuEa5e',
+            data: data
         })
     })
 };

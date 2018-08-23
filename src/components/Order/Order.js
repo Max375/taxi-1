@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import {getDistance} from '../../fetch/fetch'
 
 import './Order.css';
 import Menu from '../Menu/Menu';
@@ -16,69 +18,152 @@ import Load from '../Load/Load';
 import Map from '../Map/Map';
 
 
-
+import OrderOptions from '../OrderOptions/OrderOptions'
 
 
 class Order extends Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                isMenuVisible: false,
-                count: 7,
-                isMapVisible: false,
-                startNumber: 0,
-                endNumber: 1,
-                handleFunction: null,
-                startPointSelectOption: null,
-            }
-        }
+
+    state = {
+        isMenuVisible: false,
+        price: 0,
+        userPrice: 0,
+        length: 0,
+        isChangePriceActive: false,
+        isMapVisible: false,
+        endNumber: 1,
+        handleFunction: null,
+        endPointsSelectOptions: [null],
+        startPointSelectOption: null,
+        isAddPointButtonActive: false,
+        currentSelect: null,
+        isOrderOptionsMenuVisible: false
+    };
 
 
-        onChangeEndPoint(optionSelected,action) {
-            //this.state.isMapVisible
-            this.props.dispatch(setOrderEndPoint(optionSelected.value));
-        }
+    mapHandler = null;
 
-        test = (text,position) => {
-            const test = {
+
+    startPointHandler =  (text,position) => {
+        this.setState({
+            startPointSelectOption:  {
                 value: position,
                 label: text
-            };
+            },
+            isMapVisible: false,
+        });
+        this.UpdateDistance()
+    };
 
-            this.setState({
-                startPointSelectOption:  test,
-                isMapVisible: false,
-                handleFunction: null,
-            });
 
-            console.log(this.state,test);
+    endPointHandler = (text,position) =>{
+        let _endPoints = this.state.endPointsSelectOptions;
+        _endPoints[this.state.currentSelect] = {
+            value: position,
+            label: text
         };
 
-        onChangeStartPoint(optionSelected,action) {
-           if (optionSelected.value === 'map'){
-                this.setState({
+        this.setState({
+            endPointsSelectOptions: _endPoints,
+            currentSelect: null,
+            isMapVisible: false,
+        });
+        this.UpdateDistance()
+    };
 
-                    isMapVisible: true,
-                    handleFunction: this.test,
-                })
-           }
+
+    constructor(props) {
+            super(props);
+    }
+
+    onChangeSelectStartPoint = (optionSelected,action) => {
+        if (optionSelected!=null && optionSelected.value === 'map'){
+            this.setState({
+                isMapVisible: true,
+            });
+            this.mapHandler = this.startPointHandler;
         }
+    };
+
+
+    onChangeSelectEndPoint = (optionSelected,action,id) => {
+        if (optionSelected.value === 'map'){
+            this.setState({
+                isMapVisible: true,
+                currentSelect: id,
+            });
+            this.mapHandler = this.endPointHandler;
+        }
+    };
+
+    UpdateDistance(){
+        if (this.state.endPointsSelectOptions.find( el => el!==null) !== undefined && this.state.startPointSelectOption!=null){
+            let _endPoints = this.state.endPointsSelectOptions;
+            _endPoints = _endPoints.map( value => {
+                if (value!=null) return {'street': value.label};
+            });
+            console.log(_endPoints);
+            const data = {
+                "start_point": {
+                    "street": this.state.startPointSelectOption.label,
+                },
+                "end_points": _endPoints
+            };
+            getDistance(data).then(resp => resp.json())
+                .then(data => {
+                    console.log(data,'data');
+                    this.setState({
+                        price: data.distance.price,
+                        length: data.distance.length/1000,
+                        isChangePriceActive: true,
+                        userPrice: data.distance.price
+                    });
+                })
+        }
+    }
+
 
 
         render(){
-        return(
+
+
+
+            let endPoints = [];
+
+            for (let i = 0; i< this.state.endNumber; ++i){
+                console.log(this.state.endPointsSelectOptions[i]);
+                endPoints.push(
+                    <div className="order-wp">
+                        <OrderInput key = {i} id = {i} onChangeCallback = {this.onChangeSelectEndPoint} token = {this.props.token} defaultValue = {this.state.endPointsSelectOptions[i]}/>
+                    </div>)
+            }
+
+            console.log('state', this.state);
+            return(
             <div>
                 <div>
+
                     <TopBar/>
+                    <OrderOptions isVisible={this.state.isOrderOptionsMenuVisible} />
 
                     <div className='order-wp'>
-                        <OrderInput onChangeCallback={this.onChangeStartPoint.bind(this)}  token={this.props.token} defaultValue = {this.state.startPointSelectOption} />
+                        <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue = {this.state.startPointSelectOption} />
                         <input className="order-wp entrance" type="text" placeholder="Подъезд" />
                     </div>
 
-                    <div className="order-wp">
-                        <OrderInput onChangeCallback={this.onChangeEndPoint.bind(this)}/>
-                    </div>
+
+                    <button
+                        onClick={() => {
+                            this.setState({endNumber: ++this.state.endNumber});
+                        }}
+
+                        className="plus-dot"
+                    >
+                        + Добавить точку
+                    </button>
+
+                        {endPoints}
+
+
 
                     <textarea className="comment-text" placeholder="Комментарий к заказу"></textarea>
                     <div className="btn-wp">
@@ -86,36 +171,42 @@ class Order extends Component {
                             Эконом
                         </button>
 
-                        <button className="dop-services">
+                        <button onClick={()=>{this.setState({isOrderOptionsMenuVisible: true})}} className="dop-services">
                             Доп. услуги
                         </button>
                     </div>
 
-                    <select>
-                        <option value="Наличными">Наличными</option>
-                        <option value="Банковской картой">Банковской картой</option>
-                    </select>
+
+
+                    <Select
+                        isSearchable={false}
+                        defaultValue={{ value: 'money', label: 'Наличными' }}
+                        options={[{ value: 'card', label: 'Картой' },
+                        { value: 'money', label: 'Наличными' }]}
+                        className="pay-type"
+                        classNamePrefix="select"
+                    />
 
                     <div className="price">
                         Расстояние / рекомендуемая стоимость
-                        <div className="price-count">{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? '7р' : '--'}<span>{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? '14км' : '--'}</span></div>
+                        <div className="price-count">{(this.state.isChangePriceActive) ? this.state.length + 'км' : '--'}<span>{(this.state.isChangePriceActive) ? this.state.price + 'р' : '--'}</span></div>
                     </div>
 
-                    <div className={(this.props.order.endPoint !=null && this.props.order.startPoint !=null) ? 'numbers numbers-active' : 'menu-bg'}>
-                        <button className="minus" onClick={ ()=>{this.setState({count: --this.state.count}) } }>-1
+                    <div className={(this.state.isChangePriceActive) ? 'numbers numbers-active' : 'numbers'}>
+                        <button className="minus" onClick={ ()=>{this.setState({userPrice: --this.state.userPrice}) } }>-1
                         </button>
-                        <div className="count"><span>{(this.props.order.endPoint != null && this.props.order.startPoint != null) ? this.state.count : '0'} р</span></div>
-                        <button className="plus" onClick={ ()=>{this.setState({count: ++this.state.count})} }>+1
+                        <div className="count"><span>{(this.state.isChangePriceActive) ? this.state.userPrice : '0'} р</span></div>
+                        <button className="plus" onClick={ ()=>{this.setState({userPrice: ++this.state.userPrice})} }>+1
                         </button>
                     </div>
 
-                    <button className="to-order" onClick={()=>{ if (this.props.order.endPoint != null && this.props.order.startPoint != null){ this.props.dispatch(changeScreenAction(
-                        <Load />))} } } > Заказать
+                    <button className="to-order" onClick={()=>{ if (this.state.isChangePriceActive) this.props.dispatch(changeScreenAction(
+                        <Load />))} } > Заказать
                     </button>
                 </div>
 
 
-                {this.state.isMapVisible && <Map handler={this.state.handleFunction} />}
+                {this.state.isMapVisible && <Map handler={this.mapHandler} />}
 
 
             </div>
