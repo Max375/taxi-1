@@ -11,9 +11,12 @@ export default class OrderInput extends Component{
 
     constructor(props) {
         super(props);
+        console.log(this.props.defaultValue);
         this.getOptions = _.throttle(this.promiseOptions,300);
-        this.constOptions = [{ value: 'map', label: 'Посмотреть на карте' },
-            { value: 'strawberry', label: 'Любимое место (Работа)' }];
+        this.constOptions = [
+                { value: 'map', label: 'Посмотреть на карте' },
+                { value: 'strawberry', label: 'Любимое место (Работа)' }
+            ];
     }
 
 
@@ -50,7 +53,7 @@ export default class OrderInput extends Component{
 
     render() {
         return (
-            <AsyncSelect classNamePrefix="react-select" onChange={this.props.onChangeCallback} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
+            <AsyncSelect backspaceRemovesValue={false} isClearable={true} classNamePrefix="react-select" placeholder={'Выберите точку'}  isClearable={true} value={this.props.defaultValue} onChange={(optionSelected,action) => this.props.onChangeCallback(optionSelected,action, this.props.id)} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
         );
     }
 }

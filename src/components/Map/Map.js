@@ -1,57 +1,72 @@
-import React from "react"
-import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import React, {Component} from 'react';
 
-const MyMapComponent = compose(
-    withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg",
-        loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
-        mapElement: <div style={{ height: `100%` }} />,
-    }),
-    withScriptjs,
-    withGoogleMap
-)((props) =>{
+import GoogleMap from 'google-map-react';
+import './Map.css';
 
-    return (
-        <GoogleMap
-            defaultZoom={13}
-            defaultCenter={{ lat: 53.902122, lng: 27.557701}}
-        >
-            {<Marker position={{ lat: 53.902122, lng: 27.557701}} onClick={props.onMarkerClick}  />}
-        </GoogleMap>
-    )
-}
-);
+const ZERO_RESULT = 'ZERO_RESULTS';
 
-class MyFancyComponent extends React.PureComponent {
+class SimpleMapPage extends Component {
+
+    static defaultProps = {
+        center: [53.90453979999999, 27.5615244],
+        zoom: 12,
+        apiKey: 'AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg',
+        isMapVisible: false,
+    };
+
     state = {
-        isMarkerShown: false,
+        isAddressSelect: false,
     };
 
-    componentDidMount() {
-        this.delayedShowMarker()
+    constructor(props) {
+        super(props);
+        this.inputRef = null;
+        this.position = {
+            lat: null,
+            long: null,
+        }
     }
-
-    delayedShowMarker = () => {
-        setTimeout(() => {
-            this.setState({ isMarkerShown: true })
-        }, 3000)
-    };
-
-    handleMarkerClick = () => {
-        this.setState({ isMarkerShown: false });
-        this.delayedShowMarker()
-    };
 
     render() {
+
+        console.log('map render');
+
         return (
-            <MyMapComponent
-                isMarkerShown={this.state.isMarkerShown}
-                onMarkerClick={this.handleMarkerClick}
-            />
-        )
+            <div className='map-container'>
+                <input ref={(ref) => {this.inputRef = ref}} type="text" className={'map-input'}/>
+
+                <GoogleMap className='map-container'
+                    apiKey={this.props.apiKey}
+                    center={this.props.center}
+                    zoom={this.props.zoom}
+                    onChange= {
+                        (currentState) => {
+
+                            fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ currentState.center.lat +',' + currentState.center.lng +'&key=' + this.props.apiKey)
+                                .then(resp => resp.json())
+                                .then(data =>{
+                                    if (data.status === ZERO_RESULT) return;
+                                    this.inputRef.value = data.results[0].formatted_address;
+                                    this.position = {
+                                        lat: currentState.center.lat,
+                                        long: currentState.center.lng,
+                                    };
+                                    this.setState({isAddressSelect: true});
+                                });
+                        }
+                    }
+                    >
+                </GoogleMap>
+
+                <div className='map-marker'>Маркер</div>
+
+                <div className={this.state.isAddressSelect ? 'map-button map-button--active' : 'map-button'} onClick={()=>{
+                    this.props.handler(this.inputRef.value, this.position);
+                }}>Готово</div>
+            </div>
+        );
     }
 }
 
-export default MyMapComponent;
+
+export default SimpleMapPage;
