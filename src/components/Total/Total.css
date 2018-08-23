@@ -1,0 +1,62 @@
+.total-price, .total-ds,.total-time{
+    color: #d1d7e3;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.total-price span{
+    display: block;
+    color: #ffac00;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+.total-wp{
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.total-ds span{
+    font-size: 36px;
+    color: #00b600;
+    margin-top: 10px;
+    display: block;
+}
+.total-time span{
+    font-size: 36px;
+    color: #710fc9;
+    margin-top: 10px;
+    display: block;
+}
+
+.total-wp,.total-price,.total-rating{
+    border-bottom: 1px solid #c7cfe3;
+}
+.total-rating{
+    text-align: center;
+    font-size: 36px;
+    padding: 30px 0;
+}
+.total-rating .fa{
+    padding: 0 4px;
+    color: #edf0f6;
+}
+
+.total-rating .active {
+    color: #ffac00;
+}
+
+.estimate{
+    background-color: #710fc9;
+    color: #ffffff;
+    font-size: 24px;
+    letter-spacing: 1px;
+    border: none;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+}

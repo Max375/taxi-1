@@ -1,0 +1,103 @@
+.offer{
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 15px;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 15px;
+}
+
+.offer-header{
+    font-weight: 900;
+    font-size: 16px;
+    text-align: center;
+}
+
+.numbers{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.wait{
+    font-size: 21px;
+    font-weight: 900;
+    text-align: center;
+    position: absolute;
+}
+
+.offer .numbers-header{
+    margin-top: 20px;
+    color: #710fc9;
+    font-size: 16px;
+    text-align: center;
+}
+
+.offer .minus{
+    background-color: #fff;
+    border: 1px solid #e7e7e7;
+    color: #e7e7e7;
+}
+
+.offer .count{
+    margin: 0 20px;
+    color: #ffac00
+}
+
+.offer .plus{
+    background-color: #fff;
+    border: 1px solid #710fc9;
+    color: #710fc9;
+}
+
+.offer .active{
+    background-color: #fff;
+    border: 1px solid #710fc9;
+    color: #710fc9;
+}
+
+.offer .numbers .minus, .numbers .plus{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.driver-buttons{
+    width: 100%;
+    text-align: center;
+}
+
+.offer .driver-buttons .accept-btn{
+    background-color: #00ad5d;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+
+
+.offer .driver-buttons .accept-btn, .offer .driver-buttons .cancel-btn{
+    display: block;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.offer .driver-buttons .cancel-btn {
+     border: 1px solid #db4949;
+     color: #db4949;
+    background-color: transparent;
+ }
+
+.offer .numbers .minus, .numbers .count, .numbers .plus{
+    font-size: 36px;
+    line-height: 70px;
+}
