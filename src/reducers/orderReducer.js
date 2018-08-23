@@ -5,7 +5,8 @@ import React from "react";
 
 const initialState = {
     endPoint: null,
-    startPoint: null
+    startPoint: null,
+    price: 8
 };
 
 

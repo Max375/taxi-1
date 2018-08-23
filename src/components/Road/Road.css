@@ -1,0 +1,116 @@
+.red{
+    background-color: red;
+    height: 250px;
+}
+.way-info {
+    background-color: #ffffff;
+}
+
+.drive-wp{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.driver {
+    display: flex;
+}
+
+.driver-img{
+    margin-right: 10px;
+}
+
+.driver-img img{
+    width: 65px;
+}
+.driver-car .year{
+    font-size: 14px;
+    color: #dfe3f0;
+}
+.driver-car p{
+    margin: 5px 0px;
+    font-size: 13px;
+    color: #710fc9;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+}
+.driver-car .color{
+    background-color: #474747;
+    color: #fff;
+    padding: 3px 5px;
+    font-size: 11px;
+    border-radius: 4px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+}
+.year-wp{
+    margin: 7px 0;
+}
+.rating{
+    font-size: 14px;
+}
+.rating .fa{
+    color: #ffac00;
+    margin-right: 5px;
+}
+.time-wp{
+    text-align: center;
+}
+.time-img img{
+    width: 28px;
+    margin-top: 5px;
+}
+.time-img{
+    width: 30px;
+    margin: 0 auto;
+}
+.time p{
+    font-size: 14px;
+    color: #ffac00;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.phone{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-top: 1px solid #dfe3f0;
+}
+.phone .probeg{
+    font-size: 16px;
+    color: #dfe3f0;
+    text-align: center;
+}
+.phone-btn{
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    margin-left: 39px;
+}
+.phone-btn img{
+    width: 55px;
+}
+.otmena {
+    border: 1px solid #db4949;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #db4949;
+    white-space: nowrap;
+}
+
+@media (max-width: 325px){
+    .driver-car p{
+        font-size: 13px;
+    }
+    .time p {
+        font-size: 13px;
+    }
+}

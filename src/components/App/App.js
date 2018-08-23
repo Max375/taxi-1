@@ -5,9 +5,14 @@ import './App.css';
 import Load from '../Load/Load'
 import Login from '../Login/Login'
 import Order from '../Order/Order'
+import SearchDriver from '../SearchDriver/SearchDriver'
+import Price from '../Price/Price'
+import Driver from '../Driver/Driver'
+import Road from '../Road/Road'
+import Total from '../Total/Total'
 
+import {connect} from 'react-redux'
 
-import {connect} from 'react-redux';
 import changeScreenAction from "../../actions/changeScreenAction";
 
 class App extends Component {
@@ -17,7 +22,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Total />));
     }
 
     render() {
