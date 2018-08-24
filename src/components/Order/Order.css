@@ -16,6 +16,25 @@
     flex-shrink: 0;
     color: black;
     font-size: 16px;
+    text-indent: 0;
+}
+
+.order-econom img,.dop-services img{
+    display: none;
+}
+
+.order-econom-active img, .dop-services-active img{
+    display: inline-block;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.dop-services-active img{
+    margin: 0;
+}
+
+.dop-services-active span{
+    display: none;
 }
 
 .order-wp .order-input{
@@ -44,6 +63,7 @@
     color: #fff;
     border: 0;
     font-size: 16px;
+    border: 1px solid #ffac00;
 }
 
 .dop-services,
@@ -56,33 +76,16 @@
     padding: 12px 0;
 }
 
-.dop-services-active,
-.order-econom-active {
-    text-align: center;
-    margin: 20px 10px 30px 10px;
-    width: 40%;
-    display: inline-block;
-    font-size: 16px;
-    padding: 12px 0;
-    background-color: transparent;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+.order-econom {
+    background-color: #ffac00;
+    -webkit-border-radius: 5px;
+    border-radius: 5px
 }
 
 .order-econom-active{
     border: 1px solid #ffac00;
     color: #ffac00;
-}
-
-.dop-services-active{
-    border: 1px solid #710fc9;
-}
-
-.order-econom {
-    background-color: #ffac00;
-    -webkit-border-radius: 5px;
-    border-radius: 5px
+    background-color: transparent;
 }
 
 .dop-services{
@@ -91,6 +94,15 @@
     border-radius: 5px;
     color: #fff;
     border: 0;
+    border: 1px solid #710fc9;
+}
+
+.dop-services-active{
+    border: 1px solid #710fc9;
+    background-color: transparent;
+    color: #710fc9;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .btn-wp{

@@ -40,15 +40,14 @@ class EnterPin extends Component {
         return (<div className="screen_wp">
                 <div className="wrapper">
                     <Logo />
-                    Мы выслали вам смс сообщение код для входа в приложение
+                    <div className="sms">Мы выслали вам <span>смс сообщение</span> c кодом для входа в приложение</div>
                     <div className="enter-input">
                         <input ref={this.setNumberInput.bind(this)} className="enter-input__input" type="text" placeholder="Код, пример: 7643" />
                     </div>
 
-                    <a href="#">Выслать повторно</a>
+                    <a className="again" href="#">Выслать повторно</a>
 
                     <button className="enter" href="#" onClick={this.login.bind(this)} >Войти</button>
-                    <a className="reg" href="enter.html">Регистрация <img src={icon} alt="" /></a>
                 </div>
             </div>
         );

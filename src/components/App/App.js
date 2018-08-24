@@ -18,7 +18,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Price />));
     }
 
     render() {

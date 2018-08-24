@@ -8,6 +8,9 @@ import Menu from '../Menu/Menu';
 
 import OrderInput from '../OrderInput/OrderInput'
 import TopBar from "../TopBar/TopBar";
+import Case from '../../assets/img/case.png'
+import Cat from '../../assets/img/pet.png'
+import Girl from '../../assets/img/girl.png'
 
 import setOrderStartPoint from '../../actions/setOrderStartPoint';
 import setOrderEndPoint from '../../actions/setOrderEndPoint';
@@ -168,11 +171,11 @@ class Order extends Component {
                     <textarea className="comment-text" placeholder="Комментарий к заказу"></textarea>
                     <div className="btn-wp">
                         <button className="order-econom">
-                            Эконом
+                            Эконом <img src={Case} alt=""/>
                         </button>
 
                         <button onClick={()=>{this.setState({isOrderOptionsMenuVisible: true})}} className="dop-services">
-                            Доп. услуги
+                            <span>Доп. услуги</span><img src={Cat} alt=""/><img src={Girl} alt=""/>
                         </button>
                     </div>
 
