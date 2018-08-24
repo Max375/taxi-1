@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 
 
-import Load from '../Load/Load'
 import Login from '../Login/Login'
+import Load from '../Load/Load'
 import Order from '../Order/Order'
-import SearchDriver from '../SearchDriver/SearchDriver'
-import Price from '../Price/Price'
-import Driver from '../Driver/Driver'
-import Road from '../Road/Road'
-import Total from '../Total/Total'
 
 import {connect} from 'react-redux'
 
@@ -22,7 +17,12 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Total />));
+        if (this.props.user.token === null){
+            this.props.dispatch(changeScreenAction(<Order />));
+            return;
+        }
+        this.props.dispatch(changeScreenAction(<Order />));
+        console.log(this.props.user.token,'get token');
     }
 
     render() {
