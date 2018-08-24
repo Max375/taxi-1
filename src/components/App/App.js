@@ -18,17 +18,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Login />));
     }
 
     render() {
-        return this.props.app.currentScreen || <Load />;
+        return this.props.app.currentScreen || <Login />;
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapToProps');
-    console.log(state);
     return state;
 };
 

@@ -29,7 +29,7 @@ export const sendPin = function(phone, pin){
     return fetch(URL, {
         method: 'POST',
         body: JSON.stringify({
-            action: 'login',
+            action: 'sms_auth',
             data: {
                 phone: phone,
                 pin: pin
