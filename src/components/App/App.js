@@ -12,6 +12,7 @@ import Road from '../Road/Road'
 import Total from '../Total/Total'
 import OrderOptions from '../OrderOptions/OrderOptions'
 import EnterPin from '../EnterPin/EnterPin'
+import Registration from '../Registration/Registration'
 
 import {connect} from 'react-redux'
 
@@ -24,7 +25,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Price />));
     }
 
     render() {

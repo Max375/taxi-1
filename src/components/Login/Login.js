@@ -57,7 +57,7 @@ class Login extends Component {
                     </div>
 
                     <button className="enter" href="#" onClick={this.sendLogin.bind(this)}>Войти</button>
-                    <a className="reg" href="enter.html">Регистрация <img src={icon} alt="" /></a>
+                    <a className="reg" href="">Регистрация <img src={icon} alt="" /></a>
                 </div>
             </div>
         );

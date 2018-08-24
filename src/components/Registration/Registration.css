@@ -1,0 +1,15 @@
+.enter-inputs label input {
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    text-indent: 0;
+}
+
+.enter-inputs label{
+    font-size: 16px;
+}
+
+input{
+    font-family: Ubuntu;
+}

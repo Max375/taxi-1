@@ -118,6 +118,8 @@ img {
 .reg {
     color: #710fc9;
     font-size: 18px;
+    display: block;
+    margin-top: 30px;
 }
 
 remember input[type=checkbox] {
