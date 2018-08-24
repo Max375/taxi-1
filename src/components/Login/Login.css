@@ -1,3 +1,6 @@
+body{
+    margin: 0;
+}
 .remember{
     margin-bottom: 15px;
     text-align: left;
@@ -62,7 +65,6 @@
 .screen_wp {
     min-height: 100vh;
     display: flex;
-    width: 100%;
     padding: 15px;
 }
 
@@ -110,12 +112,10 @@ img {
     margin-top: 30px;
     width: 80%;
     font-size: 18px;
+    border: none;
 }
 
 .reg {
-    position: absolute;
-    bottom: 0;
-    right: 0;
     color: #710fc9;
     font-size: 18px;
 }

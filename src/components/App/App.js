@@ -6,6 +6,7 @@ import Login from '../Login/Login'
 import Load from '../Load/Load'
 import Order from '../Order/Order'
 
+
 import {connect} from 'react-redux'
 
 import changeScreenAction from "../../actions/changeScreenAction";
@@ -17,12 +18,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null){
-            this.props.dispatch(changeScreenAction(<Order />));
-            return;
-        }
-        this.props.dispatch(changeScreenAction(<Order />));
-        console.log(this.props.user.token,'get token');
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
     }
 
     render() {

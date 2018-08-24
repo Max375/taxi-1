@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './OrderOptions.css'
+import Girl from '../../assets/img/girl.png'
+import Pet from '../../assets/img/pet.png'
+import Case from '../../assets/img/case.png'
 
 export default function OrderOptions(props){
 
@@ -12,13 +15,13 @@ export default function OrderOptions(props){
                     </div>
 
                     <div className="extra-inputs clearfix">
-                        <label><input type="checkbox" />Курьер</label>
-                        <label><input type="checkbox" />Водитель не курит</label>
-                        <label><input type="checkbox" />Багаж</label>
-                        <label><input type="checkbox" />Перевозка животного</label>
+                        <label><input type="checkbox" />Девушка водитель <img src={Girl}/></label>
+                        <label><input type="checkbox" />Авто без рекламы</label>
+                        <label><input type="checkbox" />Багаж <img src={Case}/></label>
+                        <label><input type="checkbox" />Перевозка животного <img src={Pet}/></label>
                         <label><input type="checkbox" />Кондиционер</label>
                         <label><input type="checkbox" />Англоговорящий водитель</label>
-                        <label><input type="checkbox" />Встреча с табличкой</label>
+                        <label><input type="checkbox" />Детское кресло</label>
                         <label><input type="checkbox" />Неразговорчивый водитель</label>
                     </div>
                 </div>
