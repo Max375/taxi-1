@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 
 
-import Load from '../Load/Load'
 import Login from '../Login/Login'
+import Load from '../Load/Load'
 import Order from '../Order/Order'
-import SearchDriver from '../SearchDriver/SearchDriver'
-import Price from '../Price/Price'
-import Driver from '../Driver/Driver'
-import Road from '../Road/Road'
-import Total from '../Total/Total'
-import OrderOptions from '../OrderOptions/OrderOptions'
-import EnterPin from '../EnterPin/EnterPin'
-import Registration from '../Registration/Registration'
+
 
 import {connect} from 'react-redux'
 
