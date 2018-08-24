@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-.numbers{
+.offer .numbers{
     display: block;
     width: 100%;
     text-align: center;
@@ -59,7 +59,7 @@
     color: #710fc9;
 }
 
-.offer .numbers .minus, .numbers .plus{
+.offer .numbers .minus, .offer .numbers .plus{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -97,7 +97,7 @@
     background-color: transparent;
  }
 
-.offer .numbers .minus, .numbers .count, .numbers .plus{
+.offer .numbers .minus, .offer .numbers .count, .offer .numbers .plus{
     font-size: 36px;
     line-height: 70px;
 }
