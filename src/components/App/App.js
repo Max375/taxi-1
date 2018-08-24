@@ -10,6 +10,8 @@ import Price from '../Price/Price'
 import Driver from '../Driver/Driver'
 import Road from '../Road/Road'
 import Total from '../Total/Total'
+import OrderOptions from '../OrderOptions/OrderOptions'
+import EnterPin from '../EnterPin/EnterPin'
 
 import {connect} from 'react-redux'
 
@@ -22,7 +24,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Total />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
     }
 
     render() {

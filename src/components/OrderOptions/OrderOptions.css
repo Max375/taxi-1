@@ -7,6 +7,7 @@
     right: 0;
     transition: all .2s ease;
     font-size: 16px;
+    width: 300px;
 }
 
 .extra-wrapp {
@@ -18,6 +19,7 @@
 
 .extra-inputs {
     margin-top: 30px;
+    padding: 0 15px;
 }
 
 .extra-inputs label {
@@ -72,4 +74,20 @@ input[type=checkbox], input[type=radio] {
 
 .extra-open{
     transform: translateY(0);
+}
+
+.extra-inputs input[type=checkbox]:checked:after {
+    font-size: 16px;
+    content: "\2714";
+    color: #ffac00;
+    border: none;
+    font-size: 21px;
+}
+
+.extra img{
+    max-width: 20px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -14px;
 }
