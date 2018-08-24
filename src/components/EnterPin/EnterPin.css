@@ -1,0 +1,25 @@
+.again{
+    color: #710fc9;
+    letter-spacing: 1px;
+    font-size: 16px;
+    margin-top: 25px;
+    display: block;
+}
+
+.enter-input__input::placeholder{
+    color: #ced6eb;
+}
+.enter-input__input{
+    border: 1px solid #ced6eb;
+}
+
+.sms{
+    margin-top: 30px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #000000;
+}
+.sms span{
+    color: #710fc9;
+}

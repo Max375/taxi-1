@@ -101,6 +101,7 @@ class Login extends Component {
 
                     <button className="enter" href="#" onClick={this._onClickSendButton}>Войти</button>
                     <a className="reg" href="enter.html">Регистрация <img src={icon} alt="" /></a>
+
                 </div>
             </div>
         );
