@@ -1,0 +1,18 @@
+.input-numbers{
+    display: flex;
+    margin-top: 25px;
+}
+
+.input-numbers input{
+    margin: 0 5px;
+    text-align: center;
+    text-indent: 0;
+    font-size: 24px;
+    background-color: #f7f7fb;
+    border: 1px solid #f7f7fb;
+    width: 65px;
+}
+
+.input-numbers input:last-child{
+    background: #ececf4;
+}

@@ -1,0 +1,31 @@
+.steps{
+    background-color: #6217c5;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+
+.steps img{
+    width: 22px;
+    background-color: #5010a5;
+    transform: scale(-1,1);
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.steps span{
+    font-size: 18px;
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+@media (max-width: 378px) {
+    .steps{
+        text-align: center;
+    }
+}
