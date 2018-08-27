@@ -1,0 +1,43 @@
+.driver-menu{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.driver-photo img{
+    width: 65px;
+}
+
+.off{
+    padding: 6px 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.15);
+    border-radius: 50%;
+}
+
+.off .fa{
+    font-size: 32px;
+    color: #6217c5;
+}
+.status{
+    font-size: 18px;
+    position: relative;
+    padding: 0 10px;
+}
+.dots img{
+    width: 25px;
+    height: 10px;
+    transform: rotate(90deg);
+}
+
+.driver-menu .active:before{
+    content: '';
+    height: 4px;
+    background: #6217c5;
+    position: absolute;
+    width: 100%;
+    bottom: -38px;
+    border-radius: 10px;
+    left: 0;
+}
