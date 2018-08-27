@@ -20,13 +20,18 @@ body{
 
 input {
     width: 100%;
-    border: 1px solid #ced6eb;
+    border: 1px solid #dadaed;
     margin: 10px 0;
     padding: 15px 0;
     text-indent: 15px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     outline: 0;
+    letter-spacing: 1px;
+}
+
+input:placeholder{
+    color: #dadaed;
 }
 
 a{

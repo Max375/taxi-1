@@ -1,0 +1,36 @@
+.about-car{
+    padding: 20px;
+    letter-spacing: 1px;
+}
+
+.about-car .car-inform{
+    display: flex;
+    align-items: flex-start;
+}
+
+.about-car .car-name{
+    font-size: 14px;
+    padding-left: 25px;
+    padding-top: 10px;
+    line-height: 20px;
+    font-weight: 900;
+
+}
+
+.about-car .car-img img{
+    width: 100px;
+}
+
+.car-descr p{
+    font-size: 16px;
+    color: #000000;
+    margin: 20px 0;
+    font-weight: 900;
+}
+
+.car-descr{
+    color: #d1d0dd;
+    font-size: 14px;
+    display: block;
+    line-height: 21px;
+}

@@ -1,0 +1,36 @@
+.enter-pin span{
+    color: #ffac00;
+    font-size: 18px;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.center-wp{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+    flex-flow: column;
+}
+
+.enter-pin{
+    color: #d8d8e7;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 20px;
+}
+
+.enter-pin input{
+    width: 85%;
+    margin-top: 25px;
+    background: #f7f7fb;
+    border-color: #f7f7fb;
+}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import GoogleMap from 'google-map-react';
 import './Map.css';
+import Marker from '../../assets/img/marker.png'
 
 const ZERO_RESULT = 'ZERO_RESULTS';
 
@@ -58,7 +59,7 @@ class SimpleMapPage extends Component {
                     >
                 </GoogleMap>
 
-                <div className='map-marker'>Маркер</div>
+                <div className='map-marker'><img src={Marker} alt=""/></div>
 
                 <div className={this.state.isAddressSelect ? 'map-button map-button--active' : 'map-button'} onClick={()=>{
                     this.props.handler(this.inputRef.value, this.position);
