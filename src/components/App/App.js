@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 
-import Load from '../Load/Load'
 import Login from '../Login/Login'
+import Load from '../Load/Load'
 import Order from '../Order/Order'
+
+
 import SearchDriver from '../SearchDriver/SearchDriver'
 import Price from '../Price/Price'
 import Driver from '../Driver/Driver'
@@ -16,6 +18,7 @@ import Registration from '../Registration/Registration'
 import Map from '../Map/Map'
 import Step from "../Step/Step"
 import DriverRegistration from "../DriverRegistration/DriverRegistration";
+
 
 import {connect} from 'react-redux'
 
@@ -36,17 +39,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<DriverOrders/>));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Login />));
     }
 
     render() {
-        return this.props.app.currentScreen || <Load />;
+        return this.props.app.currentScreen || <Login />;
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapToProps');
-    console.log(state);
     return state;
 };
 

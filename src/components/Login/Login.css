@@ -50,15 +50,40 @@ body{
     font-size: 40px
 }
 
-.enter-input__input--invalid{
-    border-color: red;
+
+.enter-input__invalid-text{
+    font-size: 14px;
+    text-align: left;
+    color: rgb(215,107,102);
+    opacity: 0;
+    height: 16px;
+    transition: 0.1s ease all;
 }
+
+.enter-input__input::-webkit-input-placeholder{
+    transition: 0.1s ease all;
+}
+
+
+.enter-input--invalid .enter-input__input{
+    border-color: rgb(215,107,102);
+}
+
+
+.enter-input--invalid .enter-input__input::-webkit-input-placeholder {
+    color: rgb(215,107,102);
+}
+
+.enter-input--invalid .enter-input__invalid-text{
+    opacity: 1;
+}
+
+
 
 .wrapper {
     max-width: 400px;
     margin: auto;
     text-align: center;
-    padding: 75px 0;
     position: relative;
 }
 
@@ -66,6 +91,7 @@ body{
     min-height: 100vh;
     display: flex;
     padding: 15px;
+    box-sizing: border-box;
 }
 
 .logo img {
@@ -87,7 +113,7 @@ img {
     font-size: 16px;
     width: 100%;
     border: 1px solid #ced6eb;
-    margin: 10px 0 5px 0;
+    margin: 5px 0 5px 0;
     padding: 15px 0;
     text-indent: 15px;
     border-radius: 3px;
@@ -115,6 +141,11 @@ img {
     border: none;
 }
 
+.enter:hover{
+    outline: 0;
+    background-color: #6a0ebd;
+}
+
 .reg {
     color: #710fc9;
     font-size: 18px;
@@ -122,7 +153,7 @@ img {
     margin-top: 30px;
 }
 
-remember input[type=checkbox] {
+.remember input[type=checkbox] {
     margin-right: 15px;
     display: inline-block;
     vertical-align: middle;
