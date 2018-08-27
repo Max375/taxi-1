@@ -6,6 +6,8 @@ import _ from 'underscore';
 
 import {getStreet, HTTP_STATUS_USER_UNAUTHORIZED} from '../../fetch/fetch';
 
+var googleMapsClient = require('@google/maps').createClient({key: 'AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg'});
+
 
 export default class OrderInput extends Component{
 
@@ -52,6 +54,7 @@ export default class OrderInput extends Component{
 
 
     render() {
+        console.log(googleMapsClient.places.Autocomplete);
         return (
             <AsyncSelect backspaceRemovesValue={false} isClearable={true} classNamePrefix="react-select" placeholder={'Выберите точку'}  isClearable={true} value={this.props.defaultValue} onChange={(optionSelected,action) => this.props.onChangeCallback(optionSelected,action, this.props.id)} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
         );

@@ -39,6 +39,11 @@ class SimpleMapPage extends Component {
                     apiKey={this.props.apiKey}
                     center={this.props.center}
                     zoom={this.props.zoom}
+                    options={
+                        {
+                            gestureHandling: 'greedy'
+                        }
+                    }
                     onChange= {
                         (currentState) => {
 

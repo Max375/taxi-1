@@ -16,8 +16,15 @@ import Order from '../Order/Order';
 
 import setUserInfoAction from '../../actions/setUserInfoAction';
 import changeScreenAction from "../../actions/changeScreenAction";
+import Back from '../Back/Back.js';
+import Login from "../Login/Login";
 
 class EnterPin extends Component {
+   state = {
+       errorText: null,
+       isValid: true,
+   };
+
     constructor(props) {
         super(props);
         this.NumberInput = null;
@@ -32,22 +39,68 @@ class EnterPin extends Component {
             if (data!=false){
                 this.props.dispatch(setUserInfoAction(data));
                 this.props.dispatch(changeScreenAction(<Order />));
+                return;
             }
+
+            this.setState({
+                isValid: false,
+                errorText: 'Введен неверный PIN',
+            });
         });
     }
 
+
+
+    validatePin(pin){
+        const regexp = /^[0-9]{4}$/;
+        return pin.search(regexp) !== -1;
+    }
+
+
+    _onClickSendButton = () => {
+        const pin =this.NumberInput.value;
+        if (this.validatePin(pin)) {
+            this.login(this.props.phone, pin);
+            return;
+        }
+
+
+        let errMessage = '';
+
+        switch (pin) {
+            case '':
+                errMessage = 'Пинкод не может быть пустым';
+                break;
+            default:
+                errMessage = 'Пожалуйста введите корректный PIN';
+                break;
+        }
+
+
+        this.setState({
+            errorText: errMessage,
+            isValid: false,
+        })
+    };
+
+
     render() {
         return (<div className="screen_wp">
+                <Back dispatch={this.props.dispatch} screen={this.props.prevScreen} />
                 <div className="wrapper">
+
                     <Logo />
-                    <div className="sms">Мы выслали вам <span>смс сообщение</span> c кодом для входа в приложение</div>
-                    <div className="enter-input">
+                    <div className="sms">Мы выслали <span>смс сообщение</span> c кодом на номер <span>{this.props.phone}</span></div>
+                    <div className={this.state.isValid ? "enter-input" : "enter-input enter-input--invalid"}>
+                        <div className="enter-input__invalid-text">
+                            {this.state.errorText}
+                        </div>
                         <input ref={this.setNumberInput.bind(this)} className="enter-input__input" type="text" placeholder="Код, пример: 7643" />
                     </div>
 
-                    <a className="again" href="#">Выслать повторно</a>
+                    <button className="enter" href="#" onClick={this._onClickSendButton} >Войти</button>
 
-                    <button className="enter" href="#" onClick={this.login.bind(this)} >Войти</button>
+                    <a className="again" href="#">Выслать повторно</a>
                 </div>
             </div>
         );

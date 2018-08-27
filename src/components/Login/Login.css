@@ -90,7 +90,8 @@ body{
 .screen_wp {
     min-height: 100vh;
     display: flex;
-    padding: 15px;
+    padding: 25px 15px;
+    position: relative;
     box-sizing: border-box;
 }
 
@@ -120,6 +121,7 @@ img {
     outline: 0;
 }
 
+
 .remember {
     margin-bottom: 15px;
     text-align: left;
@@ -141,10 +143,12 @@ img {
     border: none;
 }
 
+
 .enter:hover{
     outline: 0;
     background-color: #6a0ebd;
 }
+
 
 .reg {
     color: #710fc9;

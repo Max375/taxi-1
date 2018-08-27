@@ -10,6 +10,7 @@ import Order from '../Order/Order'
 import {connect} from 'react-redux'
 
 import changeScreenAction from "../../actions/changeScreenAction";
+import Registration from "../Registration/Registration";
 
 class App extends Component {
 
@@ -18,7 +19,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Login />));
+        if (this.props.user.token === null) this.props.dispatch(changeScreenAction(<Order />));
     }
 
     render() {

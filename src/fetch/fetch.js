@@ -67,3 +67,20 @@ export const getDistance = function (data, token) {
         })
     })
 };
+
+
+export const regUser =  function(phone, name){
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'registration',
+            data: {
+                phone: phone,
+                name: name,
+            }
+        })
+    }).then((res) =>{
+        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
+        return true;
+    });
+};
