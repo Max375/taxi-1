@@ -1,10 +1,11 @@
-import {SET_ORDER_START_POINT,SET_ORDER_END_POINT, SET_ORDER_PRICE} from '../actions/actionList';
+import {SET_ORDER_START_POINT,SET_ORDER_END_POINTS, SET_ORDER_PRICE} from '../actions/actionList';
 import Load from "../components/Load/Load";
 import React from "react";
 
 
+
 const initialState = {
-    endPoint: null,
+    endPoints: [null],
     startPoint: null,
     price: 8
 };
@@ -13,10 +14,10 @@ const initialState = {
 
 export default function order(state = initialState , action) {
     switch (action.type) {
-        case SET_ORDER_END_POINT:
+        case SET_ORDER_END_POINTS:
             return{
                 ...state,
-                endPoint: action.payload.endPoint
+                endPoints: action.payload.endPoints
             };
         case SET_ORDER_START_POINT:
             return{

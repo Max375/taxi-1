@@ -1,8 +1,9 @@
-import  {CHANGE_PHONE, SET_USER_INFO} from '../actions/actionList';
+import  {CHANGE_PHONE, SET_USER_INFO, SET_DEVICE_ID} from '../actions/actionList';
 
 
 const initialState = {
         token: localStorage.getItem('token')|| null,
+        deviceId: null,
 };
 
 
@@ -13,6 +14,9 @@ export default function user(state = initialState, action) {
         };
         case SET_USER_INFO: return{
             ...state, ...action.payload
+        };
+        case SET_DEVICE_ID: return{
+            ...state, deviceId: action.payload.deviceId
         };
         default: return state;
     }

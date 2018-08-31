@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import {getDistance} from '../../fetch/fetch'
+import {getDistance, createOrder, HTTP_STATUS_OK} from '../../fetch/fetch'
 
 import './Order.css';
 import Menu from '../Menu/Menu';
@@ -13,8 +13,8 @@ import Cat from '../../assets/img/pet.png'
 import Girl from '../../assets/img/girl.png'
 
 import setOrderStartPoint from '../../actions/setOrderStartPoint';
-import setOrderEndPoint from '../../actions/setOrderEndPoint';
-
+import setOrderEndPoint from '../../actions/setOrderEndPoints';
+import setOrderPrice from '../../actions/setOrderPrice';
 import changeScreenAction from "../../actions/changeScreenAction";
 import Load from '../Load/Load';
 
@@ -22,21 +22,18 @@ import Map from '../Map/Map';
 
 
 import OrderOptions from '../OrderOptions/OrderOptions'
+import SearchDriver from "../SearchDriver/SearchDriver";
 
 
 class Order extends Component {
 
     state = {
         isMenuVisible: false,
-        price: 0,
         userPrice: 0,
         length: 0,
         isChangePriceActive: false,
         isMapVisible: false,
-        endNumber: 1,
         handleFunction: null,
-        endPointsSelectOptions: [null],
-        startPointSelectOption: null,
         isAddPointButtonActive: false,
         currentSelect: null,
         isOrderOptionsMenuVisible: false
@@ -47,29 +44,35 @@ class Order extends Component {
 
 
     startPointHandler =  (text,position) => {
+        this.props.dispatch(setOrderStartPoint({
+            value: position,
+            label: text
+        }));
         this.setState({
-            startPointSelectOption:  {
-                value: position,
-                label: text
-            },
             isMapVisible: false,
         });
+
         this.UpdateDistance()
     };
 
 
     endPointHandler = (text,position) =>{
-        let _endPoints = this.state.endPointsSelectOptions;
+        let _endPoints = this.props.order.endPoints;
+
+        console.log(_endPoints,'sa');
+
         _endPoints[this.state.currentSelect] = {
             value: position,
             label: text
         };
 
         this.setState({
-            endPointsSelectOptions: _endPoints,
             currentSelect: null,
             isMapVisible: false,
         });
+
+        this.props.dispatch(setOrderEndPoint(_endPoints));
+
         this.UpdateDistance()
     };
 
@@ -99,28 +102,37 @@ class Order extends Component {
     };
 
     UpdateDistance(){
-        if (this.state.endPointsSelectOptions.find( el => el!==null) !== undefined && this.state.startPointSelectOption!=null){
-            let _endPoints = this.state.endPointsSelectOptions;
-            _endPoints = _endPoints.map( value => {
-                if (value!=null) return {'street': value.label};
-            });
-            console.log(_endPoints);
-            const data = {
-                "start_point": {
-                    "street": this.state.startPointSelectOption.label,
-                },
-                "end_points": _endPoints
-            };
-            getDistance(data).then(resp => resp.json())
-                .then(data => {
-                    console.log(data,'data');
-                    this.setState({
-                        price: data.distance.price,
-                        length: data.distance.length/1000,
-                        isChangePriceActive: true,
-                        userPrice: data.distance.price
+                if (this.props.order.endPoints.find( el => el!==null) !== undefined && this.props.order.startPoint!=null){
+
+
+                    let _endPoints = this.props.order.endPoints;
+
+                    _endPoints = _endPoints.map( value => {
+                         if (value!=null) return {'street': value.label};
                     });
-                })
+
+                    const data = {
+                        "start_point": {
+                            "street": this.props.order.startPoint.label,
+                        },
+                        "end_points": _endPoints
+                    };
+
+
+                    getDistance(data,this.props.user.token,this.props.user.deviceId).then((resp) => {
+                        if (resp.status === HTTP_STATUS_OK) return resp.json();
+                        else return null
+                    }).then(data => {
+                            if (data!=null){
+                                this.setState({
+                                    price: data.distance.price,
+                                    length: data.distance.length/1000,
+                                    isChangePriceActive: true,
+                                    userPrice: data.distance.price
+                                });
+                                this.props.dispatch(setOrderPrice(data.distance.price));
+                            }
+                        })
         }
     }
 
@@ -128,38 +140,36 @@ class Order extends Component {
 
         render(){
 
-
-
             let endPoints = [];
-
-            for (let i = 0; i< this.state.endNumber; ++i){
-                console.log(this.state.endPointsSelectOptions[i]);
+            for (let i = 0; i < this.props.order.endPoints.length; ++i){
                 endPoints.push(
                     <div className="order-wp">
-                        <OrderInput key = {i} id = {i} onChangeCallback = {this.onChangeSelectEndPoint} token = {this.props.token} defaultValue = {this.state.endPointsSelectOptions[i]}/>
-                    </div>)
+                        <OrderInput key = {i} id = {i} onChangeCallback = {this.onChangeSelectEndPoint} token = {this.props.token} defaultValue = {this.props.order.endPoints[i]} />
+                    </div>
+                )
             }
 
-            console.log('state', this.state);
+
             return(
             <div>
                 <div>
 
                     <TopBar/>
-                    <OrderOptions isVisible={this.state.isOrderOptionsMenuVisible} />
+                    <OrderOptions isVisible={this.state.isOrderOptionsMenuVisible}  clickHandler={()=>{this.setState({isOrderOptionsMenuVisible: false})}} />
 
                     <div className='order-wp'>
-                        <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue = {this.state.startPointSelectOption} />
+                        <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue={this.props.order.startPoint} />
                         <input className="order-wp entrance" type="text" placeholder="Подъезд" />
                     </div>
 
 
                     <button
                         onClick={() => {
-                            this.setState({endNumber: ++this.state.endNumber});
+                            console.log(this.props.order.endPoints.length);
+                            this.props.dispatch(setOrderEndPoint([...this.props.order.endPoints, null]));
                         }}
 
-                        className="plus-dot"
+                        className={this.props.order.endPoints.length < 4 ? "plus-dot" : "plus-dot plus-dot-invisible" }
                     >
                         + Добавить точку
                     </button>
@@ -196,15 +206,17 @@ class Order extends Component {
                     </div>
 
                     <div className={(this.state.isChangePriceActive) ? 'numbers numbers-active' : 'numbers'}>
-                        <button className="minus" onClick={ ()=>{this.setState({userPrice: --this.state.userPrice}) } }>-1
+                        <button className="minus" onClick={ ()=>{this.props.dispatch(setOrderPrice(--this.props.order.price )) } }>-1
                         </button>
-                        <div className="count"><span>{(this.state.isChangePriceActive) ? this.state.userPrice : '0'} р</span></div>
-                        <button className="plus" onClick={ ()=>{this.setState({userPrice: ++this.state.userPrice})} }>+1
+                        <div className="count"><span>{(this.state.isChangePriceActive) ? this.props.order.price : '0'} р</span></div>
+                        <button className="plus" onClick={ ()=>{ this.props.dispatch(setOrderPrice(++this.props.order.price )) } }>+1
                         </button>
                     </div>
 
-                    <button className="to-order" onClick={()=>{ if (this.state.isChangePriceActive) this.props.dispatch(changeScreenAction(
-                        <Load />))} } > Заказать
+                    <button className="to-order" onClick={()=>{
+                        createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId);
+                        if (this.state.isChangePriceActive) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />))
+                    } } > Заказать
                     </button>
                 </div>
 

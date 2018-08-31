@@ -7,7 +7,10 @@ import Case from '../../assets/img/case.png'
 export default function OrderOptions(props){
 
     return (
-                <div className={(props.isVisible) ? 'extra extra-open' : 'extra'}>
+        <React.Fragment>
+            <div className={props.isVisible ? 'option-bg option-bg-open' : 'option-bg'} onClick={props.clickHandler}>
+            </div>
+        <div className={(props.isVisible) ? 'extra extra-open' : 'extra'}>
                     <div className="extra-wrapp clearfix">
                         <div className="extra-header">
                             Дополнительные услуги
@@ -25,5 +28,6 @@ export default function OrderOptions(props){
                         <label><input type="checkbox" />Неразговорчивый водитель</label>
                     </div>
                 </div>
+        </React.Fragment>
     );
 }

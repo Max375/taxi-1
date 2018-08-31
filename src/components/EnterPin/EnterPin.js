@@ -35,7 +35,7 @@ class EnterPin extends Component {
     }
 
     login(){
-        sendPin(this.props.phone, this.NumberInput.value).then((data)=>{
+        sendPin(this.props.phone, this.NumberInput.value, this.props.deviceId).then((data)=>{
             if (data!=false){
                 this.props.dispatch(setUserInfoAction(data));
                 this.props.dispatch(changeScreenAction(<Order />));

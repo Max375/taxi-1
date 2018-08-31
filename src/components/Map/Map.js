@@ -11,7 +11,6 @@ class SimpleMapPage extends Component {
     static defaultProps = {
         center: [53.90453979999999, 27.5615244],
         zoom: 12,
-        apiKey: 'AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg',
         isMapVisible: false,
     };
 

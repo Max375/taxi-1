@@ -1,11 +1,13 @@
 {
-  "main.css": "static/css/main.8532b94b.css",
-  "main.css.map": "static/css/main.8532b94b.css.map",
-  "main.js": "static/js/main.43cefb05.js",
-  "main.js.map": "static/js/main.43cefb05.js.map",
+  "main.css": "static/css/main.d6d1aafa.css",
+  "main.css.map": "static/css/main.d6d1aafa.css.map",
+  "main.js": "static/js/main.881701a2.js",
+  "main.js.map": "static/js/main.881701a2.js.map",
   "static\\media\\Logo.png": "static/media/Logo.7dcc7a6e.png",
   "static\\media\\Ubuntu-Regular.ttf": "static/media/Ubuntu-Regular.b3488e84.ttf",
+  "static\\media\\bmw.png": "static/media/bmw.7dcd10be.png",
   "static\\media\\burger.svg": "static/media/burger.dc8f8af2.svg",
+  "static\\media\\button.svg": "static/media/button.a46df33b.svg",
   "static\\media\\dots.svg": "static/media/dots.71b49329.svg",
   "static\\media\\load.gif": "static/media/load.7069ef37.gif"
 }

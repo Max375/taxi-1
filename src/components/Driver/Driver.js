@@ -2,82 +2,27 @@ import React , {Component} from 'react';
 
 import './Driver.css';
 import TopBar from "../TopBar/TopBar";
-import BMW from '../../assets/img/bmw.png'
+import DriverOffer from '../DriverOffer/DriverOffer'
+import connect from "react-redux/es/connect/connect";
+
 class Driver extends Component{
+    constructor(props) {
+        super(props);
+        console.log(JSON.stringify(props));
+    }
 
     render(){
+       let _Offers = [];
+
+       for (let i=0; i < this.props.tradeList.length; i++){
+           _Offers.push(<DriverOffer key={this.props.tradeList[i].id} token={this.props.user.token} data={this.props.tradeList[i]} />);
+       }
         return(
 
             <React.Fragment>
                 <TopBar/>
-                <div className="driver-wrapper">
-                    <div className="run-line"></div>
-                    <div className="flex-wrapp">
-                        <div className="driver-info">
-                            <div className="driver-img">
-                                <img src={BMW} alt=""/>
-                            </div>
-                            <div className="driver-name">
-                                <p>BMW</p>
-                                <i className="fa fa-star" aria-hidden="true"></i>3.4 / 2010 г
-                            </div>
-                        </div>
-                        <div className="car-info">
-                            <div className="kilometers">
-                                <p>8 мин</p>
-                            </div>
-                            <div className="price">10р</div>
-                        </div>
-                    </div>
-                    <div className="driver-buttons">
-                        <button>Принять</button>
-                    </div>
-                </div>
-                <div className="driver-wrapper">
-                    <div className="run-line"></div>
-                    <div className="flex-wrapp">
-                        <div className="driver-info">
-                            <div className="driver-img">
-                                <img src={BMW} alt=""/>
-                            </div>
-                            <div className="driver-name">
-                                <p>BMW</p>
-                                <i className="fa fa-star" aria-hidden="true"></i>3.4 / 2010 г
-                            </div>
-                        </div>
-                        <div className="car-info">
-                            <div className="kilometers">
-                                <p>8 мин</p>
-                            </div>
-                            <div className="price">10р</div>
-                        </div>
-                    </div>
-                    <div className="driver-buttons">
-                        <button>Принять</button>
-                    </div>
-                </div>
-                <div className="driver-wrapper">
-                    <div className="run-line"></div>
-                    <div className="flex-wrapp">
-                        <div className="driver-info">
-                            <div className="driver-img">
-                                <img src={BMW} alt=""/>
-                            </div>
-                            <div className="driver-name">
-                                <p>BMW</p>
-                                <i className="fa fa-star" aria-hidden="true"></i>3.4 / 2010 г
-                            </div>
-                        </div>
-                        <div className="car-info">
-                            <div className="kilometers">
-                                <p>8 мин</p>
-                            </div>
-                            <div className="price">10р</div>
-                        </div>
-                    </div>
-                    <div className="driver-buttons">
-                        <button>Принять</button>
-                    </div>
+                <div className={'driver-wp'}>
+                    {_Offers}
                 </div>
 
             </React.Fragment>
@@ -88,4 +33,13 @@ class Driver extends Component{
 
 }
 
-export default Driver;
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        order: state.order,
+    };
+};
+
+export default connect(mapStateToProps)(Driver);
+

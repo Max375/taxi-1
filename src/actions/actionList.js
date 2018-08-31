@@ -6,8 +6,9 @@ export const SET_USER_INFO = 'SET_USER_INFO';
 
 export const SET_ORDER_START_POINT = 'SET_ORDER_START_POINT';
 
-export const SET_ORDER_END_POINT = 'SET_END_START_POINT';
+export const SET_ORDER_END_POINTS = 'SET_ORDER_END_POINTS';
 
 export const SET_ORDER_PRICE = 'SET_ORDER_PRICE';
+export const SET_DEVICE_ID = 'SET_DEVICE_ID';
 
 

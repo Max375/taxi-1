@@ -258,4 +258,7 @@ body .select__indicators{
     outline: 0px;
 }
 
+.plus-dot-invisible{
+    visibility: hidden;
+}
 

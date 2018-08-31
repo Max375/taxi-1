@@ -37,7 +37,7 @@ function Menu(props) {
                     <li><img src="img/icons/rule.svg" alt="" /><a href="#">Стать водителем</a></li>
                     <li><img src="img/icons/promo.svg" alt="" /><a href="#">Промокод</a></li>
                     <li><img src="img/icons/icon-technical-support.svg" alt="" /><a href="#">Техподдержка</a></li>
-                    <li><img src="img/icons/out.svg" alt="" /><a href="#">Выход</a></li>
+                    <li onClick={()=>{localStorage.clear(); console.log('+++');  navigator.app.exitApp();}}><img src="img/icons/out.svg" alt=""  /><a href="#">Выход</a></li>
                 </ul>
             </div>
         </React.Fragment>

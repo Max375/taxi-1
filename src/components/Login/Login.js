@@ -118,10 +118,6 @@ class Login extends Component {
 
 
 const mapStateToProps = (state) => {
-    console.log({
-        app: state.app,
-        user: state.user
-    },'eskere   ');
     return {
         app: state.app,
         user: state.user

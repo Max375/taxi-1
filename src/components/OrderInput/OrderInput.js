@@ -6,14 +6,17 @@ import _ from 'underscore';
 
 import {getStreet, HTTP_STATUS_USER_UNAUTHORIZED} from '../../fetch/fetch';
 
-var googleMapsClient = require('@google/maps').createClient({key: 'AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg'});
 
 
 export default class OrderInput extends Component{
 
+    static defaultProps = {
+        apiKey: 'AIzaSyC2KMjrNE3GpU8xFnZwwa0_ic5tGjDW2cg',
+        location: '53.90453979999999,27.5615244',
+    };
+
     constructor(props) {
         super(props);
-        console.log(this.props.defaultValue);
         this.getOptions = _.throttle(this.promiseOptions,300);
         this.constOptions = [
                 { value: 'map', label: 'Посмотреть на карте' },
@@ -31,6 +34,9 @@ export default class OrderInput extends Component{
 
 
     promiseOptions(inputValue){
+
+
+        fetch('https://maps.googleapis.com/maps/api/place/autocomplete/json?input='+inputValue+'&location='+this.props.location+'?types=geocode&sensor=false&&key=' + this.props.apiKey);
         return getStreet(inputValue, '$2y$10$4NtSAYIvkERQpcO74O2bR.O9rAFEXwXJNqcoyYGCZnrKz6hcju2TO')
             .then(resp => {
                 if (resp.status === HTTP_STATUS_USER_UNAUTHORIZED) {
@@ -54,7 +60,6 @@ export default class OrderInput extends Component{
 
 
     render() {
-        console.log(googleMapsClient.places.Autocomplete);
         return (
             <AsyncSelect backspaceRemovesValue={false} isClearable={true} classNamePrefix="react-select" placeholder={'Выберите точку'}  isClearable={true} value={this.props.defaultValue} onChange={(optionSelected,action) => this.props.onChangeCallback(optionSelected,action, this.props.id)} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
         );

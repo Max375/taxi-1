@@ -5,6 +5,8 @@ import TopBar from "../TopBar/TopBar";
 import Time from '../../assets/img/time.png'
 import Phone from '../../assets/img/phone.png'
 import Vw from '../../assets/img/vw.png'
+import RoadMap from '../RoadMap/RoadMap'
+
 
 class Road extends Component{
 
@@ -12,7 +14,9 @@ class Road extends Component{
         return(
             <React.Fragment>
                 <TopBar/>
-                <div className="red"></div>
+                <div className="red">
+                    <RoadMap />
+                </div>
                 <div className="way-info">
                     <div className="drive-wp">
                         <div className="driver">
