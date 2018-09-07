@@ -52,12 +52,10 @@ class Road extends Component{
                                     <div className="probeg">
                                         Пробег <br/>7км
                                     </div>
-                                    <button className="phone-btn"><img src={Phone} alt=""/></button>
-                                    <button className="otmena">Отменить <i className="fa fa-times" aria-hidden="true"></i></button>
+                                    <a href='tel:+375296212524' className="phone-btn"><img src={Phone} alt=""/></a>
+                                    <button className="cancel">Отменить <i className="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
-
-
             </React.Fragment>
         )
 

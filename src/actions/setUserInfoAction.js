@@ -1,16 +1,16 @@
 import {SET_USER_INFO} from  "./actionList";
 
-export default function userLoginAction(data) {
-    localStorage.setItem('token',data.token);
+export default function userLoginAction(data,token) {
     return{
         type: SET_USER_INFO,
         payload:{
-            token: data.token,
-            bonus: data.user_info.bonus,
-            distance: data.user_info.distance,
-            image: data.user_info.image,
-            name: data.user_info.name,
-            num_trip: data.user_info.num_trip,
+            token: token,
+            bonus: data.bonus,
+            distance: data.distance,
+            image: data.image,
+            name: data.name,
+            num_trip: data.num_trip,
+            phone: data.phone,
         }
     }
 }

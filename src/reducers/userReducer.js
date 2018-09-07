@@ -12,9 +12,12 @@ export default function user(state = initialState, action) {
         case CHANGE_PHONE: return {
             ...state, phone: action.payload.phone
         };
-        case SET_USER_INFO: return{
-            ...state, ...action.payload
-        };
+        case SET_USER_INFO: {
+            if (action.payload.token) localStorage.setItem('token', action.payload.token);
+            return {
+                ...state, ...action.payload
+            };
+        }
         case SET_DEVICE_ID: return{
             ...state, deviceId: action.payload.deviceId
         };

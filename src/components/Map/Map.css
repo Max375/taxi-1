@@ -56,3 +56,8 @@
 .pay-type{
     font-size: 16px
 }
+
+
+.react-select__clear-indicator{
+    display: none!important;
+}

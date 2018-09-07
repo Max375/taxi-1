@@ -18,6 +18,9 @@ import setUserInfoAction from '../../actions/setUserInfoAction';
 import changeScreenAction from "../../actions/changeScreenAction";
 import Back from '../Back/Back.js';
 import Login from "../Login/Login";
+import setFavoritePoint from "../../actions/setFavoritesPoints";
+import setOrderAction from "../../actions/setOrderAction";
+import SearchDriver from "../SearchDriver/SearchDriver";
 
 class EnterPin extends Component {
    state = {
@@ -35,18 +38,23 @@ class EnterPin extends Component {
     }
 
     login(){
-        sendPin(this.props.phone, this.NumberInput.value, this.props.deviceId).then((data)=>{
-            if (data!=false){
-                this.props.dispatch(setUserInfoAction(data));
-                this.props.dispatch(changeScreenAction(<Order />));
-                return;
-            }
+        sendPin( this.props.phone, this.NumberInput.value, this.props.deviceId)
+            .then((data)=>{
+                this.props.dispatch(setUserInfoAction(data.user_info.info,data.token));
+                this.props.dispatch(setFavoritePoint(data.user_info.favorites_points));
 
-            this.setState({
-                isValid: false,
-                errorText: 'Введен неверный PIN',
+
+                if (data.user_info.order!=null) this.props.dispatch(setOrderAction(data.user_info.order));
+                    if (data.user_info.order.status === 1) this.props.dispatch(changeScreenAction(<SearchDriver />));
+                    else this.props.dispatch(changeScreenAction(<Order />));
+
+            }).catch((e)=>{
+                console.error(JSON.stringify(e));
+                this.setState({
+                    isValid: false,
+                    errorText: 'Введен неверный PIN',
+                });
             });
-        });
     }
 
 

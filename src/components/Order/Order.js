@@ -16,6 +16,8 @@ import setOrderStartPoint from '../../actions/setOrderStartPoint';
 import setOrderEndPoint from '../../actions/setOrderEndPoints';
 import setOrderPrice from '../../actions/setOrderPrice';
 import changeScreenAction from "../../actions/changeScreenAction";
+import setOrderEntranceAction from '../../actions/setOrderEntranceAction';
+import setOrderCommentAction from '../../actions/setOrderCommentAction';
 import Load from '../Load/Load';
 
 import Map from '../Map/Map';
@@ -29,13 +31,12 @@ class Order extends Component {
 
     state = {
         isMenuVisible: false,
-        userPrice: 0,
         length: 0,
-        isChangePriceActive: false,
         isMapVisible: false,
         handleFunction: null,
         isAddPointButtonActive: false,
         currentSelect: null,
+        recommendedPrice: 0,
         isOrderOptionsMenuVisible: false
     };
 
@@ -43,11 +44,13 @@ class Order extends Component {
     mapHandler = null;
 
 
+
     startPointHandler =  (text,position) => {
         this.props.dispatch(setOrderStartPoint({
             value: position,
             label: text
         }));
+
         this.setState({
             isMapVisible: false,
         });
@@ -79,15 +82,45 @@ class Order extends Component {
 
     constructor(props) {
             super(props);
+        this.refsInputs = {
+            entrance: null,
+            comment: null
+        };
     }
 
     onChangeSelectStartPoint = (optionSelected,action) => {
-        if (optionSelected!=null && optionSelected.value === 'map'){
-            this.setState({
-                isMapVisible: true,
-            });
-            this.mapHandler = this.startPointHandler;
+        console.log(action,optionSelected);
+
+        if (optionSelected!=null){
+            switch (optionSelected.value) {
+                case 'map':{
+                    this.setState({
+                        isMapVisible: true,
+                    });
+                    this.mapHandler = this.startPointHandler;
+                    break;
+                }
+                case null:{
+                    const geocoder = new window.google.maps.Geocoder;
+                    geocoder.geocode({
+                            'address': optionSelected.label
+                        },
+                        (results,status) => {
+                            if(status === 'OK'){
+                                this.props.dispatch(setOrderStartPoint({
+                                    value: {
+                                        lat: results[0].geometry.location.lat(),
+                                        lng: results[0].geometry.location.lng(),
+                                    },
+                                    label: optionSelected.label
+                                }));
+                            }
+                        }
+                    );
+                }
+            }
         }
+
     };
 
 
@@ -101,9 +134,17 @@ class Order extends Component {
         }
     };
 
-    UpdateDistance(){
+    componentDidMount(){
+        this.UpdateDistance(false);
+    }
+
+    UpdateDistance(isUpdate = true){
                 if (this.props.order.endPoints.find( el => el!==null) !== undefined && this.props.order.startPoint!=null){
 
+                    this.setState({
+                        recommendedPrice: 0,
+                        length: 0,
+                    });
 
                     let _endPoints = this.props.order.endPoints;
 
@@ -125,12 +166,10 @@ class Order extends Component {
                     }).then(data => {
                             if (data!=null){
                                 this.setState({
-                                    price: data.distance.price,
+                                    recommendedPrice: data.distance.price,
                                     length: data.distance.length/1000,
-                                    isChangePriceActive: true,
-                                    userPrice: data.distance.price
                                 });
-                                this.props.dispatch(setOrderPrice(data.distance.price));
+                                if (isUpdate) this.props.dispatch(setOrderPrice(data.distance.price));
                             }
                         })
         }
@@ -139,6 +178,8 @@ class Order extends Component {
 
 
         render(){
+
+            console.log(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null);
 
             let endPoints = [];
             for (let i = 0; i < this.props.order.endPoints.length; ++i){
@@ -159,7 +200,7 @@ class Order extends Component {
 
                     <div className='order-wp'>
                         <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue={this.props.order.startPoint} />
-                        <input className="order-wp entrance" type="text" placeholder="Подъезд" />
+                        <input onChange={(e)=>{this.props.dispatch(setOrderEntranceAction(e.target.value))}} value={this.props.order.entrance} className="order-wp entrance" type="text" placeholder="Подъезд" />
                     </div>
 
 
@@ -176,9 +217,7 @@ class Order extends Component {
 
                         {endPoints}
 
-
-
-                    <textarea className="comment-text" placeholder="Комментарий к заказу"></textarea>
+                    <textarea onChange={(e)=>{this.props.dispatch(setOrderCommentAction(e.target.value))}} value={this.props.order.comment} className="comment-text" placeholder="Комментарий к заказу"></textarea>
                     <div className="btn-wp">
                         <button className="order-econom">
                             Эконом <img src={Case} alt=""/>
@@ -202,20 +241,27 @@ class Order extends Component {
 
                     <div className="price">
                         Расстояние / рекомендуемая стоимость
-                        <div className="price-count">{(this.state.isChangePriceActive) ? this.state.length + 'км' : '--'}<span>{(this.state.isChangePriceActive) ? this.state.price + 'р' : '--'}</span></div>
+                        <div className="price-count">{(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0) ? this.state.length + 'км' : '--'}<span>{(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0) ? this.state.recommendedPrice + 'р' : '--'}</span></div>
                     </div>
 
-                    <div className={(this.state.isChangePriceActive) ? 'numbers numbers-active' : 'numbers'}>
+                    <div className={(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0) ? 'numbers numbers-active' : 'numbers'}>
                         <button className="minus" onClick={ ()=>{this.props.dispatch(setOrderPrice(--this.props.order.price )) } }>-1
                         </button>
-                        <div className="count"><span>{(this.state.isChangePriceActive) ? this.props.order.price : '0'} р</span></div>
+                        <div className="count"><span>{(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0) ? this.props.order.price + 'р' : '0р'}</span></div>
                         <button className="plus" onClick={ ()=>{ this.props.dispatch(setOrderPrice(++this.props.order.price )) } }>+1
                         </button>
                     </div>
 
                     <button className="to-order" onClick={()=>{
-                        createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId);
-                        if (this.state.isChangePriceActive) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />))
+                        if (this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0){
+                            createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId)
+                                .then(res =>{
+                                    if (res) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />));
+                                    else{
+                                        console.log('CREATE ORDER FAILED');
+                                    }
+                                });
+                        }
                     } } > Заказать
                     </button>
                 </div>

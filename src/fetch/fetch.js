@@ -1,4 +1,5 @@
 ﻿const URL = 'https://test.kak-pravilno.by/taxi/client_api.php';
+const PROXY = 'https://test.kak-pravilno.by/taxi/proxy.php';
 
 
 export const HTTP_STATUS_USER_INACTIVE = 426;
@@ -26,6 +27,14 @@ export const loginUser = function (phone) {
 
 
 export const sendPin = function(phone, pin, deviceId){
+    alert(JSON.stringify(JSON.stringify({
+        action: 'sms_auth',
+        device_id: deviceId,
+        data: {
+            phone: phone,
+            pin: pin
+        }
+    })));
     return fetch(URL, {
         method: 'POST',
         body: JSON.stringify({
@@ -36,10 +45,50 @@ export const sendPin = function(phone, pin, deviceId){
                 pin: pin
             }
         })
-    }).then((res) =>{
-        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return res.json();
-    });
+    })
+        .then((res) =>{
+            if(res.status === HTTP_STATUS_BAD_REQUEST)  return Promise.reject(res.text());
+            return res.json();
+        })
+        .then((data)=>{
+            if ( data.user_info.order!==null){
+
+
+                    data.user_info.order =  {
+                        clientId: data.user_info.order.client_id,
+                        driverId: data.user_info.order.driver_id,
+                        id: data.user_info.order.id,
+                        entrance: data.user_info.order.entrance,
+                        status: parseInt(data.user_info.order.status,10),
+                        comment: data.user_info.order.comment,
+                        price: data.user_info.order.price,
+
+
+                        startPoint: {
+                            label: data.user_info.order.start_point_text,
+                            value: {
+                                lat: data.user_info.order.start_point.lat,
+                                lon: data.user_info.order.start_point.lon
+                            }
+                        },
+
+
+                        endPoints: data.user_info.order.end_points.map((el, index)=> {
+                            return {
+                                label: data.user_info.order.end_points_text[index],
+                                value: {
+                                    lat: el.lat,
+                                    lon: el.lon
+                                }
+                            }
+                        }),
+                    };
+
+
+            }
+
+            return data;
+        });
 };
 
 export const getTradeList = function (token, deviceId) {
@@ -89,8 +138,8 @@ export const createOrder = function (startPoint, startPointText, endPoints, endP
             }
         })
     }).then(res => {
-        alert(res.status);
-        alert(res.json());
+        if (res.status === HTTP_STATUS_OK) return true;
+        return false;
     })
 };
 
@@ -162,3 +211,83 @@ export const acceptOrder = function (orderId, driverId,token) {
         return true;
     });
 };
+
+
+export const cancelOrder = function (token) {
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'cancel_order',
+            token: token,
+        })
+    }).then((res) =>{
+        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
+        return true;
+    });
+};
+
+
+export const getUserInfo = function (token) {
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'get_user_info',
+            token: token,
+        })
+    }).then((res) =>{
+        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+
+        return res.json();
+    }).then((data)=>{
+        if ( data.user_info.order!==null){
+
+
+            data.user_info.order =  {
+                clientId: data.user_info.order.client_id,
+                driverId: data.user_info.order.driver_id,
+                id: data.user_info.order.id,
+                entrance: data.user_info.order.entrance,
+                status: parseInt(data.user_info.order.status,10),
+                comment: data.user_info.order.comment,
+                price: data.user_info.order.price,
+
+
+                startPoint: {
+                    label: data.user_info.order.start_point_text,
+                    value: {
+                        lat: data.user_info.order.start_point.lat,
+                        lon: data.user_info.order.start_point.lon
+                    }
+                },
+
+
+                endPoints: data.user_info.order.end_points.map((el, index)=> {
+                    return {
+                        label: data.user_info.order.end_points_text[index],
+                        value: {
+                            lat: el.lat,
+                            lon: el.lon
+                        }
+                    }
+                }),
+            };
+
+
+        }
+
+        return data;
+    });
+};
+
+export const autocomleteRequest = function (input) {
+    return fetch(PROXY,{
+        method: 'POST',
+        body: JSON.stringify({
+            data: {
+                input: input,
+            }
+        })
+    }).then((res) => res.json());
+};
+
+

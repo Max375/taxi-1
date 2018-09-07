@@ -8,7 +8,6 @@ const initialState = {
 };
 
 export default function app(state = initialState , action) {
-    console.log(state);
     switch (action.type) {
         case CHANGE_SCREEN:
         {

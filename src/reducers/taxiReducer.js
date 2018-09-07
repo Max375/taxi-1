@@ -5,6 +5,7 @@ import Load from '../components/Load/Load';
 import user from './userReducer';
 import app from  './appReducer';
 import order from  './orderReducer';
+import favoritePoints from './favoritePointsReducer'
 
 
 const initialState = {
@@ -21,6 +22,7 @@ export default combineReducers({
     app,
     user,
     order,
+    favoritePoints,
 })
 
 

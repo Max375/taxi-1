@@ -3,7 +3,6 @@ import React from "react";
 import {acceptOrder} from "../../fetch/fetch";
 
 export default function DriverOffer(props) {
-    console.log(props);
     return (
         <div className="driver-wrapper">
             <div className="run-line"></div>

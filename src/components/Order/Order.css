@@ -162,12 +162,12 @@
     font-size: 45px;
 }
 
-.numbers .count-active span{
+.numbers-active .count span{
     font-size: 45px;
     color: #ffab04;
 }
 
-.numbers .minus-active{
+.numbers-active .minus{
     display: inline-block;
     font-size: 45px;
     color: #fff;
@@ -218,7 +218,7 @@ body .select__dropdown-indicator{
 body .select__indicators{
     display: none;
 }
-.numbers .plus-active{
+.numbers-active .plus{
     display: inline-block;
     font-size: 45px;
     color: #fff;
@@ -228,7 +228,7 @@ body .select__indicators{
     background-color: #00b600;
 }
 
-.numbers .plus-active{
+.numbers-active .plus{
     background-color: #00b600
 }
 
