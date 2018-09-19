@@ -6,16 +6,27 @@ import Time from '../../assets/img/time.png'
 import Phone from '../../assets/img/phone.png'
 import Vw from '../../assets/img/vw.png'
 import RoadMap from '../RoadMap/RoadMap'
+import connect from "react-redux/es/connect/connect";
 
 
 class Road extends Component{
+
+    state = {
+        time: 0
+    };
+
+    componentDidMount(){
+        console.log('++++');
+        console.log(this.props);
+        console.log(this.props.order);
+    }
 
     render(){
         return(
             <React.Fragment>
                 <TopBar/>
                 <div className="red">
-                    <RoadMap />
+                    <RoadMap endPoint={this.props.order.startPoint.value}  startPoint={this.props.info.location} />
                 </div>
                 <div className="way-info">
                     <div className="drive-wp">
@@ -24,13 +35,13 @@ class Road extends Component{
                                 <img src={Vw} alt=""/>
                             </div>
                             <div className="driver-car">
-                                <p>Volkswagen krafter</p>
+                                <p>{this.props.info.car.version}</p>
                                 <div className="year-wp">
-                                    <span className="year">2010 г</span>
-                                    <span className="color">Черный</span>
+                                    <span className="year">{this.props.info.car.year} г</span>
+                                    <span className="color">{this.props.info.car.color}</span>
                                 </div>
 
-                                <div className="rating"><i className="fa fa-star" aria-hidden="true"></i>3.4</div>
+                                <div className="rating"><i className="fa fa-star" aria-hidden="true"></i>{this.props.info.rating}</div>
                             </div>
                         </div>
 
@@ -52,7 +63,7 @@ class Road extends Component{
                                     <div className="probeg">
                                         Пробег <br/>7км
                                     </div>
-                                    <a href='tel:+375296212524' className="phone-btn"><img src={Phone} alt=""/></a>
+                                    <a href={'tel:+' + this.props.info.phone} className="phone-btn"><img src={Phone} alt=""/></a>
                                     <button className="cancel">Отменить <i className="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
@@ -64,4 +75,12 @@ class Road extends Component{
 
 }
 
-export default Road;
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        order: state.order,
+    };
+};
+
+export default connect(mapStateToProps)(Road);

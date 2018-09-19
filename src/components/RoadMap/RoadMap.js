@@ -339,11 +339,16 @@ const MapWithADirectionsRenderer = compose(
         componentDidMount() {
             const DirectionsService = new google.maps.DirectionsService();
 
+            console.log('_-----_');
+            console.log(this.props);
+
+
             DirectionsService.route({
-                origin: new google.maps.LatLng(41.8507300, -87.6512600),
-                destination: new google.maps.LatLng(41.8525800, -87.6514100),
+                origin: new google.maps.LatLng(this.props.startPoint.lat, this.props.startPoint.lon),
+                destination: new google.maps.LatLng(this.props.endPoint.lat, this.props.endPoint.long),
                 travelMode: google.maps.TravelMode.DRIVING,
             }, (result, status) => {
+                console.log(result);
                 if (status === google.maps.DirectionsStatus.OK) {
                     this.setState({
                         directions: result,
@@ -352,12 +357,15 @@ const MapWithADirectionsRenderer = compose(
                     console.error(`error fetching directions ${result}`);
                 }
             });
+            /*
+            defaultCenter={new google.maps.LatLng(this.props.endPoint.lat, this.props.endPoint.long)}
+             */
         }
     })
 )(props =>
     <GoogleMap
         defaultZoom={7}
-        defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+
         options = {{
             disableDefaultUI: true
         }}

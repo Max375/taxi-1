@@ -1,6 +1,8 @@
 import BMW from "../../assets/img/bmw.png";
 import React from "react";
 import {acceptOrder} from "../../fetch/fetch";
+import changeScreenAction from "../../actions/changeScreenAction";
+import Road from "../Road/Road";
 
 export default function DriverOffer(props) {
     return (
@@ -27,7 +29,12 @@ export default function DriverOffer(props) {
 
             <div className="driver-buttons">
                 <button onClick={()=>{
-                    acceptOrder(props.data.order_id,props.data.driver_id,props.token);
+                    acceptOrder(props.data.order_id,props.data.driver_id,props.token)
+                        .then(data=>{
+                            if (data!=null){
+                                props.dispatch(changeScreenAction(<Road info={data.info}/>))
+                            }
+                        });
                 }}>Принять</button>
             </div>
         </div>

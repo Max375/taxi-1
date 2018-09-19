@@ -11,6 +11,15 @@ export const HTTP_STATUS_OK = 200;
 
 export const loginUser = function (phone) {
 
+    console.log('================ loginUser REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'login',
+        data: {
+            phone: phone
+        }
+    }));
+    console.log('================ loginUser REQUEST ===============');
+
     return fetch(URL, {
         method: 'POST',
         body: JSON.stringify({
@@ -27,14 +36,17 @@ export const loginUser = function (phone) {
 
 
 export const sendPin = function(phone, pin, deviceId){
-    alert(JSON.stringify(JSON.stringify({
+    console.log('================ sendPin REQUEST ===============');
+    console.log('body: ', JSON.stringify({
         action: 'sms_auth',
         device_id: deviceId,
         data: {
             phone: phone,
             pin: pin
         }
-    })));
+    }));
+    console.log('================ sendPin REQUEST ===============');
+
     return fetch(URL, {
         method: 'POST',
         body: JSON.stringify({
@@ -47,6 +59,7 @@ export const sendPin = function(phone, pin, deviceId){
         })
     })
         .then((res) =>{
+            console.log(res.status,'sendPin status');
             if(res.status === HTTP_STATUS_BAD_REQUEST)  return Promise.reject(res.text());
             return res.json();
         })
@@ -118,7 +131,26 @@ export const getTradeList = function (token, deviceId) {
     })
 };
 
-export const createOrder = function (startPoint, startPointText, endPoints, endPointsText, price, options, token, deviceId) {
+export const createOrder = function (startPoint, startPointText, endPoints, endPointsText, price, options, token, deviceId,comment,entrance) {
+    console.log('================ createOrder REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'create_order',
+        token: token,
+        device_id: deviceId,
+        data: {
+            start_point: startPoint,
+            start_point_text: startPointText,
+            end_points: endPoints,
+            end_points_text: endPointsText,
+            price: price,
+            comment: comment,
+            entrance: entrance,
+            options: {
+                key: 'value',
+            }
+        }
+    }));
+    console.log('================ createOrder REQUEST ===============');
 
     return fetch(URL,{
         method: 'POST',
@@ -132,12 +164,15 @@ export const createOrder = function (startPoint, startPointText, endPoints, endP
                 end_points: endPoints,
                 end_points_text: endPointsText,
                 price: price,
+                comment: comment,
+                entrance: parseInt(entrance),
                 options: {
                     key: 'value',
                 }
             }
         })
     }).then(res => {
+        console.log(res.status);
         if (res.status === HTTP_STATUS_OK) return true;
         return false;
     })
@@ -196,6 +231,19 @@ export const regUser =  function(phone, name){
 
 
 export const acceptOrder = function (orderId, driverId,token) {
+
+    console.log('================ accept_order REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+            action: 'accept_order',
+            token: token,
+            data: {
+                "order_id": orderId,
+                "driver_id": driverId
+            }
+        })
+        );
+    console.log('================ accept_order REQUEST ===============');
+
     return fetch(URL,{
         method: 'POST',
         body: JSON.stringify({
@@ -207,13 +255,15 @@ export const acceptOrder = function (orderId, driverId,token) {
             }
         })
     }).then((res) =>{
+        console.log(res.status);
         if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return true;
+        return res.json();
     });
 };
 
 
 export const cancelOrder = function (token) {
+    console.log(token);
     return fetch(URL,{
         method: 'POST',
         body: JSON.stringify({
@@ -228,6 +278,12 @@ export const cancelOrder = function (token) {
 
 
 export const getUserInfo = function (token) {
+    console.log('================ getUserInfo REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'get_user_info',
+        token: token,
+    }));
+    console.log('================ getUserInfo REQUEST ===============');
     return fetch(URL,{
         method: 'POST',
         body: JSON.stringify({

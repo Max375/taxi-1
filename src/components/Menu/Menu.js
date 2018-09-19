@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './Menu.css'
+import connect from "react-redux/es/connect/connect";
+import changeScreenAction from "../../actions/changeScreenAction";
+import FavoritePoints from "../FavoritePoints/FavoritePoints";
+import Order from "../Order/Order";
 
 
 function Menu(props) {
@@ -26,9 +30,9 @@ function Menu(props) {
                 </div>
 
                 <ul className="first">
-                    <li><img src="img/icons/galka.svg" alt="" /><a href="#">Заказ такси</a></li>
+                    <li onClick={()=>{console.log(props.dispatch(changeScreenAction(<Order/>)))}}><img src="img/icons/galka.svg" alt="" /><a href="#">Заказ такси</a></li>
                     <li><img src="img/icons/car.svg" alt="" /><a href="#">История поездок</a></li>
-                    <li><img src="img/icons/car.svg" alt="" /><a href="#">Любимые адреса</a></li>
+                    <li onClick={()=>{console.log(props.dispatch(changeScreenAction(<FavoritePoints/>)))}}><img src="img/icons/car.svg" alt="" /><a href="#">Любимые адреса</a></li>
                     <li><img src="img/icons/money.svg" alt="" /><a href="#">Способ оплаты</a></li>
                 </ul>
 
@@ -45,4 +49,10 @@ function Menu(props) {
 }
 
 
-export default Menu;
+const mapStateToProps = (state) => {
+    return {
+        app: state.app
+    };
+};
+
+export default connect(mapStateToProps)(Menu);

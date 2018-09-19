@@ -15,7 +15,7 @@ class Driver extends Component{
        let _Offers = [];
 
        for (let i=0; i < this.props.tradeList.length; i++){
-           _Offers.push(<DriverOffer key={this.props.tradeList[i].id} token={this.props.user.token} data={this.props.tradeList[i]} />);
+           _Offers.push(<DriverOffer key={this.props.tradeList[i].id} token={this.props.user.token} data={this.props.tradeList[i]} dispatch={this.props.dispatch} />);
        }
         return(
 

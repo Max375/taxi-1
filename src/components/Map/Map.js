@@ -49,27 +49,37 @@ class OrderMap extends Component {
             lat: null,
             long: null,
         };
+        
         this.map = null;
         this.inputRef = null;
     }
 
+    componentDidMount(){
+        console.log(this.state.map);
+    }
 
     geocoderHandler = () => {
         const geocoder = new window.google.maps.Geocoder;
 
         const location = {
             lat: this.map.state.map.center.lat(),
-            lng: this.map.state.map.center.lng()
+            long: this.map.state.map.center.lng()
         };
 
 
         geocoder.geocode({
-                'location': location
+                'location': {
+                    lat: location.lat,
+                    lng: location.long,
+                }
             },
             (results,status) => {
                 if(status === OK && this.inputRef !=null){
                     this.inputRef.value = results[0].formatted_address;
-                    this.position = location;
+                    this.position = {
+                        lat: location.lat,
+                        long: location.long,
+                    };
                     this.setState({isAddressSelect: true});
                 }
             }

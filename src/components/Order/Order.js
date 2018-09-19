@@ -62,7 +62,6 @@ class Order extends Component {
     endPointHandler = (text,position) =>{
         let _endPoints = this.props.order.endPoints;
 
-        console.log(_endPoints,'sa');
 
         _endPoints[this.state.currentSelect] = {
             value: position,
@@ -82,10 +81,6 @@ class Order extends Component {
 
     constructor(props) {
             super(props);
-        this.refsInputs = {
-            entrance: null,
-            comment: null
-        };
     }
 
     onChangeSelectStartPoint = (optionSelected,action) => {
@@ -110,7 +105,7 @@ class Order extends Component {
                                 this.props.dispatch(setOrderStartPoint({
                                     value: {
                                         lat: results[0].geometry.location.lat(),
-                                        lng: results[0].geometry.location.lng(),
+                                        long: results[0].geometry.location.lng(),
                                     },
                                     label: optionSelected.label
                                 }));
@@ -200,7 +195,7 @@ class Order extends Component {
 
                     <div className='order-wp'>
                         <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue={this.props.order.startPoint} />
-                        <input onChange={(e)=>{this.props.dispatch(setOrderEntranceAction(e.target.value))}} value={this.props.order.entrance} className="order-wp entrance" type="text" placeholder="Подъезд" />
+                        <input  onChange={(e)=>{this.props.dispatch(setOrderEntranceAction(e.target.value))}} value={this.props.order.entrance} className="order-wp entrance" type="text" placeholder="Подъезд" />
                     </div>
 
 
@@ -253,14 +248,25 @@ class Order extends Component {
                     </div>
 
                     <button className="to-order" onClick={()=>{
-                        if (this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0){
-                            createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId)
-                                .then(res =>{
-                                    if (res) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />));
-                                    else{
-                                        console.log('CREATE ORDER FAILED');
-                                    }
+
+
+                        try{
+                            if (this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0){
+                                console.log(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0,'allow create');
+                                createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId, this.props.order.comment ,this.props.order.entrance)
+                                    .then(res =>{
+                                        console.log('[sasds');
+                                        if (res) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />));
+                                        else{
+                                            console.log('CREATE ORDER FAILED');
+                                            alert('fAILED');
+                                        }
+                                    }).catch((e)=>{
+                                    console.error(e);
                                 });
+                            }
+                        }catch (e) {
+                            console.error(e);
                         }
                     } } > Заказать
                     </button>

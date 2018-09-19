@@ -21,7 +21,8 @@ const store = createStore(taxiReducer,composeWithDevTools());
 
 
 
-/*
+
+
 
 function getTheToken() {
     window.FCMPlugin.getToken(
@@ -30,18 +31,22 @@ function getTheToken() {
                 setTimeout(getTheToken, 1000);
             } else {
                 store.dispatch(setDeviceIdAction(token));
+
                 if (store.getState().user.token === null){
+                    console.log(store.getState());
                     store.dispatch(changeScreenAction(<Login />));
                 }
                 else{
                     getUserInfo(store.getState().user.token)
                         .then((data)=>{
-                            store.dispatch(setUserInfoAction(data.user_info.info,data.token));
+                            store.dispatch(setUserInfoAction(data.user_info.info,store.getState().user.token));
                             store.dispatch(setFavoritePoint(data.user_info.favorites_points));
-                            if (data.user_info.order!=null) store.dispatch(setOrderAction(data.user_info.order));
-                            alert(data.user_info.order.status===1,typeof(data.user_info.order.status));
-                            if (data.user_info.order.status === 1){
-                                store.dispatch(changeScreenAction(<SearchDriver/>));
+
+                            if (data.user_info.order!=null){
+                                store.dispatch(setOrderAction(data.user_info.order));
+                                if (data.user_info.order.status === 1){
+                                    store.dispatch(changeScreenAction(<SearchDriver/>));
+                                }
                             }
                             else{
                                 store.dispatch(changeScreenAction(<Order/>));
@@ -52,6 +57,7 @@ function getTheToken() {
                                 JSON.stringify(data);
                             });
                             alert(JSON.stringify(e));
+                            store.dispatch(changeScreenAction(<Login />));
                         });
                 }
             }
@@ -62,11 +68,11 @@ function getTheToken() {
     );
 }
 
+
+
+
 document.addEventListener ("deviceready",() => setTimeout(getTheToken, 1000));
 
-*/
-
-store.dispatch(changeScreenAction(<Order/>));
 
 ReactDOM.render((
     <Provider store={store}>

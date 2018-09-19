@@ -44,12 +44,16 @@ class EnterPin extends Component {
                 this.props.dispatch(setFavoritePoint(data.user_info.favorites_points));
 
 
-                if (data.user_info.order!=null) this.props.dispatch(setOrderAction(data.user_info.order));
+                if (data.user_info.order!=null){
+                    this.props.dispatch(setOrderAction(data.user_info.order));
+
                     if (data.user_info.order.status === 1) this.props.dispatch(changeScreenAction(<SearchDriver />));
-                    else this.props.dispatch(changeScreenAction(<Order />));
+                }
+
+                else this.props.dispatch(changeScreenAction(<Order />));
 
             }).catch((e)=>{
-                console.error(JSON.stringify(e));
+                console.error(e, 'error');
                 this.setState({
                     isValid: false,
                     errorText: 'Введен неверный PIN',

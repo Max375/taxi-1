@@ -45,7 +45,7 @@ export default class OrderInput extends Component{
                     value: null
                 };
             }).concat(this.constOptions);
-        });
+        }).catch(e=>{});
     }
 
     onChangeFunc(optionSelected) {
@@ -57,7 +57,7 @@ export default class OrderInput extends Component{
 
     render() {
         return (
-            <AsyncSelect onInputChange={()=>{}}  backspaceRemovesValue={false} isClearable={true} classNamePrefix="react-select" placeholder={'Выберите точку'}  value={this.props.defaultValue} onChange={(optionSelected,action) => this.props.onChangeCallback(optionSelected,action, this.props.id)} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
+            <AsyncSelect   backspaceRemovesValue={false} isClearable={true} classNamePrefix="react-select" placeholder={'Выберите точку'}  value={this.props.defaultValue} onChange={(optionSelected,action) => this.props.onChangeCallback(optionSelected,action, this.props.id)} className="order-input" cacheOptions defaultOptions={this.constOptions} loadOptions={this.getOptions.bind(this)} />
         );
     }
 }
