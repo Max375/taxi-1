@@ -313,6 +313,8 @@ class RoadMap extends Component {
 export default RoadMap;
 
 */
+
+import {Marker} from "react-google-maps";
 import React, {Component} from 'react';
 
 const google = window.google;
@@ -343,9 +345,35 @@ const MapWithADirectionsRenderer = compose(
             console.log(this.props);
 
 
+            console.log(this.props.startPoint.lat, this.props.startPoint.lon);
+
+            let buf = 0;
+            console.log(this.props.endPoint.lon,'lon');
+            console.log(this.props.endPoint.lng,'lng');
+            console.log(this.props.endPoint.long,'lng');
+
+            if (this.props.endPoint.lon === undefined){
+                if (this.props.endPoint.lng === undefined){
+                    buf = this.props.endPoint.long;
+                }
+                else {
+                    buf = this.props.endPoint.lng;
+                }
+            }
+            else{
+                if (this.props.endPoint.lon === undefined){
+                    buf = this.props.endPoint.long;
+                }
+                else{
+                    buf = this.props.endPoint.lon;
+                }
+            }
+
+            console.log(this.props.endPoint.lat, buf);
+
             DirectionsService.route({
                 origin: new google.maps.LatLng(this.props.startPoint.lat, this.props.startPoint.lon),
-                destination: new google.maps.LatLng(this.props.endPoint.lat, this.props.endPoint.long),
+                destination: new google.maps.LatLng(this.props.endPoint.lat, buf),
                 travelMode: google.maps.TravelMode.DRIVING,
             }, (result, status) => {
                 console.log(result);
@@ -355,6 +383,21 @@ const MapWithADirectionsRenderer = compose(
                     });
                 } else {
                     console.error(`error fetching directions ${result}`);
+
+                    console.log(result.origin.location.lat());
+
+                    const origin = {
+                        lat:  result.origin.location.lat(),
+                        lng:  result.origin.location.lng()
+                    };
+
+                    const dest = {
+                        lat:  result.destination.location.lat(),
+                        lng:  result.destination.location.lng()
+                    };
+                    console.log(origin);
+                    console.log('error, between');
+                    console.log(dest);
                 }
             });
             /*
@@ -371,6 +414,7 @@ const MapWithADirectionsRenderer = compose(
         }}
     >
         {props.directions && <DirectionsRenderer directions={props.directions} />}
+        <Marker position={{ lat: parseFloat(props.lat), lng: parseFloat(props.lng)}} >Водитель</Marker>
     </GoogleMap>
 );
 

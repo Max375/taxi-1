@@ -1,0 +1,69 @@
+.races-point{
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #dce0ec;
+    color: #5b2ac0;
+    border-radius: 5px;
+}
+
+.races-info{
+    font-size: 16px;
+}
+
+.races-person img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.races-person{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.races-person .vertical-person-data{
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.order-info{
+    font-size: 16px;
+    display: flex;
+}
+
+.order-info .price, .order-info .time{
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+}
+
+.order-info .price .title, .order-info .time .title{
+    color: #cbccd0;
+}
+
+
+.order-info .price {
+    color: #f3cf8e;
+}
+.order-info .time {
+    color: #3da112;
+}
+
+.pay-type{
+    margin: 15px 0;
+}
+
+.races-person .score i{
+    color: #e8aa28;
+}
+
+.races-person .score{
+    text-align: left;
+}
+
+.races-person:first-child{
+    margin-top: 15px;
+}

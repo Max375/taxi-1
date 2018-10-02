@@ -5,7 +5,9 @@ import Load from '../components/Load/Load';
 import user from './userReducer';
 import app from  './appReducer';
 import order from  './orderReducer';
-import favoritePoints from './favoritePointsReducer'
+import favoritePoints from './favoritePointsReducer';
+import push from './pushReducer';
+import driver from './driverReducer'
 
 
 const initialState = {
@@ -23,6 +25,8 @@ export default combineReducers({
     user,
     order,
     favoritePoints,
+    push,
+    driver
 })
 
 

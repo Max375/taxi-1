@@ -1,14 +1,16 @@
 {
-  "main.css": "static/css/main.f753f0d7.css",
-  "main.css.map": "static/css/main.f753f0d7.css.map",
-  "main.js": "static/js/main.fc58241e.js",
-  "main.js.map": "static/js/main.fc58241e.js.map",
+  "main.css": "static/css/main.92dabdf4.css",
+  "main.css.map": "static/css/main.92dabdf4.css.map",
+  "main.js": "static/js/main.7dc5bc63.js",
+  "main.js.map": "static/js/main.7dc5bc63.js.map",
   "static\\media\\Logo.png": "static/media/Logo.7dcc7a6e.png",
   "static\\media\\Ubuntu-Regular.ttf": "static/media/Ubuntu-Regular.b3488e84.ttf",
   "static\\media\\bmw.png": "static/media/bmw.7dcd10be.png",
   "static\\media\\burger.svg": "static/media/burger.dc8f8af2.svg",
   "static\\media\\button.svg": "static/media/button.a46df33b.svg",
   "static\\media\\dots.svg": "static/media/dots.71b49329.svg",
+  "static\\media\\face.png": "static/media/face.1e79343c.png",
   "static\\media\\load.gif": "static/media/load.7069ef37.gif",
+  "static\\media\\money.svg": "static/media/money.a63ab2ca.svg",
   "static\\media\\vw.png": "static/media/vw.8412bc52.png"
 }

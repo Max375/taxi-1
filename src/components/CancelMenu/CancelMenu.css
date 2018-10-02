@@ -1,0 +1,52 @@
+.message-menu{
+    width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #000000;
+    font-size: 16px;
+    text-align: center;
+    margin: 15px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.message-menu-bg{
+    display: none;
+    overflow-y: scroll;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.message-menu-bg--open{
+    display: block;
+}
+
+
+.message-menu-bg:before {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: "";
+}
+
+
+.message-menu button{
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+    border: 0;
+    background-color: #710fc9;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+    height: 30px;
+}

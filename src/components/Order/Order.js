@@ -24,7 +24,9 @@ import Map from '../Map/Map';
 
 
 import OrderOptions from '../OrderOptions/OrderOptions'
-import SearchDriver from "../SearchDriver/SearchDriver";
+import Driver from "../Driver/Driver";
+import clearDriverInfo from "../../actions/clearDriverInfo";
+import clearOrderInfo from "../../actions/clearOrderInfo";
 
 
 class Order extends Component {
@@ -43,7 +45,18 @@ class Order extends Component {
 
     mapHandler = null;
 
-
+    options = {
+        smoking : 0,
+        gender : 0,
+        english : 0,
+        baby_seat : 0,
+        dog_place : 0,
+        number_seats : 3,
+        car_type : 4,
+        terminal : 0,
+        ads : 0,
+        baggadge : 0
+    };
 
     startPointHandler =  (text,position) => {
         this.props.dispatch(setOrderStartPoint({
@@ -131,6 +144,12 @@ class Order extends Component {
 
     componentDidMount(){
         this.UpdateDistance(false);
+
+        if (this.props.reset){
+            console.log('1');
+            this.props.dispatch(clearDriverInfo());
+            this.props.dispatch(clearOrderInfo());
+        }
     }
 
     UpdateDistance(isUpdate = true){
@@ -185,13 +204,14 @@ class Order extends Component {
                 )
             }
 
+            console.log(this.options);
 
             return(
             <div>
                 <div>
 
                     <TopBar/>
-                    <OrderOptions isVisible={this.state.isOrderOptionsMenuVisible}  clickHandler={()=>{this.setState({isOrderOptionsMenuVisible: false})}} />
+                    <OrderOptions options={this.options} isVisible={this.state.isOrderOptionsMenuVisible}  clickHandler={()=>{this.setState({isOrderOptionsMenuVisible: false})}} />
 
                     <div className='order-wp'>
                         <OrderInput onChangeCallback = {this.onChangeSelectStartPoint}  token = {this.props.token} defaultValue={this.props.order.startPoint} />
@@ -251,12 +271,12 @@ class Order extends Component {
 
 
                         try{
+
                             if (this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0){
                                 console.log(this.props.order.endPoints.indexOf(null) === -1 && this.props.order.startPoint !== null && this.state.recommendedPrice !== 0,'allow create');
-                                createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, {},this.props.user.token, this.props.user.deviceId, this.props.order.comment ,this.props.order.entrance)
+                                createOrder(this.props.order.startPoint.value,this.props.order.startPoint.label,this.props.order.endPoints.map(point => point.value),this.props.order.endPoints.map(point => point.label),this.props.order.price, this.options,this.props.user.token, this.props.user.deviceId, this.props.order.comment ,this.props.order.entrance)
                                     .then(res =>{
-                                        console.log('[sasds');
-                                        if (res) this.props.dispatch(changeScreenAction(<SearchDriver dispatch={this.props.dispatch} token={this.props.user.token} deviceId={this.props.user.deviceId} />));
+                                        if (res) this.props.dispatch(changeScreenAction(<Driver />));
                                         else{
                                             console.log('CREATE ORDER FAILED');
                                             alert('fAILED');
@@ -265,6 +285,7 @@ class Order extends Component {
                                     console.error(e);
                                 });
                             }
+
                         }catch (e) {
                             console.error(e);
                         }

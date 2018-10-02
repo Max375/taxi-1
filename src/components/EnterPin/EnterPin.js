@@ -20,7 +20,7 @@ import Back from '../Back/Back.js';
 import Login from "../Login/Login";
 import setFavoritePoint from "../../actions/setFavoritesPoints";
 import setOrderAction from "../../actions/setOrderAction";
-import SearchDriver from "../SearchDriver/SearchDriver";
+import Driver from "../Driver/Driver";
 
 class EnterPin extends Component {
    state = {
@@ -47,7 +47,7 @@ class EnterPin extends Component {
                 if (data.user_info.order!=null){
                     this.props.dispatch(setOrderAction(data.user_info.order));
 
-                    if (data.user_info.order.status === 1) this.props.dispatch(changeScreenAction(<SearchDriver />));
+                    if (data.user_info.order.status === 1 || data.user_info.order.status === 2 || data.user_info.order.status === 3) this.props.dispatch(changeScreenAction(<Driver />));
                 }
 
                 else this.props.dispatch(changeScreenAction(<Order />));

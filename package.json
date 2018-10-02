@@ -20,6 +20,7 @@
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-multi": "^0.1.12",
+    "require": "^2.4.20",
     "underscore": "^1.9.1"
   },
   "scripts": {

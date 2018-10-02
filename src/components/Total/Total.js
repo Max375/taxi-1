@@ -5,6 +5,9 @@ import TopBar from "../TopBar/TopBar";
 import Time from '../../assets/img/time.png'
 import Phone from '../../assets/img/phone.png'
 import Vw from '../../assets/img/vw.png'
+import connect from "react-redux/es/connect/connect";
+import changeScreenAction from "../../actions/changeScreenAction";
+import Order from "../Order/Order";
 
 class Total extends Component{
 
@@ -14,7 +17,7 @@ class Total extends Component{
                 <TopBar/>
                <div className="total-price">
                    К оплате, руб
-                   <span>9</span>
+                   <span>{this.props.order.price}</span>
                </div>
                 <div className="total-wp">
                     <div className="total-ds">
@@ -33,7 +36,11 @@ class Total extends Component{
                     <i className="fa fa-star" aria-hidden="true"></i>
                     <i className="fa fa-star" aria-hidden="true"></i>
                 </div>
-                <button className="estimate">Оценить</button>
+                <button className="estimate"
+                onClick={()=>{
+                    this.props.dispatch(changeScreenAction(<Order reset={true}/>));
+                }}
+                >Оценить</button>
             </React.Fragment>
         )
 
@@ -42,4 +49,12 @@ class Total extends Component{
 
 }
 
-export default Total;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        order: state.order,
+        driver: state.driver,
+    };
+};
+
+export default connect(mapStateToProps)(Total);

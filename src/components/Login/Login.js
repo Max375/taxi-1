@@ -16,6 +16,7 @@ import changeScreenAction from '../../actions/changeScreenAction'
 import addPhoneNumber from '../../actions/addPhoneNumberAction'
 import EnterPin from "../EnterPin/EnterPin";
 import Registration from "../Registration/Registration";
+import MessageMenu from "../CancelMenu/CancelMenu";
 
 
 
@@ -92,6 +93,7 @@ class Login extends Component {
 
     render() {
         return (<div className="screen_wp">
+                <MessageMenu/>
                 <div className="wrapper">
                     <Logo />
                     <div className={this.state.isValid ? "enter-input" : "enter-input enter-input--invalid"}>

@@ -145,9 +145,7 @@ export const createOrder = function (startPoint, startPointText, endPoints, endP
             price: price,
             comment: comment,
             entrance: entrance,
-            options: {
-                key: 'value',
-            }
+            options: options
         }
     }));
     console.log('================ createOrder REQUEST ===============');
@@ -262,13 +260,16 @@ export const acceptOrder = function (orderId, driverId,token) {
 };
 
 
-export const cancelOrder = function (token) {
-    console.log(token);
+export const cancelOrder = function (token,message) {
+    console.log(token,message);
     return fetch(URL,{
         method: 'POST',
         body: JSON.stringify({
             action: 'cancel_order',
             token: token,
+            data: {
+                message: message
+            }
         })
     }).then((res) =>{
         if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
@@ -346,4 +347,31 @@ export const autocomleteRequest = function (input) {
     }).then((res) => res.json());
 };
 
+
+
+
+export const removeTrade = function (orderId,driverId,token) {
+    console.log('================ skip_one_trade REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'skip_one_trade',
+        token: token,
+        data: {
+            order_id: orderId,
+            driver_id: driverId
+        }
+    }));
+    console.log('================ skip_one_trade REQUEST ===============');
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'skip_one_trade',
+            token: token,
+            data: {
+                order_id: orderId,
+                driver_id: driverId
+            }
+        })
+    }).then((res) => res.text()).then(data=>{console.error(data)});
+};
 

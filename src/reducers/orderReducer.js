@@ -1,4 +1,4 @@
-import {SET_ORDER_START_POINT,SET_ORDER_END_POINTS, SET_ORDER_PRICE, SET_ORDER, SET_ORDER_COMMENT,SET_ORDER_ENTRANCE} from '../actions/actionList';
+import {SET_ORDER_START_POINT,SET_ORDER_END_POINTS, SET_ORDER_PRICE, SET_ORDER, SET_ORDER_COMMENT,SET_ORDER_ENTRANCE,CLEAR_ORDER_INFO} from '../actions/actionList';
 import Load from "../components/Load/Load";
 import React from "react";
 
@@ -17,6 +17,7 @@ const initialState = {
 
 
 export default function order(state = initialState , action) {
+    console.log('reduser');
     switch (action.type) {
         case SET_ORDER_END_POINTS:
             return{
@@ -47,6 +48,9 @@ export default function order(state = initialState , action) {
                 ...state,
                 comment: action.payload.comment
             };
+        case CLEAR_ORDER_INFO: {
+             return initialState;
+         }
         default:
             return state;
     }
