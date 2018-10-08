@@ -212,6 +212,16 @@ export const getDistance = function (data, token, deviceId) {
 
 
 export const regUser =  function(phone, name){
+    console.log('================ reg REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'registration',
+        data: {
+            phone: phone,
+            name: name,
+        }
+    }));
+    console.log('================ reg REQUEST ===============');
+
     return fetch(URL,{
         method: 'POST',
         body: JSON.stringify({
