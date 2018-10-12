@@ -27,11 +27,13 @@ import TopBar from "./components/TopBar/TopBar";
 import Registration from "./components/Registration/Registration";
 import OrderOptions from "./components/OrderOptions/OrderOptions";
 import Races from "./components/Races/Races";
+import DriverWait from "./components/DriverWait/DriverWait";
+import RaceHistory from "./components/RaceHistory/RaceHistory";
 const store = createStore(taxiReducer,composeWithDevTools());
 
 
 
-
+/*
 
 
 function getTheToken() {
@@ -50,9 +52,11 @@ function getTheToken() {
                 else{
                     getUserInfo(store.getState().user.token)
                         .then((data)=>{
+
+
+                            console.log(data,'data');
                             store.dispatch(setUserInfoAction(data.user_info.info,store.getState().user.token));
                             store.dispatch(setFavoritePoint(data.user_info.favorites_points));
-                            console.log(data,'data');
 
 
                             if (data.user_info.order!=null){
@@ -72,10 +76,14 @@ function getTheToken() {
 
                                 console.log(data.user_info.order.status === 3);
                                 console.log(store.getState());
-                                if ( data.user_info.order.status === 3 ||  data.user_info.order.status === 4){
+                                if ( data.user_info.order.status === 3 ){
                                     console.log(store.getState());
                                     store.dispatch(locationPushAction(data.user_info.driver_info.location));
                                     store.dispatch(changeScreenAction(<Road />));
+                                }
+
+                                if (data.user_info.order.status === 4){
+                                    store.dispatch(changeScreenAction(<DriverWait />));
                                 }
 
                                 if (data.user_info.order.status === 5){
@@ -91,7 +99,6 @@ function getTheToken() {
                             e.then((data)=>{
                                 JSON.stringify(data);
                             });
-                            alert(JSON.stringify(e));
                             store.dispatch(changeScreenAction(<Login />));
                         });
                 }
@@ -125,7 +132,7 @@ document.addEventListener ("deviceready",() => {
 
         if(data.action === 'send_time_to_driver'){
             console.log('ACTION:: send_time_to_driver');
-            store.dispatch(menuPushAction(true));
+            store.dispatch(changeScreenAction(<DriverWait/>));
         }
 
         if(data.action === 'start_ride'){
@@ -140,8 +147,9 @@ document.addEventListener ("deviceready",() => {
     });
 });
 
+*/
 
-
+store.dispatch(changeScreenAction(<RaceHistory/>));
 
 ReactDOM.render((
     <Provider store={store}>

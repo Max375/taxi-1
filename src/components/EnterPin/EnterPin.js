@@ -21,6 +21,10 @@ import Login from "../Login/Login";
 import setFavoritePoint from "../../actions/setFavoritesPoints";
 import setOrderAction from "../../actions/setOrderAction";
 import Driver from "../Driver/Driver";
+import locationPushAction from "../../actions/locationPushAction";
+import Road from "../Road/Road";
+import DriverWait from "../DriverWait/DriverWait";
+import Races from "../Races/Races";
 
 class EnterPin extends Component {
    state = {
@@ -40,14 +44,28 @@ class EnterPin extends Component {
     login(){
         sendPin( this.props.phone, this.NumberInput.value, this.props.deviceId)
             .then((data)=>{
+                console.log('send_pint',data);
                 this.props.dispatch(setUserInfoAction(data.user_info.info,data.token));
                 this.props.dispatch(setFavoritePoint(data.user_info.favorites_points));
 
-
+                console.log('==');
                 if (data.user_info.order!=null){
                     this.props.dispatch(setOrderAction(data.user_info.order));
 
-                    if (data.user_info.order.status === 1 || data.user_info.order.status === 2 || data.user_info.order.status === 3) this.props.dispatch(changeScreenAction(<Driver />));
+
+                    if ( data.user_info.order.status === 3 ){
+                        this.props.dispatch(locationPushAction(data.user_info.driver_info.location));
+                        this.props.dispatch(changeScreenAction(<Road />));
+                    }
+
+                    if (data.user_info.order.status === 4){
+                        this.props.dispatch(changeScreenAction(<DriverWait />));
+                    }
+
+                    if (data.user_info.order.status === 5){
+                        this.props.dispatch(changeScreenAction(<Races />));
+                    }
+
                 }
 
                 else this.props.dispatch(changeScreenAction(<Order />));

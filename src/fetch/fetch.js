@@ -164,9 +164,7 @@ export const createOrder = function (startPoint, startPointText, endPoints, endP
                 price: price,
                 comment: comment,
                 entrance: parseInt(entrance),
-                options: {
-                    key: 'value',
-                }
+                options: options
             }
         })
     }).then(res => {
@@ -211,14 +209,18 @@ export const getDistance = function (data, token, deviceId) {
 };
 
 
-export const regUser =  function(phone, name){
+export const regUser =  function(phone, name,promocode){
+    let data = {
+        phone: phone,
+        name: name,
+    };
+    if (promocode!==null){
+      data.promocode = promocode
+    }
     console.log('================ reg REQUEST ===============');
     console.log('body: ', JSON.stringify({
         action: 'registration',
-        data: {
-            phone: phone,
-            name: name,
-        }
+        data: data
     }));
     console.log('================ reg REQUEST ===============');
 
@@ -226,10 +228,7 @@ export const regUser =  function(phone, name){
         method: 'POST',
         body: JSON.stringify({
             action: 'registration',
-            data: {
-                phone: phone,
-                name: name,
-            }
+            data: data
         })
     }).then((res) =>{
         if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
@@ -385,3 +384,85 @@ export const removeTrade = function (orderId,driverId,token) {
     }).then((res) => res.text()).then(data=>{console.error(data)});
 };
 
+
+
+export const usePromocode = function (promocode,token) {
+    console.log('================ addPromocode REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'add_bonus',
+        token: token,
+        data: {
+            promocode: promocode
+        }
+    }));
+    console.log('================ addPromocode REQUEST ===============');
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'add_bonus',
+            token: token,
+            data: {
+                promocode: promocode
+            }
+        })
+    }).then(res =>{
+        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+
+        return res.json();
+    })
+};
+
+export const send_time_to_driver = function (time,token) {
+    console.log('================ send_time_to_driver REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'send_time_to_driver',
+        token: token,
+        data: {
+            time: time
+        }
+    }));
+    console.log('================ send_time_to_driver REQUEST ===============');
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'send_time_to_driver',
+            token: token,
+            data: {
+                time: time
+            }
+        })
+    }).then(res =>{
+        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+
+        return res.json();
+    })
+
+};
+
+export const invite_exist = function (invite) {
+    console.log('================ send_time_to_driver REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'invite_exist',
+        data: {
+            invite: invite
+        }
+    }));
+    console.log('================ send_time_to_driver REQUEST ===============');
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'invite_exist',
+            data: {
+                invite: invite
+            }
+        })
+    }).then(res =>{
+        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+
+        return res.json();
+    })
+
+};

@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+    import React , {Component} from 'react';
 
 import './Driver.css';
 import TopBar from "../TopBar/TopBar";
@@ -13,6 +13,7 @@ import locationPushAction from  "../../actions/locationPushAction";
 import menuPushAction from "../../actions/menuPushAction"
 import Races from "../Races/Races";
 import Total from "../Total/Total";
+    import DriverWait from "../DriverWait/DriverWait";
 
 class Driver extends Component{
     constructor(props) {
@@ -62,7 +63,7 @@ class Driver extends Component{
 
             if(data.action === 'send_time_to_driver'){
                 console.log('ACTION:: send_time_to_driver');
-                this.props.dispatch(menuPushAction(true));
+                this.props.dispatch(changeScreenAction(<DriverWait/>));
             }
 
             if(data.action === 'start_ride'){
@@ -74,6 +75,7 @@ class Driver extends Component{
                 console.log('ACTION:: start_ride');
                 this.props.dispatch(changeScreenAction(<Total />));
             }
+
         });
     }
 

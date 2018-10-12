@@ -8,6 +8,7 @@ import Login from "../Login/Login";
 import {regUser, HTTP_STATUS_BAD_REQUEST} from "../../fetch/fetch"
 import addPhoneNumber from "../../actions/addPhoneNumberAction";
 import EnterPin from "../EnterPin/EnterPin";
+import PromocodeMenu from "../PromocodeMenu/PromocodeMenu";
 
 class Registration extends Component {
    state = {
@@ -15,6 +16,8 @@ class Registration extends Component {
        nameErrMessage: null,
        isNumberValid: true,
        numberErrMessage: null,
+       promocode: null,
+       isPromocodeMenuOpen: false,
    };
 
 
@@ -24,6 +27,14 @@ class Registration extends Component {
         this.nameRefs = null;
         this.numberRefs = null;
     }
+
+    promocodeAccess = (promocode)=>{
+        console.log('+++++',promocode);
+        this.setState({
+            promocode: promocode
+        });
+        console.log(this.state);
+    };
 
 
 
@@ -53,7 +64,7 @@ class Registration extends Component {
                 isNumberValid: true,
             });
 
-            regUser(parseInt(number), name)
+            regUser(parseInt(number), name, this.state.promocode)
                 .then((isRegister)=>{
                     if (isRegister){
                         this.props.dispatch(addPhoneNumber(number));
@@ -100,8 +111,19 @@ class Registration extends Component {
 
 
     render() {
-        return (<div className="screen_wp">
-            <div className="wrapper">
+        console.log('promocode', this.state.promocode);
+        return (
+            <div className="screen_wp">
+                <PromocodeMenu
+                    promocodeAccess={this.promocodeAccess}
+                    isOpen={this.state.isPromocodeMenuOpen}
+                    closeMenu={()=>{
+                        this.setState({
+                            isPromocodeMenuOpen:false
+                        });
+                    }}
+                />
+                <div className="wrapper">
                 <div className="logo">
                     <img src={LogoImage} alt="Blitz"/>
                     <p>здесь должен быть слоган</p>
@@ -124,6 +146,11 @@ class Registration extends Component {
                 </div>
 
                 <button className="enter" onClick={this._onClickSendButton}>Регистрация</button>
+                <div className="again" onClick={()=>{
+                    this.setState({
+                        isPromocodeMenuOpen: true
+                    })
+                }}>Есть промокод?</div>
                 <div  className="reg" onClick={()=>{this.props.dispatch(changeScreenAction(<Login/>))}}>Войти <img src={icon} alt="" /></div>
             </div>
                 </div>

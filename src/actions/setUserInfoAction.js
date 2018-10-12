@@ -11,6 +11,7 @@ export default function userLoginAction(data,token) {
             name: data.name,
             num_trip: data.num_trip,
             phone: data.phone,
+            promocode: data.promocode
         }
     }
 }

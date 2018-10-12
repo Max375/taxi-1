@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 
-import './Road.css';
+import './DriverWait.css';
 import TopBar from "../TopBar/TopBar";
 import Time from '../../assets/img/time.png'
 import Phone from '../../assets/img/phone.png'
@@ -16,33 +16,19 @@ import Order from "../Order/Order";
 import TimeMenu from '../TimeMenu/TimeMenu'
 import menuPushAction from "../../actions/menuPushAction";
 
-class Road extends Component{
+class DriverWait extends Component{
 
     state = {
         time: 0,
         cancelOpen: false,
     };
 
-    closeMenuCancel = (e) =>{
-        this.setState({
-            cancelOpen: false
-        });
+
+    closeTimeMenu = () =>{
+        this.props.dispatch(menuPushAction(false));
     };
 
 
-
-
-    openMenuCancel = () => {
-        this.setState({
-            cancelOpen: true
-        });
-    };
-
-    selectValue = (value)=>{
-        cancelOrder(this.props.user.token,value).then(()=>{
-            this.props.dispatch(changeScreenAction(<Order reset={true}/>));
-        });
-    };
 
     componentDidMount(){
         console.log(this.props.driver,'driver');
@@ -52,13 +38,10 @@ class Road extends Component{
         console.log('endPOINT',this.props.order.startPoint.value);
         return(
             <React.Fragment>
-                <CancelMenu closeMenu={this.closeMenuCancel} isOpen={this.state.cancelOpen} selectValue={this.selectValue}/>
+                <TimeMenu token={this.props.user.token} isOpen={this.props.push.menu} closeMenu={this.closeTimeMenu} />
                 <TopBar/>
-                <div className="red">
-                    <RoadMap  lat={this.props.push.location.lat} lng={this.props.push.location.lon}   endPoint={this.props.order.startPoint.value}  startPoint={this.props.driver.location} />
-
-                </div>
                 <div className="way-info">
+                    <div className="search">Вас ожидает</div>
                     <div className="drive-wp">
                         <div className="driver">
                             <div className="driver-img">
@@ -75,26 +58,20 @@ class Road extends Component{
                             </div>
                         </div>
 
+                    </div>
 
-                        <div className="time-wp">
-                            <div className="time-img">
-                                <img src={Time} alt=""/>
-                            </div>
-                            <div className="time">
-                                <p>8 минут</p>
-                            </div>
-                        </div>
+                    <div className="red">
+                        <button onClick={()=>{
+                            this.props.dispatch(menuPushAction(true));
+                        }}>Через сколько вы будете ?</button>
                     </div>
 
                     <div className="second-line">
 
                     </div>
-                    <div className="phone">
-                                    <div className="probeg">
-                                        Пробег <br/>7км
-                                    </div>
+                    <div className="phone wait-phone">
+
                                     <a href={'tel:+' + this.props.driver.phone} className="phone-btn"><img src={Phone} alt=""/></a>
-                                    <button className="cancel" onClick={this.openMenuCancel}>Отменить <i className="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </React.Fragment>
@@ -115,7 +92,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Road);
+export default connect(mapStateToProps)(DriverWait);
 
 
 /* lat={this.props.push.location.lat} lng={this.props.push.location.lon}*/
