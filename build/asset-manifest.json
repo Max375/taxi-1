@@ -1,10 +1,11 @@
 {
-  "main.css": "static/css/main.a9f70203.css",
-  "main.css.map": "static/css/main.a9f70203.css.map",
-  "main.js": "static/js/main.e9376d4b.js",
-  "main.js.map": "static/js/main.e9376d4b.js.map",
+  "main.css": "static/css/main.dbf82f27.css",
+  "main.css.map": "static/css/main.dbf82f27.css.map",
+  "main.js": "static/js/main.f63aa949.js",
+  "main.js.map": "static/js/main.f63aa949.js.map",
   "static\\media\\Logo.png": "static/media/Logo.7dcc7a6e.png",
   "static\\media\\Ubuntu-Regular.ttf": "static/media/Ubuntu-Regular.b3488e84.ttf",
+  "static\\media\\bmw.png": "static/media/bmw.7dcd10be.png",
   "static\\media\\burger.svg": "static/media/burger.dc8f8af2.svg",
   "static\\media\\button.svg": "static/media/button.a46df33b.svg",
   "static\\media\\car.svg": "static/media/car.d5f7bc36.svg",
@@ -14,5 +15,6 @@
   "static\\media\\money.svg": "static/media/money.a63ab2ca.svg",
   "static\\media\\promo.svg": "static/media/promo.ef51b2ac.svg",
   "static\\media\\rule.svg": "static/media/rule.084c7db2.svg",
-  "static\\media\\settings.svg": "static/media/settings.70a30a13.svg"
+  "static\\media\\settings.svg": "static/media/settings.70a30a13.svg",
+  "static\\media\\vw.png": "static/media/vw.8412bc52.png"
 }

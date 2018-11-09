@@ -283,9 +283,7 @@ export const getTradeList = function (token, deviceId) {
 
 
 export const cancelOrder = function (token,message) {
-    console.log(token,message);
-
-    const body = JSON.stringify({
+     const body = JSON.stringify({
         action: 'cancel_order',
         token: token,
         data: {
@@ -309,9 +307,64 @@ export const cancelOrder = function (token,message) {
         });
 };
 
+export const cancelTrade = function (orderId, driverId, token) {
+
+    const body = JSON.stringify({
+        action: 'skip_one_trade',
+        token: token,
+        data: {
+            order_id: orderId,
+            driver_id: driverId
+        }
+    });
+
+
+    customConsole.log('cancelTrade request:', body);
+
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        })
+        .then((res)=>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('cancelTrade response:', JSON.stringify(data));
+            return data;
+        });
+};
 
 
 
+
+export const acceptTrade = function (orderId, driverId,token) {
+
+
+    const body = JSON.stringify({
+        action: 'accept_order',
+        token: token,
+        data: {
+            "order_id": orderId,
+            "driver_id": driverId
+        }
+    });
+
+    customConsole.log('acceptTrade request:', body);
+
+
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        }).then((res) =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('acceptTrade response:', JSON.stringify(data));
+            return data;
+        });
+};
 
 
 
@@ -339,64 +392,8 @@ export const getStreet = function (street, token, deviceId) {
 
 
 
-export const acceptOrder = function (orderId, driverId,token) {
-
-    console.log('================ accept_order REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-            action: 'accept_order',
-            token: token,
-            data: {
-                "order_id": orderId,
-                "driver_id": driverId
-            }
-        })
-        );
-    console.log('================ accept_order REQUEST ===============');
-
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'accept_order',
-            token: token,
-            data: {
-                "order_id": orderId,
-                "driver_id": driverId
-            }
-        })
-    }).then((res) =>{
-        console.log(res.status);
-        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return res.json();
-    });
-};
 
 
-
-
-export const removeTrade = function (orderId,driverId,token) {
-    console.log('================ skip_one_trade REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'skip_one_trade',
-        token: token,
-        data: {
-            order_id: orderId,
-            driver_id: driverId
-        }
-    }));
-    console.log('================ skip_one_trade REQUEST ===============');
-
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'skip_one_trade',
-            token: token,
-            data: {
-                order_id: orderId,
-                driver_id: driverId
-            }
-        })
-    }).then((res) => res.text()).then(data=>{console.error(data)});
-};
 
 
 

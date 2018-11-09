@@ -1,64 +1,69 @@
 import React , {Component} from 'react';
 
-import './Driver.css';
+import './DriverOffers.css';
 import TopBar from "../../TopBar/TopBar";
-import DriverOffer from '../../SearchDriver/DriverOffer/DriverOffer'
+import Offer from '../Offer/Offer'
 import connect from "react-redux/es/connect/connect";
-import LoadImage from "../../../assets/img/load.gif";
-import {cancelOrder, getTradeList} from "../../../fetch/fetch";
-import changeScreenAction from "../../../actions/changeScreenAction";
-import Order from "../../Order/Order/Order";
-import BackBtn from "../../../assets/img/icons/button.svg";
+import {cancelTrade, acceptTrade} from "../../../fetch/fetch";
+import {customConsole} from "../../../utils";
+import {updateTrades} from "../../../secondary";
 
-class Driver extends Component{
+class DriverOffers extends Component{
 
     constructor(props) {
         super(props);
     }
 
 
-    state = {
-        tradeList: []
-    };
 
 
-    componentDidMount(){
-        getTradeList(this.props.user.token,this.props.user.deviceId)
-            .then(data => {
+    cancelTradeHandler = (function (token) {
+        const _token = token;
 
-            });
-    }
+        return (orderId, driverId)=>{
+            cancelTrade(orderId, driverId, _token)
+                .then(()=>{
+                    updateTrades();
+                })
+                .catch(err =>{
+                    updateTrades();
+                    customConsole(err);
+                })
+        }
+    }(this.props.user.token));
 
-    updateData(value){
-        this.setState({
-            tradeList: this.state.tradeList.slice(this.state.tradeList.indexOf(value),1),
-        });
-        getTradeList(this.props.user.token,this.props.user.deviceId)
-            .then(data=>{
-                this.setState({
-                    tradeList:data.trade_list
-                });
-            });
-    }
+    acceptTradeHandler = (function(token){
+        const _token = token;
+
+        return (orderId, driverId)=>{
+            acceptTrade(orderId, driverId, _token)
+                .then(()=>{
+                    updateTrades();
+                })
+                .catch(err =>{
+                    updateTrades();
+                    customConsole(err);
+                })
+        }
+    }(this.props.user.token));
+
+
 
     render(){
-       let _Offers = [];
+       let offers = [];
 
-       for (let i=0; i < this.state.tradeList.length; i++){
-           _Offers.push(<DriverOffer key={this.state.tradeList[i].id} token={this.props.user.token} data={this.state.tradeList[i]}  callback={this.updateData.bind(this)} dispatch={this.props.dispatch} />);
-       }
+       this.props.trades.forEach(el=>{
+           offers.push(<Offer key={el.id} offer={el} cancelTrade={this.cancelTradeHandler} acceptTrade={this.acceptTradeHandler}/>);
+       });
+
         return(
             <React.Fragment>
-
                 <TopBar/>
-                <div class={'driver-wp'}>
-                    {_Offers}
+                <div className={'driver-wp'}>
+                    {offers}
                 </div>
             </React.Fragment>
-
         )
-
-
     }
 
 }
@@ -68,10 +73,11 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         order: state.order,
+        trades: state.trades.trades
     };
 };
 
-export default connect(mapStateToProps)(Driver);
+export default connect(mapStateToProps)(DriverOffers);
 
 /*
 
@@ -104,7 +110,7 @@ window.FCMPlugin.onNotification((data) => {
 
             if(data.action === 'send_time_to_driver'){
                 console.log('ACTION:: send_time_to_driver');
-                this.props.dispatch(changeScreenAction(<Driver/>));
+                this.props.dispatch(changeScreenAction(<DriverOffers/>));
             }
 
             if(data.action === 'start_ride'){

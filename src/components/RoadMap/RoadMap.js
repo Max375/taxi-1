@@ -5,7 +5,7 @@ import {
     Marker
 }
     from "react-google-maps";
-import Driver from "../Driver/Driver";
+import DriverOffers from "../DriverOffers/DriverOffers";
 
 const google = window.google;
 let STORAGE = null;

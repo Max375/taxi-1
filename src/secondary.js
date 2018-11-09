@@ -17,6 +17,9 @@ import setTradesAction from './actions/tradesAction/setTradesAction'
 import Order from "./components/Order/Order/Order";
 import SearchDriver from "./components/Driver/SearchDriver/SearchDriver";
 import {logStoreState} from './utils';
+import DriverOffers from "./components/Driver/DriverOffers/DriverOffers";
+import setTradeAction from "./actions/tradesAction/setTradesAction"
+
 
 export const store = createStore(taxiReducer,composeWithDevTools());
 
@@ -93,12 +96,31 @@ export const doSync = () =>{
         return;
     }
 
-    if (state.order.status === 1 || state.order.status === 2){
-        dispatch(changeScreenAction(<SearchDriver />));
+    if(state.order.status === 1 || state.order.status === 2){
+        console.log(state.trades.trades.length);
+        if(state.trades.trades.length !== 0){
+            dispatch(changeScreenAction(<DriverOffers />));
+        }
+        else{
+            dispatch(changeScreenAction(<SearchDriver />));
+        }
         return;
     }
+
 };
 
+
+export const updateTrades = () =>{
+    getTradeList(store.getState().user.token, store.getState().app.deviceId)
+        .then(data=>{
+            store.dispatch(setTradeAction(data));
+            logStoreState();
+            doSync();
+        })
+        .catch(e => {
+            customConsole.log(e);
+        })
+};
 
 export  const setPushListener = ()=>{
     window.FCMPlugin.onNotification((data) => {
@@ -107,14 +129,7 @@ export  const setPushListener = ()=>{
 
 
         if (data.action === 'get_trade_list'){
-                getTradeList(store.getState().user.token, store.getState().app.deviceId)
-                    .then(data =>{
-                        store.dispatch(setTradesAction(data));
-                        logStoreState();
-                    })
-                    .catch(e => {
-                        customConsole.log(e);
-                    })
+            updateTrades();
         }
 
 
@@ -130,7 +145,7 @@ export  const setPushListener = ()=>{
 
         if(data.action === 'send_time_to_driver'){
             console.log('ACTION:: send_time_to_driver');
-            //store.dispatch(changeScreenAction(<Driver/>));
+            //store.dispatch(changeScreenAction(<DriverOffers/>));
         }
 
         if(data.action === 'start_ride'){
@@ -157,3 +172,5 @@ export  const setPushListener = ()=>{
         }
     });
 };
+
+

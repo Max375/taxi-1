@@ -4,20 +4,15 @@ import changeScreenAction from "../../../actions/changeScreenAction";
 import Order from "../../Order/Order/Order";
 import BackBtn from "../../../assets/img/icons/button.svg";
 import LoadImage from "../../../assets/img/load.gif";
-import {cancelOrder, getTradeList} from "../../../fetch/fetch";
+import {cancelOrder} from "../../../fetch/fetch";
+import {updateTrades} from "../../../secondary"
 import './SearchDriver.css';
-import {customConsole} from "../../../utils";
+
 
 class SearchDriver extends Component {
 
     componentDidMount(){
-        getTradeList(this.props.user.token, this.props.app.deviceId)
-            .then(data=>{
-                console.log(data);
-            })
-            .catch(e => {
-                customConsole.log(e);
-            })
+        updateTrades();
     }
 
     render() {

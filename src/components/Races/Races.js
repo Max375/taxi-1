@@ -12,7 +12,7 @@ import setFavoritePoint from "../../actions/setFavoritesPoints";
 import setDriverInfo from "../../actions/setDriverInfoAction";
 import setOrderAction from "../../actions/ordersActions/setOrderAction";
 import changeScreenAction from "../../actions/changeScreenAction";
-import Driver from "../Driver/Driver/Driver";
+import Driver from "../Driver/DriverOffers/DriverOffers";
 import locationPushAction from "../../actions/locationPushAction";
 import Road from "../Road/Road";
 import DriverWait from "../Driver/DriverWait";
