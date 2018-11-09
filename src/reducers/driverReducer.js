@@ -16,7 +16,8 @@ export default function driver(state = initialState , action) {
     switch (action.type) {
         case SET_DRIVER_INFO:
         {
-            console.log(action.payload);
+            if (action.payload === null) return initialState;
+
             return {
                 ...state,
                 location: action.payload.location,
@@ -26,6 +27,8 @@ export default function driver(state = initialState , action) {
                     color: action.payload.car.color,
                     version: action.payload.car.version,
                     year: action.payload.car.year,
+                    colorCode: action.payload.car.colorCode,
+                    model: action.payload.car.model
                 }
             };
         }

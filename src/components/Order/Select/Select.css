@@ -1,0 +1,32 @@
+.select{
+    position: relative;
+    width: 300px;
+}
+
+
+.select__options{
+    border: 1px solid black;
+    position: absolute;
+    left: 0;
+    top: 65px;
+    width: 100%;
+    display: none;
+}
+
+.select__options--open{
+    display: block;
+}
+
+.select__input-field{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.select__not-found{
+    font-size: 16px;
+    display: block;
+}
+
+.options__elements{
+    font-size: 16px;
+}

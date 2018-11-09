@@ -4,22 +4,24 @@ import './Road.css';
 import TopBar from "../TopBar/TopBar";
 import Time from '../../assets/img/time.png'
 import Phone from '../../assets/img/phone.png'
-import Vw from '../../assets/img/vw.png'
+import VW from '../../assets/img/vw.png'
+import BMW from  '../../assets/img/bmw.png'
+
 import RoadMap from '../RoadMap/RoadMap'
 import connect from "react-redux/es/connect/connect";
 import CancelMenu from "../CancelMenu/CancelMenu"
 import {cancelOrder} from "../../fetch/fetch";
 import clearDriverInfo from "../../actions/clearDriverInfo";
-import clearOrderInfo from "../../actions/clearOrderInfo";
+import clearOrderInfo from "../../actions/ordersActions/removeOrderAction";
 import changeScreenAction from "../../actions/changeScreenAction";
-import Order from "../Order/Order";
+import Order from "../Order/Order/Order";
 import TimeMenu from '../TimeMenu/TimeMenu'
 import menuPushAction from "../../actions/menuPushAction";
 
 class Road extends Component{
 
     state = {
-        time: 0,
+        time: 15,
         cancelOpen: false,
     };
 
@@ -29,7 +31,11 @@ class Road extends Component{
         });
     };
 
-
+    setTime = (value)=>{
+        this.setState({
+            time: value
+        })
+    };
 
 
     openMenuCancel = () => {
@@ -50,51 +56,63 @@ class Road extends Component{
 
     render(){
         console.log('endPOINT',this.props.order.startPoint.value);
+
+        let car_image = (<img src={VW} alt=""/>);
+
+            switch(this.props.driver.car.model) {
+                case 'VW':
+                    car_image = (<img src={VW} alt=""/>);
+                    break;
+                case 'BMW':
+                    car_image = (<img src={BMW} alt=""/>);
+                    break;
+            }
+
         return(
             <React.Fragment>
                 <CancelMenu closeMenu={this.closeMenuCancel} isOpen={this.state.cancelOpen} selectValue={this.selectValue}/>
                 <TopBar/>
-                <div className="red">
-                    <RoadMap  lat={this.props.push.location.lat} lng={this.props.push.location.lon}   endPoint={this.props.order.startPoint.value}  startPoint={this.props.driver.location} />
+                <div class="red">
+                    <RoadMap timeFunction={this.setTime}  lat={this.props.push.location.lat} lng={this.props.push.location.lon}   endPoint={this.props.order.startPoint.value}  startPoint={this.props.driver.location} />
 
                 </div>
-                <div className="way-info">
-                    <div className="drive-wp">
-                        <div className="driver">
-                            <div className="driver-img">
-                                <img src={Vw} alt=""/>
+                <div class="way-info">
+                    <div class="drive-wp">
+                        <div class="driver">
+                            <div class="driver-img">
+                                {car_image}
                             </div>
-                            <div className="driver-car">
+                            <div class="driver-car">
                                 <p>{this.props.driver.car.version}</p>
-                                <div className="year-wp">
-                                    <span className="year">{this.props.driver.car.year} г</span>
-                                    <span className="color">{this.props.driver.car.color}</span>
+                                <div class="year-wp">
+                                    <span class="year">{this.props.driver.car.year} г</span>
+                                    <span class="color" style={{backgroundColor: this.props.driver.car.carHex}}>{this.props.driver.car.color}</span>
                                 </div>
 
-                                <div className="rating"><i className="fa fa-star" aria-hidden="true"></i>{this.props.driver.rating}</div>
+                                <div class="rating"><i class="fa fa-star" aria-hidden="true"></i>{this.props.driver.rating}</div>
                             </div>
                         </div>
 
 
-                        <div className="time-wp">
-                            <div className="time-img">
+                        <div class="time-wp">
+                            <div class="time-img">
                                 <img src={Time} alt=""/>
                             </div>
-                            <div className="time">
-                                <p>8 минут</p>
+                            <div class="time">
+                                <p>{Math.ceil(this.state.time)} минут</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="second-line">
+                    <div class="second-line">
 
                     </div>
-                    <div className="phone">
-                                    <div className="probeg">
-                                        Пробег <br/>7км
+                    <div class="phone">
+                                    <div class="probeg">
+                                       
                                     </div>
-                                    <a href={'tel:+' + this.props.driver.phone} className="phone-btn"><img src={Phone} alt=""/></a>
-                                    <button className="cancel" onClick={this.openMenuCancel}>Отменить <i className="fa fa-times" aria-hidden="true"></i></button>
+                                    <a href={'tel:+' + this.props.driver.phone} class="phone-btn"><img src={Phone} alt=""/></a>
+                                    <button class="cancel" onClick={this.openMenuCancel}>Отменить <i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </React.Fragment>

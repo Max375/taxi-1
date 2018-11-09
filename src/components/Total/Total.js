@@ -7,38 +7,58 @@ import Phone from '../../assets/img/phone.png'
 import Vw from '../../assets/img/vw.png'
 import connect from "react-redux/es/connect/connect";
 import changeScreenAction from "../../actions/changeScreenAction";
-import Order from "../Order/Order";
+import Order from "../Order/Order/Order";
+import clearDriverInfo from "../../actions/clearDriverInfo";
+import clearOrderInfo from "../../actions/ordersActions/removeOrderAction";
+import {setRating} from "../../fetch/fetch"
 
 class Total extends Component{
 
+
+    state = {
+        rating: 0
+    };
+
     render(){
+        console.log(this.props);
+        let elements = [];
+
+        for (let i = 0; i<this.state.rating; i++) elements.push(<i class="fa fa-star active" onClick={()=>{this.setState({rating: i+1})}} aria-hidden="true"></i>);
+        for (let i = this.state.rating; i<5; i++) elements.push(<i class="fa fa-star" aria-hidden="true" onClick={()=>{this.setState({rating: i+1})}}></i>);
+
         return(
             <React.Fragment>
                 <TopBar/>
-               <div className="total-price">
-                   К оплате, руб
-                   <span>{this.props.order.price}</span>
+               <div class="total-price">
+                   <div>К оплате, руб</div>
+                   <span>{this.props.data.order_price}</span>
+                   <div>К оплате, бонусы</div>
+                   <span>{this.props.data.bonus}</span>
                </div>
-                <div className="total-wp">
-                    <div className="total-ds">
+                <div class="total-wp">
+                    <div class="total-ds">
                         Расстояние <br/>
-                        <span>59 км</span>
+                        <span>{this.props.data.distance} км</span>
                     </div>
-                    <div className="total-time">
+                    <div class="total-time">
                         Время <br/>
-                        <span>10 мин</span>
+                        <span>{this.props.data.time} мин</span>
                     </div>
                 </div>
-                <div className="total-rating">
-                    <i className="fa fa-star active" aria-hidden="true"></i>
-                    <i className="fa fa-star active" aria-hidden="true"></i>
-                    <i className="fa fa-star active" aria-hidden="true"></i>
-                    <i className="fa fa-star" aria-hidden="true"></i>
-                    <i className="fa fa-star" aria-hidden="true"></i>
+                <div class="total-rating">
+                    {elements}
                 </div>
-                <button className="estimate"
+                <button class="estimate"
                 onClick={()=>{
-                    this.props.dispatch(changeScreenAction(<Order reset={true}/>));
+
+                    if (this.state.rating != 0) setRating(this.props.order.id, this.state.rating, this.props.user.token);
+
+
+                    this.props.dispatch(clearDriverInfo());
+                    this.props.dispatch(clearOrderInfo());
+
+                    this.props.dispatch(changeScreenAction(<Order/>));
+
                 }}
                 >Оценить</button>
             </React.Fragment>

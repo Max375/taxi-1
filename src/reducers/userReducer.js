@@ -1,9 +1,15 @@
-import  {CHANGE_PHONE, SET_USER_INFO, SET_DEVICE_ID} from '../actions/actionList';
+import {CHANGE_PHONE, SET_USER_INFO, CLEAR_TOKEN_ACTION} from '../actions/actionList';
 
 
 const initialState = {
         token: localStorage.getItem('token')|| null,
-        deviceId: null,
+        bonus: 0,
+        distance: 0,
+        image: './',
+        name: '',
+        numTrip: 0,
+        phone: null,
+        promocode: null
 };
 
 
@@ -13,14 +19,15 @@ export default function user(state = initialState, action) {
             ...state, phone: action.payload.phone
         };
         case SET_USER_INFO: {
-            if (action.payload.token) localStorage.setItem('token', action.payload.token);
+            if (action.payload.token !== null && action.payload.token !== undefined) localStorage.setItem('token',action.payload.token);
             return {
                 ...state, ...action.payload
             };
         }
-        case SET_DEVICE_ID: return{
-            ...state, deviceId: action.payload.deviceId
-        };
+        case CLEAR_TOKEN_ACTION:
+            localStorage.removeItem('token');
+            console.log('clear_token');
+            return initialState;
         default: return state;
     }
 }

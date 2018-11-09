@@ -1,4 +1,4 @@
-import {DRIVER_LOCATION_UPDATE, DRIVER_MENU_PUSH} from '../actions/actionList';
+import {DRIVER_LOCATION_UPDATE, DRIVER_MENU_PUSH, SET_DRIVER_INFO} from '../actions/actionList';
 import React from "react";
 
 const initialState = {
@@ -14,6 +14,11 @@ export default function pushReducer(state = initialState , action) {
                 ...state,
                 location: action.payload.location
             };
+        }
+
+        case SET_DRIVER_INFO :{
+            if (action.payload === null) return {...state};
+            return{ ...state, location: action.payload.location}
         }
 
         case DRIVER_MENU_PUSH:

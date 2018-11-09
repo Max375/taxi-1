@@ -20,7 +20,7 @@ class Promocodes extends Component {
 
 
         return(
-            <div className='promocodes'>
+            <div class='promocodes'>
 
                     <TopBar/>
                     <div>
@@ -31,7 +31,7 @@ class Promocodes extends Component {
                         <input ref={el =>{
                             this.input = el;
                         }} type="text"/>
-                        { this.state.isMessageOpen && <div className={this.state.isValid ? 'promocode-invalid-message': 'promocode-valid-message'} >{this.state.message}</div>}
+                        { this.state.isMessageOpen && <div class={this.state.isValid ? 'promocode-invalid-message': 'promocode-valid-message'} >{this.state.message}</div>}
                         <button onClick={
                             ()=>{
                                 usePromocode(this.input.value.trim(),this.props.user.token)

@@ -7,18 +7,18 @@ export default class RaceHistory extends React.Component{
 
     render(){
         return (
-            <div className="order-items-wp">
-                <div className="order-item">
+            <div class="order-items-wp">
+                <div class="order-item">
 
-                    <div className="flex-wp">
-                        <div className="address">
+                    <div class="flex-wp">
+                        <div class="address">
 
                         </div>
-                        <div className="time-wp">
-                            <span className="distance">5,2 км</span>
-                            <span className="time">12:50</span>
+                        <div class="time-wp">
+                            <span class="distance">5,2 км</span>
+                            <span class="time">12:50</span>
                         </div>
-                        <div className="price">
+                        <div class="price">
                             2 р
                         </div>
                     </div>

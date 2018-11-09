@@ -26,19 +26,19 @@ class TopBar extends Component{
     render(){
         return (
             <React.Fragment>
-                <div className="top-bar">
+                <div class="top-bar">
 
-                    <div className="burger" onClick={this.openMenu.bind(this)}>
-                        <img src={burger} alt="" className="top-bar--toggle-button" />
+                    <div class="burger" onClick={this.openMenu.bind(this)}>
+                        <img src={burger} alt="" class="top-bar--toggle-button" />
                     </div>
 
-                    <ul className="top-bar--menu">
-                        <li><button className="active">Заказ такси</button></li>
+                    <ul class="top-bar--menu">
+                        <li><button class="active">Заказ такси</button></li>
                         <li><button >Поездки</button></li>
                     </ul>
 
-                    <div className="dots">
-                        <img src={dots} alt="" className="top-bar--dot-button" />
+                    <div class="dots">
+                        <img src={dots} alt="" class="top-bar--dot-button" />
                     </div>
 
                 </div>

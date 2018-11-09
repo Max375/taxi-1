@@ -19,8 +19,8 @@ export default class PromocodeMenu extends Component{
            <React.Fragment>
 
                {!this.state.isPromocodeDone &&
-               <div className={this.props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={this.props.closeMenu}>
-                    <div className="message-menu">
+               <div class={this.props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={this.props.closeMenu}>
+                    <div class="message-menu">
                         <div>Есть промокод от друга ?</div>
                         <div>Вводи и получи бонус</div>
                         <input
@@ -61,17 +61,17 @@ export default class PromocodeMenu extends Component{
                                 e.stopPropagation();
                             }}
                         >Проверить</button>
-                        {this.state.message!==null && <div className={this.state.err? 'promocode-done': 'promocode-reject'} >{this.state.message}</div>}
+                        {this.state.message!==null && <div class={this.state.err? 'promocode-done': 'promocode-reject'} >{this.state.message}</div>}
                     </div>
                 </div>}
 
                {this.state.isPromocodeDone &&
-                <div className={this.props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={this.props.closeMenu}>
-                    <div className="message-menu">
+                <div class={this.props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={this.props.closeMenu}>
+                    <div class="message-menu">
                         <div>Ваш промокод принят</div>
                         <div>{this.state.promocode}</div>
                         <button>Ок</button>
-                        {this.state.message!==null && <div className={this.state.err? 'promocode-done': 'promocode-reject'} >{this.state.message}</div>}
+                        {this.state.message!==null && <div class={this.state.err? 'promocode-done': 'promocode-reject'} >{this.state.message}</div>}
                     </div>
                 </div>}
 

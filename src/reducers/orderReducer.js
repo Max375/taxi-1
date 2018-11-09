@@ -1,28 +1,52 @@
-import {SET_ORDER_START_POINT,SET_ORDER_END_POINTS, SET_ORDER_PRICE, SET_ORDER, SET_ORDER_COMMENT,SET_ORDER_ENTRANCE,CLEAR_ORDER_INFO} from '../actions/actionList';
-import Load from "../components/Load/Load";
-import React from "react";
-
-
+import {
+    SET_ORDER_START_POINT,
+    SET_ORDER_END_POINT,
+    SET_ORDER_PRICE,
+    SET_ORDER,
+    SET_ORDER_COMMENT,
+    SET_ORDER_ENTRANCE,
+    REMOVE_ORDER,
+    ADD_ORDER_END_POINT, SET_ORDER_OPTIONS
+} from '../actions/ordersActions/orderActions';
 
 const initialState = {
     id: null,
-    endPoints: [null],
-    startPoint: null,
+    endPoints: [{address: null, location: null}],
+    startPoint: {address: null, location: null},
     price: 0,
-    entrance: '',
+    entrance: 0,
     status: null,
     comment: '',
-
+    options: {
+        smoking : 0,
+        gender : 0,
+        english : 0,
+        babySeat : 0,
+        dogPlace : 0,
+        numberSeats : 3,
+        carType : 4,
+        terminal : 0,
+        ads : 0,
+        baggage : 0
+    }
 };
 
 
 export default function order(state = initialState , action) {
-    console.log('reduser');
     switch (action.type) {
-        case SET_ORDER_END_POINTS:
+        case SET_ORDER_END_POINT:
+
+            const endPoints = state.endPoints;
+            endPoints[action.payload.index] = action.payload.endPoint;
+
             return{
                 ...state,
-                endPoints: action.payload.endPoints
+                endPoints: endPoints
+            };
+        case ADD_ORDER_END_POINT:
+            return{
+                ...state,
+                endPoints: [...state.endPoints, {address: null, location: null}]
             };
         case SET_ORDER_START_POINT:
             return{
@@ -35,6 +59,7 @@ export default function order(state = initialState , action) {
                 price: action.payload.price
             };
         case SET_ORDER:
+            if (action.payload === null) return initialState;
             return{
                 ...action.payload
             };
@@ -48,9 +73,17 @@ export default function order(state = initialState , action) {
                 ...state,
                 comment: action.payload.comment
             };
-        case CLEAR_ORDER_INFO: {
+        case REMOVE_ORDER: {
              return initialState;
          }
+        case SET_ORDER_OPTIONS: {
+             return{
+                 ...state,
+                 options: {
+                     ...action.payload
+                 }
+             }
+        }
         default:
             return state;
     }

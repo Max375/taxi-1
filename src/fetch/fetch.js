@@ -1,4 +1,6 @@
-﻿const URL = 'https://test.kak-pravilno.by/taxi/client_api.php';
+﻿import {customConsole,convertTradesFromBackend, convertOrderInfoFromBackEnd,convertUserInfoFromBackEnd,convertFavoritePointsFromBackEnd, convertDriverInfoFromBackEnd,convertApplicationInfoFromBackEnd} from '../utils';
+
+const URL = 'https://test.kak-pravilno.by/taxi/client_api.php';
 const PROXY = 'https://test.kak-pravilno.by/taxi/proxy.php';
 
 
@@ -9,170 +11,308 @@ export const HTTP_STATUS_NOT_FOUND = 404;
 export const HTTP_STATUS_OK = 200;
 
 
-export const loginUser = function (phone) {
+export const smsAuth = function (phone) {
 
-    console.log('================ loginUser REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'login',
+    const body = JSON.stringify({
+        action: 'sms_auth',
         data: {
             phone: phone
         }
-    }));
-    console.log('================ loginUser REQUEST ===============');
+    });
+
+
+    customConsole.log('sms_auth request:', JSON.stringify(body));
+
 
     return fetch(URL, {
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'login',
-            data: {
-                phone: phone
-            }
+            method: 'POST',
+            body: body
         })
-    }).then((res) =>{
-        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return true;
-    });
+        .then(res => {
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data => {
+            customConsole.log('sms_auth response:', JSON.stringify(data));
+            return data;
+        });
 };
 
 
-export const sendPin = function(phone, pin, deviceId){
-    console.log('================ sendPin REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'sms_auth',
+export const login = function(phone, pin, deviceId){
+
+    const body = JSON.stringify({
+        action: 'login',
         device_id: deviceId,
         data: {
             phone: phone,
             pin: pin
         }
-    }));
-    console.log('================ sendPin REQUEST ===============');
+    });
+
+    customConsole.log('login request:', JSON.stringify(body));
 
     return fetch(URL, {
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'sms_auth',
-            device_id: deviceId,
-            data: {
-                phone: phone,
-                pin: pin
-            }
+            method: 'POST',
+            body: body
         })
-    })
-        .then((res) =>{
-            console.log(res.status,'sendPin status');
-            if(res.status === HTTP_STATUS_BAD_REQUEST)  return Promise.reject(res.text());
+        .then(res => {
+            if(res.status !== HTTP_STATUS_OK)  throw {status: res.status, error: res.text()};
             return res.json();
         })
         .then((data)=>{
-            if ( data.user_info.order!==null){
+            customConsole.log('login response:', JSON.stringify(data));
 
 
-                    data.user_info.order =  {
-                        clientId: data.user_info.order.client_id,
-                        driverId: data.user_info.order.driver_id,
-                        id: data.user_info.order.id,
-                        entrance: data.user_info.order.entrance,
-                        status: parseInt(data.user_info.order.status,10),
-                        comment: data.user_info.order.comment,
-                        price: data.user_info.order.price,
+
+            const formatData = {
+                order: convertOrderInfoFromBackEnd(data.user_info.order),
+                user: convertUserInfoFromBackEnd(data.user_info.info,data.token),
+                favoritePoints: convertFavoritePointsFromBackEnd(data.user_info.favorites_points),
+                driver: convertDriverInfoFromBackEnd(data.user_info.driver_info),
+                application: convertApplicationInfoFromBackEnd(data.user_info.application_info)
+            };
+
+            customConsole.log('login response, formatted data:', JSON.stringify(formatData));
+
+            return formatData;
+        });
+};
 
 
-                        startPoint: {
-                            label: data.user_info.order.start_point_text,
-                            value: {
-                                lat: data.user_info.order.start_point.lat,
-                                lon: data.user_info.order.start_point.lon
-                            }
-                        },
+
+export const getUserInfo = function (token) {
+
+    const body = JSON.stringify({
+        action: 'get_user_info',
+        token: token,
+    });
+
+    customConsole.log('getUserInfo request:', JSON.stringify(body));
 
 
-                        endPoints: data.user_info.order.end_points.map((el, index)=> {
-                            return {
-                                label: data.user_info.order.end_points_text[index],
-                                value: {
-                                    lat: el.lat,
-                                    lon: el.lon
-                                }
-                            }
-                        }),
-                    };
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        })
+        .then((res) =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then((data)=>{
+            customConsole.log('getUserInfo response:', JSON.stringify(data));
+
+            const formatData = {
+                order: convertOrderInfoFromBackEnd(data.user_info.order),
+                user: convertUserInfoFromBackEnd(data.user_info.info,data.token),
+                favoritePoints: convertFavoritePointsFromBackEnd(data.user_info.favorites_points),
+                driver: convertDriverInfoFromBackEnd(data.user_info.driver_info),
+                application: convertApplicationInfoFromBackEnd(data.user_info.application_info)
+            };
+
+            customConsole.log('getUserInfo response, formatted data:', JSON.stringify(formatData));
+
+            return formatData;
+        });
+};
 
 
-            }
+export const registration =  function(phone, name, promocode, deviceId){
 
+    let _body = {
+        action: 'registration',
+        device_id: deviceId,
+        data: {
+            phone: phone,
+            name: name,
+        }
+    };
+
+    if (promocode!==null){
+        _body.data.promocode = promocode
+    }
+
+    const body = JSON.stringify(_body);
+
+
+    customConsole.log('registration request:', JSON.stringify(body));
+
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        })
+        .then((res) =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data => {
+            customConsole.log('registration response:', JSON.stringify(data));
             return data;
         });
 };
 
-export const getTradeList = function (token, deviceId) {
-    console.log('================ getTradeList REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'get_trade_list',
-        token: token,
-        device_id: deviceId,
-        data: []
-    }));
-    console.log('================ getTradeList REQUEST ===============');
 
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'get_trade_list',
-            token: token,
-            device_id: deviceId,
-            data: []
-        })
-    }).then((res) => {
-        if(res.status === HTTP_STATUS_OK) return res.json();
-        else{
-            console.log("=========== GET TRADE LIST FAILED =============== ");
-            return null;
+
+export const addressAutocomplete = function (input) {
+
+
+    const body = JSON.stringify({
+        data: {
+            input: input.trim().replace(/\s/g,'+'),
         }
-    })
+    });
+
+    customConsole.log('autocomplete request:', JSON.stringify(body));
+
+
+    return fetch(PROXY,{
+            method: 'POST',
+            body: body
+        })
+        .then((res) => {
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('autocomplete response:', JSON.stringify(data));
+            return data;
+        });
 };
 
-export const createOrder = function (startPoint, startPointText, endPoints, endPointsText, price, options, token, deviceId,comment,entrance) {
-    console.log('================ createOrder REQUEST ===============');
-    console.log('body: ', JSON.stringify({
+
+
+export const getDistance = function (startPoint, endPoints, token) {
+
+    const body = JSON.stringify({
+        action: 'get_recommended_price',
+        token: token,
+        data: {
+            start_point: startPoint,
+            end_points: endPoints
+        }
+    });
+
+    customConsole.log('get_recommended_price request:', JSON.stringify(body));
+
+
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        })
+        .then((res) => {
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('get_recommended_price response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+export const createOrder = function (startPoint, endPoints, price, options, comment,entrance, token, deviceId) {
+
+    let endPointAddress = [];
+    let endPointsLocation = [];
+
+    endPoints.map(el => {
+        endPointAddress.push(el.address);
+        endPointsLocation.push(el.location);
+    });
+
+    const body = JSON.stringify({
         action: 'create_order',
         token: token,
         device_id: deviceId,
         data: {
-            start_point: startPoint,
-            start_point_text: startPointText,
-            end_points: endPoints,
-            end_points_text: endPointsText,
+            start_point: startPoint.location,
+            start_point_text: startPoint.address,
+            end_points: endPointsLocation,
+            end_points_text: endPointAddress,
             price: price,
             comment: comment,
             entrance: entrance,
             options: options
         }
-    }));
-    console.log('================ createOrder REQUEST ===============');
+    });
+
+    customConsole.log('create order request:', JSON.stringify(body));
+
+
+    return fetch(URL, {
+            method: 'POST',
+            body: body
+        })
+        .then(res => {
+            if (res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('create order response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+export const getTradeList = function (token, deviceId) {
+
+    const body = JSON.stringify({
+        action: 'get_trade_list',
+        token: token,
+        device_id: deviceId,
+        data: []
+    });
+
+    customConsole.log('getTradeList order request:', body);
 
     return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'create_order',
-            token: token,
-            device_id: deviceId,
-            data: {
-                start_point: startPoint,
-                start_point_text: startPointText,
-                end_points: endPoints,
-                end_points_text: endPointsText,
-                price: price,
-                comment: comment,
-                entrance: parseInt(entrance),
-                options: options
-            }
+            method: 'POST',
+            body: body
         })
-    }).then(res => {
-        console.log(res.status);
-        if (res.status === HTTP_STATUS_OK) return true;
-        return false;
-    })
+        .then((res) => {
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+         })
+        .then(data =>{
+            customConsole.log('getTradeList order response:', JSON.stringify(data));
+            const formatted = convertTradesFromBackend(data.trade_list);
+            customConsole.log('getTradeList order formatted response:', JSON.stringify(formatted));
+            return formatted;
+        });
 };
+
+
+export const cancelOrder = function (token,message) {
+    console.log(token,message);
+
+    const body = JSON.stringify({
+        action: 'cancel_order',
+        token: token,
+        data: {
+            message: message
+        }
+    });
+
+    customConsole.log('cancelOrder order request:', body);
+
+    return fetch(URL,{
+            method: 'POST',
+            body: body
+        })
+        .then((res) =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('cancelOrder order response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+
+
+
 
 
 
@@ -193,48 +333,10 @@ export const getStreet = function (street, token, deviceId) {
 };
 
 
-export const getDistance = function (data, token, deviceId) {
-    return fetch(URL,{
-        method: 'POST',
-        device_id: deviceId,
-        body: JSON.stringify({
-            action: 'get_recommended_price',
-            token: token,
-            data: data,
-            options: {
-                "key": "value"
-            }
-        })
-    })
-};
 
 
-export const regUser =  function(phone, name,promocode){
-    let data = {
-        phone: phone,
-        name: name,
-    };
-    if (promocode!==null){
-      data.promocode = promocode
-    }
-    console.log('================ reg REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'registration',
-        data: data
-    }));
-    console.log('================ reg REQUEST ===============');
 
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'registration',
-            data: data
-        })
-    }).then((res) =>{
-        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return true;
-    });
-};
+
 
 
 export const acceptOrder = function (orderId, driverId,token) {
@@ -266,94 +368,6 @@ export const acceptOrder = function (orderId, driverId,token) {
         if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
         return res.json();
     });
-};
-
-
-export const cancelOrder = function (token,message) {
-    console.log(token,message);
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'cancel_order',
-            token: token,
-            data: {
-                message: message
-            }
-        })
-    }).then((res) =>{
-        if(res.status === HTTP_STATUS_BAD_REQUEST) return false;
-        return true;
-    });
-};
-
-
-export const getUserInfo = function (token) {
-    console.log('================ getUserInfo REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'get_user_info',
-        token: token,
-    }));
-    console.log('================ getUserInfo REQUEST ===============');
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'get_user_info',
-            token: token,
-        })
-    }).then((res) =>{
-        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
-
-        return res.json();
-    }).then((data)=>{
-        if ( data.user_info.order!==null){
-
-
-            data.user_info.order =  {
-                clientId: data.user_info.order.client_id,
-                driverId: data.user_info.order.driver_id,
-                id: data.user_info.order.id,
-                entrance: data.user_info.order.entrance,
-                status: parseInt(data.user_info.order.status,10),
-                comment: data.user_info.order.comment,
-                price: data.user_info.order.price,
-
-
-                startPoint: {
-                    label: data.user_info.order.start_point_text,
-                    value: {
-                        lat: data.user_info.order.start_point.lat,
-                        lon: data.user_info.order.start_point.lon
-                    }
-                },
-
-
-                endPoints: data.user_info.order.end_points.map((el, index)=> {
-                    return {
-                        label: data.user_info.order.end_points_text[index],
-                        value: {
-                            lat: el.lat,
-                            lon: el.lon
-                        }
-                    }
-                }),
-            };
-
-
-        }
-
-        return data;
-    });
-};
-
-export const autocomleteRequest = function (input) {
-    return fetch(PROXY,{
-        method: 'POST',
-        body: JSON.stringify({
-            data: {
-                input: input,
-            }
-        })
-    }).then((res) => res.json());
 };
 
 
@@ -465,4 +479,37 @@ export const invite_exist = function (invite) {
         return res.json();
     })
 
+};
+
+
+export const setRating = function (orderId, rating, token) {
+
+    console.log('================ setRating REQUEST ===============');
+    console.log('body: ', JSON.stringify({
+        action: 'estimate_order',
+        token: token,
+        data: {
+            rating: rating,
+            order_id: orderId,
+            comment: ''
+        }
+    }));
+    console.log('================ setRating REQUEST ===============');
+
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'estimate_order',
+            token: token,
+            data: {
+                rating: rating,
+                order_id: orderId,
+                comment: ''
+            }
+        })
+    }).then(res=>{
+        if (res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+        return res.status;
+    })
 };

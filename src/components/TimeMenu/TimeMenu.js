@@ -5,8 +5,8 @@ import {send_time_to_driver} from "../../fetch/fetch";
 export default function MessageMenu(props){
 
     return(
-        <div className={props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={props.closeMenu}>
-            <div className="message-menu">
+        <div class={props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={props.closeMenu}>
+            <div class="message-menu">
                 <div>Водитель подъехал и ожидает вас.</div>
                 <div>Как скоро вы будете?</div>
                 <button

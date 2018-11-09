@@ -291,7 +291,7 @@ class RoadMap extends Component {
 
     render() {
         return (
-            <div className='map-container'>
+            <div class='map-container'>
 
                 <MyMapComponent
                     ref = {map => (this.map = map)}
@@ -381,10 +381,13 @@ const MapWithADirectionsRenderer = compose(
                     this.setState({
                         directions: result,
                     });
+                    console.log(result,'result');
+                    this.props.timeFunction(result.routes[0].legs[0].duration.value/60);
                 } else {
                     console.error(`error fetching directions ${result}`);
 
                     console.log(result.origin.location.lat());
+
 
                     const origin = {
                         lat:  result.origin.location.lat(),

@@ -1,10 +1,10 @@
-import {CHANGE_SCREEN} from '../actions/actionList';
-import Load from "../components/Load/Load";
+import {CHANGE_SCREEN, SET_DEVICE_ID, SET_MINIMAL_PRICE} from '../actions/actionList';
 import React from "react";
-import Order from "../components/Order/Order";
 
 const initialState = {
-        currentScreen: null
+    currentScreen: null,
+    minimalPrice: 0,
+    deviceId: null
 };
 
 export default function app(state = initialState , action) {
@@ -16,6 +16,13 @@ export default function app(state = initialState , action) {
                 currentScreen: action.payload.currentScreen
             };
         }
+        case SET_DEVICE_ID: return{
+            ...state, deviceId: action.payload.deviceId
+        };
+
+        case SET_MINIMAL_PRICE: return{
+            ...state, minimalPrice: action.payload.minimalPrice
+        };
         default:
             return state;
     }

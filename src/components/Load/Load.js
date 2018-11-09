@@ -5,8 +5,8 @@ import LoadImg from '../../assets/img/load.gif';
 export default function Load(){
 
     return (
-            <div className="load">
-                <img className="animated infinite flash" src={LoadImg} />
+            <div class="load">
+                <img class="animated infinite flash" src={LoadImg} />
 </div>
         );
 }

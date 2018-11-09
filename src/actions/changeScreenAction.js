@@ -1,4 +1,4 @@
-import {CHANGE_SCREEN} from  "./actionList";
+import {CHANGE_SCREEN} from "./actionList";
 
 export default function changeScreenAction(screen) {
     return{

@@ -1,4 +1,4 @@
-import {CHANGE_PHONE} from  "./actionList";
+import {CHANGE_PHONE} from "./actionList";
 
 export default function userLoginAction(phone) {
     return{

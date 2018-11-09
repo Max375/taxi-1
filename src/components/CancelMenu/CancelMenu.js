@@ -4,8 +4,8 @@ import './CancelMenu.css'
 export default function MessageMenu(props){
 
     return(
-        <div className={props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={props.closeMenu}>
-            <div className="message-menu">
+        <div class={props.isOpen ? "message-menu-bg message-menu-bg--open" : "message-menu-bg"} onClick={props.closeMenu}>
+            <div class="message-menu">
                 Причина отмены заказа:
                 <button onClick={function (e) {
                     e.stopPropagation();

@@ -1,17 +1,21 @@
-import {SET_USER_INFO} from  "./actionList";
+import {SET_USER_INFO} from "./actionList";
 
-export default function userLoginAction(data,token) {
-    return{
+export default function setUserInfoAction(data) {
+   let action =  {
         type: SET_USER_INFO,
         payload:{
-            token: token,
-            bonus: data.bonus,
-            distance: data.distance,
-            image: data.image,
             name: data.name,
-            num_trip: data.num_trip,
             phone: data.phone,
-            promocode: data.promocode
+            image: data.image,
+            email: data.email,
+            bonus: data.bonus,
+            numTrip: data.numTrip,
+            distance: data.distance,
+            promocode: data.promocode,
         }
-    }
+    };
+
+   if (data.token !== undefined && data.token !== null) action.payload.token = data.token;
+
+    return action;
 }
