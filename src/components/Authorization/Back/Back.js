@@ -15,8 +15,8 @@ function Back(props) {
     }
 
     return (
-        <div onClick={onClick} class="back-button">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        <div onClick={onClick} className="back-button">
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
         </div>
     )
 }

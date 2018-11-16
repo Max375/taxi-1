@@ -57,9 +57,10 @@ class Select extends Component {
 
 
     componentDidMount(){
-        console.log('component did mount',this.state);
         document.addEventListener('click', this.documentClickHandler);
         this.input.value = this.props.defaultOption.label || '';
+        console.log(this.props);
+        this.props.MyRef(this.ref());
     }
 
     componentDidUpdate(){
@@ -92,14 +93,9 @@ class Select extends Component {
 
 
     onClickHandler = (e)=>{
-
-        if (e.target.dataset.geocode === 'true'){
             geocode(e.target.innerText,(result,address)=>{
                 this.selectValue({lat: result.lat(), lon: result.lat()}, address);
             });
-        }else{
-            this.selectValue(e.target.dataset.value, e.target.innerText);
-        }
     };
 
 
@@ -120,18 +116,24 @@ class Select extends Component {
         if(this.props.onChange !== null) this.props.onChange(eventCreator(VALUE_SELECT,value,label));
     };
 
+    ref = ()=>{
+        return {
+            setOption: this.selectValue
+        }
+    };
+
     onStateRefInput = (el)=>{this.input = el;};
 
 
     generateOptions = () =>{
-        const staticOptions = this.props.constOptions.map(el=> <div key={el.value} class="options__elements" data-geocode={el.geocode} data-value={el.value}>{el.label}</div>);
+        const staticOptions = this.props.constOptions.map(el=> <div key={el.value} className="options__elements"  data-value={el.value}>{el.label}</div>);
 
         let options;
 
-        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} class="options__elements" data-geocode={el.geocode} data-value={el.value}>{el.label}</div>);
+        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} className="options__elements" data-value={el.value}>{el.label}</div>);
 
 
-        if (this.state.options.length + staticOptions.length === 0) options = (<div class="select__not-found">Ничего не найдено</div>);
+        if (this.state.options.length + staticOptions.length === 0) options = (<div className="select__not-found">Ничего не найдено</div>);
 
         return staticOptions.concat(options);
     };
@@ -143,10 +145,10 @@ class Select extends Component {
 
 
         return (
-            <div class="select"
+            <div className="select"
                  onFocus={this.openSelect}
             >
-                <input type="text" class="select__input-field"
+                <input type="text" className="select__input-field"
                        data-select = {'my-custom-select'}
                        placeholder={this.props.defaultText}
                        ref={this.onStateRefInput}
@@ -156,7 +158,7 @@ class Select extends Component {
                 <div
                     data-select = {'my-custom-select'}
                     onClick={options.length  === 0 ? null : this.onClickHandler}
-                    class={this.state.isSelectOpen ? "select__options select__options--open" : "select__options"}
+                    className={this.state.isSelectOpen ? "select__options select__options--open" : "select__options"}
                 >
                     {options}
                 </div>

@@ -340,7 +340,6 @@ export const cancelTrade = function (orderId, driverId, token) {
 
 export const acceptTrade = function (orderId, driverId,token) {
 
-
     const body = JSON.stringify({
         action: 'accept_order',
         token: token,
@@ -368,6 +367,39 @@ export const acceptTrade = function (orderId, driverId,token) {
 
 
 
+export const sendTimeToDriver = function (time,token) {
+
+    const body = JSON.stringify({
+        action: 'send_time_to_driver',
+        token: token,
+        data: {
+            time: time
+        }
+    });
+
+    customConsole.log('sendTimeToDriver request:', body);
+
+    return fetch(URL,{
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'send_time_to_driver',
+            token: token,
+            data: {
+                time: time
+            }
+        })
+    })
+        .then(res =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('sendTimeToDriver response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
 
 
 
@@ -384,11 +416,6 @@ export const getStreet = function (street, token, deviceId) {
         })
     })
 };
-
-
-
-
-
 
 
 
@@ -422,34 +449,6 @@ export const usePromocode = function (promocode,token) {
 
         return res.json();
     })
-};
-
-export const send_time_to_driver = function (time,token) {
-    console.log('================ send_time_to_driver REQUEST ===============');
-    console.log('body: ', JSON.stringify({
-        action: 'send_time_to_driver',
-        token: token,
-        data: {
-            time: time
-        }
-    }));
-    console.log('================ send_time_to_driver REQUEST ===============');
-
-    return fetch(URL,{
-        method: 'POST',
-        body: JSON.stringify({
-            action: 'send_time_to_driver',
-            token: token,
-            data: {
-                time: time
-            }
-        })
-    }).then(res =>{
-        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
-
-        return res.json();
-    })
-
 };
 
 export const invite_exist = function (invite) {

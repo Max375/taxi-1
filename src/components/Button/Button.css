@@ -1,0 +1,29 @@
+.login-submit{
+    display: block;
+    height: 72px;
+    width: 78.87%;
+    background-color: #7664ca;
+    border-radius: 35px;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 26px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.login-submit.full-screen-button{
+    width: 100%;
+    font-size: 24px;
+    background: url("../../assets/img/button_mark.png") no-repeat top 50% left 20%;
+    background-color: #7664ca;
+}
+@media screen and (max-width: 500px){
+    .login-submit.full-screen-button{
+        font-size: 18px;
+        background: url("../../assets/img/button_mark.png") no-repeat top 50% left 12%;
+        background-color: #7664ca;
+        letter-spacing: 1px;
+    }
+    .login-submit{
+        font-size: 20px;
+    }
+}

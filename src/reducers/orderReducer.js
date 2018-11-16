@@ -6,12 +6,16 @@ import {
     SET_ORDER_COMMENT,
     SET_ORDER_ENTRANCE,
     REMOVE_ORDER,
-    ADD_ORDER_END_POINT, SET_ORDER_OPTIONS
+    SET_ORDER_OPTIONS,
+    SET_ORDER_WAY_POINT,
+    ADD_ORDER_WAY_POINT,
+    REMOVE_ORDER_WAY_POINT, SET_ORDER_CAR_TYPE,
 } from '../actions/ordersActions/orderActions';
 
 const initialState = {
     id: null,
-    endPoints: [{address: null, location: null}],
+    endPoint: {address: null, location: null},
+    wayPoint: null,
     startPoint: {address: null, location: null},
     price: 0,
     entrance: 0,
@@ -24,7 +28,7 @@ const initialState = {
         babySeat : 0,
         dogPlace : 0,
         numberSeats : 3,
-        carType : 4,
+        carType : 1,
         terminal : 0,
         ads : 0,
         baggage : 0
@@ -34,20 +38,32 @@ const initialState = {
 
 export default function order(state = initialState , action) {
     switch (action.type) {
+
+        case ADD_ORDER_WAY_POINT: {
+            return{
+                ...state,
+                wayPoint:  {address: null, location: null},
+            };
+        }
+
+        case REMOVE_ORDER_WAY_POINT: {
+            return{
+                ...state,
+                wayPoint:  null
+            };
+        }
+
         case SET_ORDER_END_POINT:
-
-            const endPoints = state.endPoints;
-            endPoints[action.payload.index] = action.payload.endPoint;
-
             return{
                 ...state,
-                endPoints: endPoints
+                endPoint: action.payload.endPoint
             };
-        case ADD_ORDER_END_POINT:
+        case SET_ORDER_WAY_POINT:
             return{
                 ...state,
-                endPoints: [...state.endPoints, {address: null, location: null}]
+                wayPoint: action.payload.wayPoint
             };
+
         case SET_ORDER_START_POINT:
             return{
                 ...state,
@@ -83,6 +99,15 @@ export default function order(state = initialState , action) {
                      ...action.payload
                  }
              }
+        }
+        case SET_ORDER_CAR_TYPE: {
+            return{
+                ...state,
+                options: {
+                    ...state.options,
+                    carType: action.payload.carType
+                }
+            }
         }
         default:
             return state;

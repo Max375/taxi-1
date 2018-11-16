@@ -4,9 +4,12 @@ import './DriverOffers.css';
 import TopBar from "../../TopBar/TopBar";
 import Offer from '../Offer/Offer'
 import connect from "react-redux/es/connect/connect";
-import {cancelTrade, acceptTrade} from "../../../fetch/fetch";
+import {cancelTrade, acceptTrade, getUserInfo} from "../../../fetch/fetch";
 import {customConsole} from "../../../utils";
-import {updateTrades} from "../../../secondary";
+import {doSync, setUserInfo, store, updateTrades} from "../../../secondary";
+import changeScreenAction from "../../../actions/changeScreenAction";
+import Login from "../../Authorization/Login/Login";
+import clearTokenAction from "../../../actions/clearTokenAction";
 
 class DriverOffers extends Component{
 
@@ -38,7 +41,20 @@ class DriverOffers extends Component{
         return (orderId, driverId)=>{
             acceptTrade(orderId, driverId, _token)
                 .then(()=>{
+                    console.log('UpdateTrades');
                     updateTrades();
+                    console.log('UserInfo');
+                    getUserInfo(_token)
+                        .then(data => {
+                            setUserInfo(data);
+                            doSync();
+                        })
+                        .catch(err => {
+                            customConsole.error(err);
+                            store.dispatch(changeScreenAction(<Login />));
+                            store.dispatch(clearTokenAction());
+                        });
+
                 })
                 .catch(err =>{
                     updateTrades();
@@ -49,11 +65,13 @@ class DriverOffers extends Component{
 
 
 
+
+
     render(){
        let offers = [];
 
        this.props.trades.forEach(el=>{
-           offers.push(<Offer key={el.id} offer={el} cancelTrade={this.cancelTradeHandler} acceptTrade={this.acceptTradeHandler}/>);
+           offers.push(<Offer key={el.id} offer={el} cancelTrade={this.cancelTradeHandler} acceptTrade={this.acceptTradeHandler}  />);
        });
 
         return(

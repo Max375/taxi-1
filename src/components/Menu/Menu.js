@@ -1,58 +1,82 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Menu.css'
 import connect from "react-redux/es/connect/connect";
-import changeScreenAction from "../../actions/changeScreenAction";
-import FavoritePoints from "../FavoritePoints/FavoritePoints";
-import Order from "../Order/Order/Order";
-import Promocodes from "../Promocodes/Promocodes";
+import DriverMenu from '../../assets/img/driver_menu.png';
 
-
-import car from '../../assets/img/icons/car.svg';
-import money from '../../assets/img/icons/money.svg';
-import settings from '../../assets/img/icons/settings.svg';
-import rule from '../../assets/img/icons/rule.svg';
-import promo from '../../assets/img/icons/promo.svg';
-import technical_support from '../../assets/img/icons/icon-technical-support.svg';
 
 function Menu(props) {
-    return(
+
+    let touchStartPosition = 0;
+    let touchEndPosition = 0;
+    let isMenuMoving = true;
+
+    let buttons = null;
+
+    const touchStartHandler = (e)=>{
+        touchStartPosition = e.touches[0].clientX;
+        touchEndPosition = e.touches[0].clientX;
+        e.currentTarget.style.transition = 'none';
+    };
+
+    const touchMoveHandler = (e) => {
+        if(e.touches[0].clientX < touchStartPosition && isMenuMoving){
+            e.currentTarget.style.transform = `translateX(${e.touches[0].clientX-touchStartPosition}px)`;
+            touchEndPosition = e.touches[0].clientX;
+        }
+    };
+
+    const touchEndHandler = (e) =>{
+
+        e.currentTarget.style.transform = null;
+        e.currentTarget.style.transition = null;
+        isMenuMoving = true;
+        if (Math.abs(touchStartPosition-touchEndPosition)>80 && touchEndPosition<touchStartPosition && isMenuMoving){
+            close();
+        }
+
+    };
+
+
+    const onTouchStartButtons = ()=>{
+        isMenuMoving = false;
+    };
+
+    const onTouchEndButtons = ()=>{
+        isMenuMoving = true;
+    };
+
+    const close = ()=>{
+        buttons.scrollTop = 0;
+        props.closeMenu();
+    };
+
+    return (
         <React.Fragment>
-        <div class={props.isVisible ? 'menu-bg menu-bg-open' : 'menu-bg'} onClick={props.clickHandler}></div>
 
-            <div class={props.isVisible ? 'menu menu-open' : 'menu'}>
-                <div class="menu-top">
-                    <img src="img/photo.png" alt="" />
-                    <div class="name">
-                        {props.user.name}
-                    </div>
-                    <div class="menu-top--count">
-                        Поездок <span>{props.user.num_trip}</span>
-                    </div>
+            <div onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler} className={props.isOpen ? 'menu container menu--open' : 'menu container'}>
+                <div className="menu-header">
+                    <img src={DriverMenu} alt=""/>
+                    <div className={'driver-name'}>Антон Черышев</div>
+                    <div className={'bonus-account'}>Бонусный счет: 50 руб.</div>
+                    <div className={'mileage'}>25 поездок, всего 557 км</div>
                 </div>
 
-                <div class="menu-bonus">
-                    <div class="menu-bonus--count">Бонусный счет: {props.user.bonus} руб.</div>
+                <div ref={(el)=>{buttons = el}} onTouchStart={onTouchStartButtons} onTouchEnd={onTouchEndButtons} className={'button-block'}>
+                    <button className={'taxi-request'}>Заказ такси</button>
+                    <button className={'trips-history'}>История поездок</button>
+                    <button className={'favorite-addresses'}>Любимые адреса</button>
+                    <button className={'payment-method more-space-bottom'}>Способ оплаты</button>
+
+                    <div className={'stripe'}/>
+
+                    <button className={'settings with-border-top'}>Настройка</button>
+                    <button className={'become-to-driver'}>Стать водителем</button>
+                    <button className={'promo-code-btn'}>Промокод</button>
+                    <button className={'tech-support'}>Техподдержка</button>
+                    <button className={'exit'}>Выход</button>
                 </div>
-
-                <ul class="first">
-                    <li onClick={()=>{console.log(props.dispatch(changeScreenAction(<Order/>)))}}><img src="img/icons/galka.svg" alt="" /><a href="#">Заказ такси</a></li>
-                    <li><img src={car} alt="" /><a href="#">История поездок</a></li>
-                    <li onClick={()=>{console.log(props.dispatch(changeScreenAction(<FavoritePoints/>)))}}><img src="img/icons/car.svg" alt="" /><a href="#">Любимые адреса</a></li>
-                    <li><img src={money} alt="" /><a href="#">Способ оплаты</a></li>
-                </ul>
-
-                <ul class="second">
-                    <li><img src={settings} alt="" /><a href="#">Настройка</a></li>
-                    <li><img src={rule} alt="" /><a href="#">Стать водителем</a></li>
-                    <li
-                        onClick={()=>{
-                            props.dispatch(changeScreenAction(<Promocodes />));
-                        }}
-                    ><img src={promo} alt=""/><a href="#">Промокод</a></li>
-                    <li><img src={technical_support} alt="" /><a href={`https://test.kak-pravilno.by/taxi/feedback_form.php?phone=${props.user.phone}&driver=false`}>Техподдержка</a></li>
-                    <li onClick={()=>{localStorage.clear(); console.log('+++');  navigator.app.exitApp();}}><img src="../../assets/img/icons/out.svg" alt=""  /><a href="#">Выход</a></li>
-                </ul>
             </div>
+            <div onClick={close} className={"black-bg"} />
         </React.Fragment>
     );
 }

@@ -1,104 +1,109 @@
 import React, { Component } from 'react';
 import './Login.css';
-
-
-import icon from '../../../assets/img/list.png';
-
 import {smsAuth} from '../../../fetch/fetch'
-
-import Logo from '../Logo/Logo';
-
 import { connect } from 'react-redux';
-
 import changeScreenAction from '../../../actions/changeScreenAction'
-
 import addPhoneNumber from '../../../actions/addPhoneNumberAction'
 import EnterPin from "../EnterPin/EnterPin";
 import Registration from "../Registration/Registration";
 import {validateNumber} from '../../../utils';
-
-
-
+import Logo from '../Logo/Logo'
+import Button from '../../Button/Button'
+import TransparentButton from "../TransparentButton/TransparentButton";
+import {isEnterPressed} from '../../../utils';
 
 class Login extends Component {
-
     state = {
         isValid: true,
         errorText: '',
+        IsButtonLoading: false
     };
 
     numberInput = null;
 
-
     sendLogin(number){
-        smsAuth(parseInt(number))
-                .then(() => {
-                    this.props.dispatch(addPhoneNumber(parseInt(number)));
-                    this.props.dispatch(changeScreenAction(<EnterPin  prevScreen={'Login'}/>));
+        return smsAuth(parseInt(number))
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    errorText: 'Пользователя с таким номером не существует',
+                    isValid: false,
                 })
-                .catch(e => {
-                    console.error(e);
-
-                    this.setState({
-                        errorText: 'Пользователя с таким номером не существует',
-                        isValid: false,
-                    })
-                });
+            });
     }
 
+    componentDidMount = ()=>{
+        document.body.addEventListener('keydown',this.loginFromKeyboard);
+    };
 
-
-
+    componentWillUnmount = ()=>{
+        document.body.removeEventListener('keydown',this.loginFromKeyboard);
+    };
 
     onClickSendButton = () => {
-        const number =this.numberInput.value;
+
+        this.setState({IsButtonLoading: true});
+        const number = this.numberInput.value || '';
 
         if (validateNumber(number)) {
-            this.sendLogin(number);
+            this.sendLogin(number)
+                .then(()=>{
+                    this.setState({IsButtonLoading: false});
+                    this.props.dispatch(addPhoneNumber(parseInt(number)));
+                    this.props.dispatch(changeScreenAction(<EnterPin  prevScreen={'Login'}/>));
+                });
             return;
         }
 
-            let errMessage = '';
-            switch (number) {
-                case '':
-                    errMessage = 'Телефон не может быть пустым';
-                    break;
-                default:
-                    errMessage = 'Пожалуйста введите корректный телефон';
-                    break;
-            }
+        let errMessage = '';
+        switch (number) {
+            case '':
+                errMessage = 'Телефон не может быть пустым';
+                break;
+            default:
+                errMessage = 'Пожалуйста введите корректный телефон';
+                break;
+        }
 
-            this.setState({
-                errorText: errMessage,
-                isValid: false,
-            });
+        this.setState({
+            errorText: errMessage,
+            isValid: false,
+        });
+        this.setState({IsButtonLoading: false});
     };
+
+    loginFromKeyboard = (e) => {
+        if(isEnterPressed(e)){
+            this.onClickSendButton();
+        }
+    };
+
 
 
     onClickRegistrationButton = () => {this.props.dispatch(changeScreenAction(<Registration/>))};
 
     inputSetRef = (el) => {this.numberInput = el};
 
+
     render() {
-        return (<div class="screen_wp">
-                <div class="wrapper">
-                    <Logo />
+        return (
 
-                    <div class={this.state.isValid ? "enter-input" : "enter-input enter-input--invalid"}>
-                        <div class="enter-input__invalid-text">
-                            {this.state.errorText}
-                        </div>
-                        <input ref={this.inputSetRef} class="enter-input__input" type="text" placeholder="Номер телефона" />
+            <div className="login container">
+                <div className="screen-wrapper">
+                    <Logo mainText={'Вход'} secondaryText={'Вход в приложение'} />
+
+                    <div className={this.state.isValid ? "entrance": "entrance entrance--invalid"}>
+                        <div className="entrance-error-text">{this.state.errorText || " "}</div>
+                        <input  ref={this.inputSetRef} type="text"
+                                placeholder={'ваш телефон'}/>
+                        <Button isLoading={this.state.IsButtonLoading}  onClick={this.onClickSendButton} text={'Войти'} />
+                        <TransparentButton  onClick={this.onClickRegistrationButton} nameButton={'Регистрация'} />
                     </div>
-
-                    <button class="enter" onClick={this.onClickSendButton}>Войти</button>
-                    <div class="reg" onClick={this.onClickRegistrationButton}>Регистрация <img src={icon}/></div>
                 </div>
             </div>
         );
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {

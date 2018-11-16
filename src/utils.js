@@ -208,3 +208,23 @@ export const debounce = (func, ms) => {
     };
 };
 
+
+export const carModelCheck = (carModel)=>{
+    switch(carModel) {
+        case 'VW':
+            //return (<img src={VW} alt=""/>);
+        case 'BMW':
+            //return (<img src={BMW} alt=""/>);
+    }
+};
+
+export const isEnterPressed = (e) => {
+        let kCd = e.keyCode || e.which;
+        if (kCd === 0 || kCd === 229) {
+            kCd = this.value.charCodeAt(this.value.length - 1);
+        }
+
+        if(kCd === 13) return true;
+
+        return false;
+};

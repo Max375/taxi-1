@@ -1,0 +1,16 @@
+button.transparent-button{
+    display: block;
+    min-height: 48px;
+    background-color: #fff;
+    font-size: 24px;
+    color: #9994b4;
+    text-transform: uppercase;
+    margin: 37px auto 0;
+    max-width: 90%;
+    cursor: pointer;
+}
+@media screen and (max-width: 500px){
+    button.transparent-button{
+        font-size: 19px;
+    }
+}

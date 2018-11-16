@@ -1,24 +1,26 @@
 ﻿import React, { Component } from 'react';
-import icon from '../../../assets/img/list.png';
 import { connect } from 'react-redux';
-import LogoImage from '../../../assets/img/Logo.png';
 import './Registration.css'
 import changeScreenAction from "../../../actions/changeScreenAction";
 import Login from "../Login/Login";
 import {registration} from "../../../fetch/fetch"
 import addPhoneNumber from "../../../actions/addPhoneNumberAction";
 import EnterPin from "../EnterPin/EnterPin";
-import PromocodeMenu from "../../PromocodeMenu/PromocodeMenu";
+import PromocodeMenu from "../PromocodeMenu/PromocodeMenu";
 
-import {validateName,validateNumber} from "../../../utils";
+import {isEnterPressed, validateName, validateNumber} from "../../../utils";
+
+import './Registration.css';
+import Logo from '../Logo/Logo';
+import Button from "../../Button/Button";
+import TransparentButton from "../TransparentButton/TransparentButton";
 
 class Registration extends Component {
 
     state = {
        isNameValid: true,
-       nameErrMessage: null,
+       errMessage: null,
        isNumberValid: true,
-       numberErrMessage: null,
        promocode: null,
        isPromocodeMenuOpen: false,
    };
@@ -26,6 +28,21 @@ class Registration extends Component {
 
     nameInput = null;
     numberInput = null;
+
+    componentDidMount = ()=>{
+        document.body.addEventListener('keydown',this.loginFromKeyboard);
+    };
+
+    componentWillUnmount = ()=>{
+        document.body.removeEventListener('keydown',this.loginFromKeyboard);
+    };
+
+
+    loginFromKeyboard = (e) => {
+        if(isEnterPressed(e)){
+            if (!this.state.isPromocodeMenuOpen)  this.onClickSendButton();
+        }
+    };
 
 
     setPromocode = (promocode)=>{
@@ -41,7 +58,7 @@ class Registration extends Component {
             isNumberValid: true,
         });
 
-        registration(number, name, promocode,deviceId)
+       return  registration(number, name, promocode,deviceId)
             .then(()=>{
                     this.props.dispatch(addPhoneNumber(number));
                     this.props.dispatch(changeScreenAction(<EnterPin prevScreen={'Registration'}/>));
@@ -49,12 +66,13 @@ class Registration extends Component {
             .catch(e =>{
                 this.setState({
                     isNumberValid: false,
-                    numberErrMessage: 'Пользователь уже зарегестрирован',
+                    errMessage: 'Пользователь уже зарегестрирован',
                 });
             });
     };
 
     onClickSendButton = () => {
+        this.setState({IsButtonLoading: true});
         const number = this.numberInput.value;
         const name = this.nameInput.value;
 
@@ -64,11 +82,14 @@ class Registration extends Component {
 
 
         if (isNameValid && isNumberValid) {
-            this.registrationUser(parseInt(number), name, this.state.promocode, this.props.app.deviceId);
+            this.registrationUser(parseInt(number), name, this.state.promocode, this.props.app.deviceId)
+                .then(()=>{
+                    this.setState({IsButtonLoading: false});
+                });
             return;
         }
 
-        let nameErrMessage = '';
+        let nameErrMessage = null;
         if (!isNameValid) switch (name) {
             case '':{
                 nameErrMessage = 'Имя не может быть пустым';
@@ -78,7 +99,7 @@ class Registration extends Component {
                 nameErrMessage = 'Пожалуйста введите корректное имя'
         }
 
-        let numberErrMessage = '';
+        let numberErrMessage = null;
 
         if (!isNumberValid) switch (number) {
             case '':
@@ -91,9 +112,9 @@ class Registration extends Component {
         this.setState({
             isNameValid: isNameValid,
             isNumberValid: isNumberValid,
-            numberErrMessage: numberErrMessage,
-            nameErrMessage: nameErrMessage
-        })
+            errMessage: nameErrMessage || numberErrMessage
+        });
+        this.setState({IsButtonLoading: false});
     };
 
 
@@ -108,42 +129,27 @@ class Registration extends Component {
 
     render() {
         return (
-            <div class="screen_wp">
+            <div className="registration container">
+                <div className={this.state.isNumberValid && this.state.isNameValid ? 'screen-wrapper' : 'screen-wrapper screen-wrapper--invalid'}>
                     <PromocodeMenu
                         promocodeAccess={this.setPromocode}
                         isOpen={this.state.isPromocodeMenuOpen}
                         closeMenu={this.closePromocodeMenu}
                     />
+                    <Logo mainText={'Регистрация'} secondaryText={'Регистрация в системе'} />
 
-                    <div class="wrapper">
-                            <div class="logo">
-                                <img src={LogoImage} alt="Blitz"/>
-                                <p>здесь должен быть слоган</p>
-                            </div>
+                    <div className="registration-error-text">{this.state.errMessage}</div>
+                    <input ref={this.nameInputSetRef} type="text" placeholder={'ваш имя'} className={this.state.isNameValid ? 'first-input': 'first-input input--invalid'}/>
 
-                            <div class="enter-inputs">
-                                <div class={this.state.isNameValid ? "enter-input" : "enter-input enter-input--invalid"}>
-                                    <div class="enter-input__invalid-text">
-                                        {this.state.nameErrMessage}
-                                    </div>
-                                    <input ref={this.nameInputSetRef}  class="enter-input__input" type="text" placeholder="Имя" />
-                                </div>
-                                <div  class={this.state.isNumberValid ? "enter-input" : "enter-input enter-input--invalid"}>
-                                    <div class="enter-input__invalid-text">
-                                        {this.state.numberErrMessage}
-                                    </div>
-                                    <input ref={this.numberInputSetRef}  class="enter-input__input" type="text" placeholder="Номер телефона" />
-                                </div>
-                            </div>
-
-                            <button class="enter" onClick={this.onClickSendButton}>Регистрация</button>
-                            <div class="again" onClick={this.openPromocodeMenu}>Есть промокод?</div>
-                            <div  class="reg" onClick={this.onClickLoginButton}>Войти <img src={icon} alt="" /></div>
-                        </div>
+                    <input ref={this.numberInputSetRef} type="text" placeholder={'номер телефона'} className={this.state.isNumberValid ? 'second-input': 'second-input input--invalid'}/>
+                    <Button isLoading={this.state.IsButtonLoading} onClick={this.onClickSendButton} text={'Войти'} />
+                    <TransparentButton  onClick={this.onClickLoginButton} nameButton={'Уже зарегистрированы?'} />
+                    <TransparentButton  onClick={this.openPromocodeMenu} nameButton={'Есть промокод?'} />
                 </div>
+            </div>
         );
     }
-} 
+}
 
 
 const mapStateToProps = (state) => {
@@ -154,3 +160,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Registration);
+
+

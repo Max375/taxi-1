@@ -1,0 +1,47 @@
+.left-popup-menu.additional-services{
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    .route-payment .left-popup-menu-content{
+        width: 90%;
+    }
+}
+.route-payment .additional-services input{
+    display: none;
+}
+.route-payment .additional-services input + label{
+    display: block;
+    height: 48px;
+    font-size: 32px;
+    padding: 0 6% 0 68px;
+    margin: 0 0 48px 6.8%;
+    background: url("../../../assets/img/add_serv_inp_bgr.png") no-repeat top 50% left;
+}
+.route-payment .additional-services input:checked + label{
+    background: url("../../../assets/img/add_serv_inp_bgr_active.png") no-repeat top 50% left;
+}
+@media screen and (max-width: 600px){
+    .route-payment .additional-services input + label{
+        height: 48px;
+        font-size: 25px;
+        padding: 7px 6% 0 68px;
+        margin: 0 0 28px 6.8%;
+    }
+}
+@media screen and (max-width: 510px){
+    .route-payment .additional-services input + label{
+        height: 44px;
+        font-size: 19px;
+        padding: 8px 6% 0 48px;
+        margin: 0 0 13px 6.8%;
+        -webkit-background-size: 28px;
+        background-size: 28px;
+    }
+}
+@media screen and (max-width: 510px){
+    .route-payment .additional-services input:checked + label{
+        -webkit-background-size: 28px;
+        background-size: 28px;
+    }
+}

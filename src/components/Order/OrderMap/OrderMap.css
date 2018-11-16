@@ -1,0 +1,35 @@
+.map-marker{
+    position: absolute;
+    z-index: 10000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-100%);
+}
+
+.map-marker img{
+    width: 20px;
+}
+
+.map-container{
+    background-color: rgb(229, 227, 223);
+    height: 100%;
+    width: 100vw;
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+
+.map-button--active{
+    background-color: #710fc9;
+}
+
+
+.pay-type{
+    font-size: 16px
+}
+
+
+.react-select__clear-indicator{
+    display: none!important;
+}

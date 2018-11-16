@@ -1,12 +1,32 @@
-﻿import React, { Component } from 'react';
+﻿import React, {Component} from 'react';
+import './Load.css';
+import loadingLogo from '../../assets/img/loading_logo.png';
 
-import LoadImg from '../../assets/img/load.gif';
-
-export default function Load(){
+function Load() {
 
     return (
-            <div class="load">
-                <img class="animated infinite flash" src={LoadImg} />
-</div>
-        );
+        <div className={'loading container'}>
+            <div className={'logo-loading'}>
+                <img src={loadingLogo} alt=""/>
+            </div>
+
+            <div className="spinner-wrapper">
+                <div className="lds-default">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    );
 }
+export default Load;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import burger from '../../assets/img/burger.svg';
-import dots from '../../assets/img/dots.svg';
 import './TopBar.css';
 import Menu from "../Menu/Menu";
 
@@ -29,7 +27,6 @@ class TopBar extends Component{
                 <div class="top-bar">
 
                     <div class="burger" onClick={this.openMenu.bind(this)}>
-                        <img src={burger} alt="" class="top-bar--toggle-button" />
                     </div>
 
                     <ul class="top-bar--menu">
@@ -38,7 +35,6 @@ class TopBar extends Component{
                     </ul>
 
                     <div class="dots">
-                        <img src={dots} alt="" class="top-bar--dot-button" />
                     </div>
 
                 </div>

@@ -1,422 +1,172 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {getDistance, createOrder, HTTP_STATUS_OK, addressAutocomplete} from '../../../fetch/fetch'
-
 import './Order.css';
-
-import TopBar from "../../TopBar/TopBar";
-import Case from '../../../assets/img/case.png'
-import Cat from '../../../assets/img/pet.png'
-import Girl from '../../../assets/img/girl.png'
-
-import setOrderEndPointAction from '../../../actions/ordersActions/setOrderEndPointAction';
-import setOrderPriceAction from '../../../actions/ordersActions/setOrderPriceAction';
-import setOrderEntranceAction from '../../../actions/ordersActions/setOrderEntranceAction';
-import setOrderCommentAction from '../../../actions/ordersActions/setOrderCommentAction';
-import addOrderEndPointAction from '../../../actions/ordersActions/addOrderEndPointAction'
-import setOrderStartPointAction from '../../../actions/ordersActions/setOrderStartPointAction'
-import setOrderAction from '../../../actions/ordersActions/setOrderAction'
-import Select from '../Select/Select'
-
-import Map from '../Map/Map';
-
-
-import OrderOptions from '../OrderOptions/OrderOptions'
-import {customConsole, logStoreState, throttle, convertOrderInfoFromBackEnd} from "../../../utils";
-import {doSync} from "../../../secondary";
-
-const PRICE_STAP = 0.5;
-
+import HeaderWithMenu from '../../HeaderWithMenu/HeaderWithMenu';
+import FooterButton from '../../FooterButton/FooterButton';
+import AddressButton from '../AddressButton/AddressButton';
+import CarTypeMenu from "../CarTypeMenu/CarTypeMenu";
+import PaymentMenu from "../PaymentMenu/PaymentMenu";
+import connect from "react-redux/es/connect/connect";
+import addOrderWayPointAction from '../../../actions/ordersActions/addOrderWayPointAction'
+import removeOrderWayPointAction from '../../../actions/ordersActions/removeOrderWayPointAction'
+import changeScreenAction from "../../../actions/changeScreenAction";
+import AddressSelect from "../AddressSelect/AddressSelect";
+import setOrderStartPointAction from "../../../actions/ordersActions/setOrderStartPointAction";
+import setOrderWayPointAction from "../../../actions/ordersActions/setOrderWayPointAction";
+import {logStoreState} from "../../../utils";
+import setOrderEndPointAction from "../../../actions/ordersActions/setOrderEndPointAction";
+import setOrderCommentAction from "../../../actions/ordersActions/setOrderCommentAction";
+import Comment from "../Comment/Comment";
 
 class Order extends Component {
 
+
     state = {
-        isMenuVisible: false,
-        isMapVisible: false,
-        orderDistance: null,
-        recommendedPrice: null,
-        isDistanceUpdated: false
+        isCarTypeMenuOpen: false,
+        isOptionsMenuOpen: false,
     };
 
 
-    mapHandler = null;
-
-
-    /*
-    startPointHandler =  (text,position) => {
-        this.props.dispatch(setOrderStartPoint({
-            value: position,
-            label: text
-        }));
-
-        this.setState({
-            isMapVisible: false,
-        });
-
-        this.UpdateDistance()
+    openCarTypeMenu = ()=>{
+        this.setState({isCarTypeMenuOpen: true});
     };
-     */
 
-
-    /*
-    endPointHandler = (text,position) =>{
-        let _endPoints = this.props.order.endPoints;
-
-
-        _endPoints[this.state.currentSelect] = {
-            value: position,
-            label: text
-        };
-
-        this.setState({
-            currentSelect: null,
-            isMapVisible: false,
-        });
-
-        this.props.dispatch(setOrderEndPoint(_endPoints));
-
-        this.UpdateDistance()
+    closeCarTypeMenu = ()=>{
+        this.setState({isCarTypeMenuOpen: false});
     };
-     */
 
-
-    constructor(props) {
-            super(props);
-    }
-
-    /*
-    onChangeSelectStartPoint = (optionSelected,action) => {
-        console.log(action,optionSelected);
-
-        if (optionSelected!=null){
-            switch (optionSelected.value) {
-                case 'map':{
-                    this.setState({
-                        isMapVisible: true,
-                    });
-                    this.mapHandler = this.startPointHandler;
-                    break;
-                }
-                case null:{
-                    const geocoder = new window.google.maps.Geocoder;
-                    geocoder.geocode({
-                            'address': optionSelected.label
-                        },
-                        (results,status) => {
-                            if(status === 'OK'){
-                                this.props.dispatch(setOrderStartPoint({
-                                    value: {
-                                        lat: results[0].geometry.location.lat(),
-                                        long: results[0].geometry.location.lng(),
-                                    },
-                                    label: optionSelected.label
-                                }));
-                            }
-                        }
-                    );
-                }
-            }
-        }
-
+    addWayPoint = ()=>{
+      this.props.dispatch(addOrderWayPointAction());
     };
-     */
 
-
-    /*
-    onChangeSelectEndPoint = (optionSelected,action,id) => {
-        if (optionSelected.value === 'map'){
-            this.setState({
-                isMapVisible: true,
-                currentSelect: id,
-            });
-            this.mapHandler = this.endPointHandler;
-        }
+    removeWayPoint = ()=>{
+        this.props.dispatch(removeOrderWayPointAction());
     };
-     */
 
-
-    componentDidMount(){
-        //this.UpdateDistance(false);
-    }
-
-    /*
-    UpdateDistance(isUpdate = true){
-                if (this.props.order.endPoints.find( el => el!==null) !== undefined && this.props.order.startPoint!=null){
-
-                    this.setState({
-                        recommendedPrice: 0,
-                        length: 0,
-                    });
-
-                    let _endPoints = this.props.order.endPoints;
-
-                    _endPoints = _endPoints.map( value => {
-                         if (value!=null) return {'street': value.label};
-                    });
-
-                    const data = {
-                        "start_point": {
-                            "street": this.props.order.startPoint.label,
-                        },
-                        "end_points": _endPoints
-                    };
-
-
-                    getDistance(data,this.props.user.token,this.props.user.deviceId).then((resp) => {
-                        if (resp.status === HTTP_STATUS_OK) return resp.json();
-                        else return null
-                    }).then(data => {
-                            if (data!=null){
-                                this.setState({
-                                    recommendedPrice: (Math.ceil(data.distance.price*2)/2),
-                                    length: data.distance.length,
-                                });
-                                if (isUpdate) this.props.dispatch(setOrderPrice((Math.ceil(data.distance.price*2)/2)));
-                            }
-                        })
-        }
-    }
-     */
-
-
-    UpdateDistance(){
-            if (this.isPointSelected()) {
-                this.setState({isDistanceUpdated: false});
-                getDistance(this.props.order.startPoint.address, this.props.order.endPoints.map((el)=> el.address), this.props.user.token)
-                    .then(data => {
-
-                        let newState = {
-                            recommendedPrice: (Math.ceil(data.distance.price*2)/2),
-                            orderDistance: data.distance.length,
-                            isDistanceUpdated: true
-                        };
-
-                        if (newState.recommendedPrice < this.props.app.minimalPrice) newState.recommendedPrice = this.props.app.minimalPrice;
-
-
-                        this.setState(newState);
-                        this.props.dispatch(setOrderPriceAction(newState.recommendedPrice));
-                    })
-                    .catch(e =>{
-                        customConsole.error(e);
-                    })
-            }
-        }
-
-
-    autoComplete = throttle((inputValue,callback)=>{
-        addressAutocomplete(inputValue)
-            .then((data)=>{
-                if (data.status !== "OK") throw {message: "Response is empty", status: 404};
-                let points = Array.from(data.predictions).map(el=>{
-                    if (el.structured_formatting.secondary_text.indexOf("Minsk, Belarus")) return undefined;
-                    return {
-                        value: el.structured_formatting.main_text,
-                        label: el.structured_formatting.main_text,
-                        geocode: true
-                    }
-                });
-                points = points.filter(point => point !== undefined);
-                callback(points);
-             })
-            .catch(e=>{
-                customConsole.error(e);
-                callback([]);
-            });
-    },400);
-
-
-    openMap(handler){
-        this.mapHandler = handler;
-        this.setState({isMapVisible: true});
-    }
-
-    closeMap(){
-        this.mapHandler = null;
-        this.setState({isMapVisible: false});
-    }
-
-    changeStartPoint = (e)=>{
-        if (e.data.label === 'map') this.openMap(this.changeStartPoint);
-        else {
-            this.props.dispatch(setOrderStartPointAction({location: e.data.value, address: e.data.label}));
-            this.UpdateDistance();
-            this.closeMap();
-        }
+    changeStartPoint = (data)=>{
+        this.props.dispatch(setOrderStartPointAction({location: data.value, address: data.label}));
         logStoreState();
     };
 
 
-    addEndPoint = ()=>{
-        this.props.dispatch(addOrderEndPointAction());
-    };
-
-
-    changeEndPoint = (index) => {
-        return (e)=>{
-            console.log(e);
-            if (e.data.value === 'map') this.openMap(this.changeEndPoint(index));
-            else {
-                this.props.dispatch(setOrderEndPointAction({location: e.data.value, address: e.data.label},index));
-                this.UpdateDistance();
-                this.closeMap();
-            }
-            logStoreState();
-        }
-    };
-
-
-
-    setEntrance = (e)=>{
-        const entrance = parseInt(e.target.value,10);
-        this.props.dispatch(setOrderEntranceAction(entrance));
-    };
-
-
-    setComment = (e)=>{
-        this.props.dispatch(setOrderCommentAction(e.target.value));
-    };
-
-
-    generateEndPointsSelects = ()=>{
-        
-        let selects =  [];
-        
-        for (let i = 0; i < this.props.order.endPoints.length;  i++){
-
-            selects.push(<Select
-                options = {[]}
-                onChange = {this.changeEndPoint(i)}
-                constOptions = {[{value: 'map',label: 'map', geocode: false}]}
-                defaultOption={{label: this.props.order.endPoints[i].address, value: this.props.order.endPoints[i].location}}
-                loadOptions={this.autoComplete}
-            />)
-        }
-
-        return selects;
-    };
-
-    isPointSelected = () => {
-
-        let isEndpointsNull = true;
-
-        for (let i=0; i < this.props.order.endPoints.length; i++){
-
-            if (this.props.order.endPoints[i].location === null || this.props.order.endPoints[i].address === null){
-                isEndpointsNull = false;
-                break;
-            }
-        }
-
+    changeEndPoint = (data)=>{
+        this.props.dispatch(setOrderEndPointAction({location: data.value, address: data.label}));
         logStoreState();
-
-        customConsole.log('Start point is selected',this.props.order.startPoint.location!=null);
-        customConsole.log('End points is selected', isEndpointsNull);
-
-
-        if (this.props.order.startPoint.location === null || !isEndpointsNull) return false;
-
-        return true;
     };
 
-    reducePrice = ()=>{
-        if (this.checkAvailableIncreasePrice()){
-            this.props.dispatch(setOrderPriceAction(this.props.order.price - PRICE_STAP));
-        }
+    changeWayPoint = (data)=>{
+        this.props.dispatch(setOrderWayPointAction({location: data.value, address: data.label}));
+        logStoreState();
     };
 
-    checkAvailableIncreasePrice = () => this.props.app.minimalPrice<=this.props.order.price - PRICE_STAP;
-
-    increasePrice = ()=>{
-        this.props.dispatch(setOrderPriceAction(this.props.order.price + PRICE_STAP));
+    changeComment = (comment)=>{
+        this.props.dispatch(setOrderCommentAction(comment));
     };
 
-    createOrder = ()=>{
-        if (this.isPointSelected()){
-                createOrder(this.props.order.startPoint,this.props.order.endPoints,this.props.order.price, this.props.order.options, this.props.order.comment ,this.props.order.entrance, this.props.user.token, this.props.user.deviceId)
-                    .then(data =>{
-                        this.props.dispatch(setOrderAction(convertOrderInfoFromBackEnd(data.order)));
-                        doSync();
-                    }).catch((e)=>{
-                        customConsole.error('create order failed', e);
-                    });
-        }
+
+    selectStartPoint = ()=>{
+        this.props.dispatch(changeScreenAction(<AddressSelect onChange = {this.changeStartPoint}/>));
     };
 
-    render(){
+    selectEndPoint = ()=>{
+        this.props.dispatch(changeScreenAction(<AddressSelect onChange = {this.changeEndPoint}/>));
+    };
 
-            const isPointSelected = this.isPointSelected();
+    selectWayPoint = ()=>{
+        this.props.dispatch(changeScreenAction(<AddressSelect onChange = {this.changeWayPoint}/>));
+    };
 
-            return(
-            <div>
-                <div>
+    selectComment = ()=>{
+        this.props.dispatch(changeScreenAction(<Comment oldComment={this.props.order.comment} onChange = {this.changeComment}/>));
+    };
 
-                    <TopBar/>
-                    <OrderOptions options={this.options} isVisible={this.state.isOrderOptionsMenuVisible}  clickHandler={()=>{this.setState({isOrderOptionsMenuVisible: false})}} />
 
-                    <div className='order-wp'>
+    render() {
+        return (
+            <div className="route-payment container">
+                <HeaderWithMenu headerTitle={'Заказать такси'} />
 
-                        <Select
-                            options = {[]}
-                            onChange = {this.changeStartPoint}
-                            constOptions = {[{value: 'map',label: 'map', geocode: false}]}
-                            defaultOption={{label: this.props.order.startPoint.address, value: this.props.order.startPoint.location}}
-                            loadOptions={this.autoComplete}
+                <div className={'route-payment-content'}>
+                    <div className={'content-data-button-wrapper'}>
+                        <div className={'badge badge-a'} />
+
+                        <AddressButton
+                            onClick={this.selectStartPoint}
+                            title={'откуда'}
+                            mainText={this.props.order.startPoint.address || 'Не выбрано'}
                         />
+                        {this.props.order.wayPoint === null && <button className="number-of-route" onClick={this.addWayPoint} />}
+                    </div>
+                    {
+                        this.props.order.wayPoint !== null &&
 
-                        <input  onChange={this.setEntrance} value={this.props.order.entrance || ''}  className="order-wp entrance" type="number" placeholder="Подъезд" />
+                        <div className={'content-data-button-wrapper'}>
+                            <div className={'badge badge-b'} />
+                            <AddressButton
+                                onClick={this.selectWayPoint}
+                                title={'куда'}
+                                mainText={this.props.order.wayPoint.address || 'Не выбрано'}
+                            />
+                            <button onClick={this.removeWayPoint} className="number-of-route close" />
+                        </div>
+                    }
+                    <div className={'content-data-button-wrapper'}>
+                        <div className={'badge badge-b'} />
+                        <AddressButton
+                            onClick={this.selectEndPoint}
+                            title={'куда'}
+                            mainText={this.props.order.endPoint.address || 'Не выбрано'}
+                        />
+                    </div>
+
+                    <div className={'content-data-button-wrapper'}>
+                        <div className={'badge pen'} />
+                        <AddressButton
+                            onClick={this.selectComment}
+                            title={'комментарий к заказу'}
+                            mainText={this.props.order.comment || ''}
+                        />
+                    </div>
+
+                    <div className={'content-data-button-wrapper'}>
+                        <div className={'badge card'} />
+                        <AddressButton title={'способ оплаты'} mainText={'Карта ****6789'}/>
                     </div>
 
 
+                    <div className="additional-buttons">
 
-                    <button
-                        onClick={this.addEndPoint}
-                        className={this.props.order.endPoints.length < 4 ? "plus-dot" : "plus-dot plus-dot-invisible" }
-                    >
-                        + Добавить точку
-                    </button>
-
-                    {this.generateEndPointsSelects()}
-
-
-                    <textarea onChange={this.setComment} className="comment-text" placeholder="Комментарий к заказу" value={this.props.order.comment || ''} />
-
-                    <div className="btn-wp">
-                        <button className="order-econom">
-                            Эконом <img src={Case} alt=""/>
+                        <button onClick={this.openCarTypeMenu} className={'shadowed-button'}>
+                            <div className="shadowed-button-title">класс поездки</div>
+                            <div className="shadowed-button-text">Эконом</div>
                         </button>
 
-                        <button onClick={()=>{this.setState({isOrderOptionsMenuVisible: true})}} class="dop-services">
-                            <span>Доп. услуги</span><img src={Cat} alt=""/><img src={Girl} alt=""/>
+                        <button className={'shadowed-button'}>
+                            <div className="shadowed-button-title">дополнительно</div>
+                            <div className="shadowed-button-text">Детское кресло</div>
                         </button>
+
                     </div>
 
-
-
-                    <div className="price">
-                        Расстояние / рекомендуемая стоимость
-                        <div className="price-count">{(this.state.recommendedPrice === null && !this.state.isDistanceUpdated ) ? '--': this.state.recommendedPrice + 'р'}<span>{(this.state.orderDistance === null && !this.state.isDistanceUpdated) ? '--': this.state.orderDistance + 'км'}</span></div>
-                    </div>
-
-
-                    <div className={'numbers'}>
-                        <button className={isPointSelected && this.checkAvailableIncreasePrice() && this.state.isDistanceUpdated ? 'minus minus-active ' : 'minus'} onClick={this.reducePrice}>-0.5</button>
-                        <div className="count"><span>{isPointSelected && this.state.isDistanceUpdated ? this.props.order.price + 'р' : '0р'}</span></div>
-                        <button className={isPointSelected && this.state.isDistanceUpdated? 'plus plus-active ' : 'plus'} onClick={ this.increasePrice }>+0.5
-                        </button>
-                    </div>
-
-                    <button className="to-order" onClick={this.createOrder}> Заказать</button>
                 </div>
 
+                <footer>
+                    <div className="footer-text">Расстояние 25 км</div>
+                    <div className="footer-text second">Рекомендуемая стоимость 250 у.е.</div>
+                    <div className="price-container">
+                        <button className={'button-minus'}>-0.5 Br</button>
+                        <div className="calculated-price">11.5 Br</div>
+                        <button className={'button-plus'}>+0.5 Br</button>
+                    </div>
 
-                {this.state.isMapVisible && <Map addressSelect={this.mapHandler} />}
+                </footer>
+                <FooterButton nameButton={'заказать'} />
 
+                <CarTypeMenu isVisible = {this.state.isCarTypeMenuOpen} closeMenu={this.closeCarTypeMenu}/>
+                <PaymentMenu/>
             </div>
-            )
+        );
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -427,3 +177,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Order);
+

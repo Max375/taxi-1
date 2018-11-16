@@ -1,0 +1,76 @@
+.route-payment .left-popup-menu.card-payment-popup{
+    display: none;
+}
+.route-payment .left-popup-menu.card-payment-popup--open{
+    display: block;
+}
+
+.route-payment .left-popup-menu.card-payment-popup label{
+    margin: 0 auto 25px;
+    padding: 13px 0px 15px 86px;
+}
+@media screen and (max-width: 650px) {
+    .route-payment .left-popup-menu.card-payment-popup label{
+        /*padding-left: 45%;*/
+        padding-right: 0;
+    }
+}
+@media screen and (max-width: 500px) {
+    .route-payment .left-popup-menu.card-payment-popup label{
+        font-size: 21px;
+        padding: 9px 38px 10px 69px;
+    }
+}
+
+.route-payment .left-popup-menu input#cash + label{
+    background: url("../../../assets/img/purse_gray.png") no-repeat left 6% top 50%;
+}
+.route-payment .left-popup-menu input#first-card + label{
+    background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
+}
+.route-payment .left-popup-menu input#second-card + label{
+    background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
+}
+.route-payment .left-popup-menu input#cash:checked + label{
+    background: url("../../../assets/img/purse_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
+    border: solid 2px #7664ca;
+    color: #7664ca;
+}
+.route-payment .left-popup-menu input#first-card:checked + label{
+    background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
+    border: solid 2px #7664ca;
+    color: #7664ca;
+}
+.route-payment .left-popup-menu input#second-card:checked + label{
+    background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
+    border: solid 2px #7664ca;
+    color: #7664ca;
+}
+
+.route-payment .button-add-card{
+    display: block;
+    height: 72px;
+    width: 78.87%;
+    border-radius: 35px;
+    margin: 23px auto 0;
+    color: #7664ca;
+    font-size: 26px;
+    text-transform: uppercase;
+    padding-left: 50px;
+    background: url("../../../assets/img/button_purse.png") no-repeat left 12% top 50%;
+    background-color: #ebe8f7;
+}
+
+@media screen and (max-width: 500px){
+    .route-payment .button-add-card{
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+}
+@media screen and (max-width: 389px){
+    .route-payment .button-add-card{
+        background: none;
+        padding-left: 0;
+        background-color: #ebe8f7;
+    }
+}

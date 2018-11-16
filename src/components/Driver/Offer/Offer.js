@@ -1,7 +1,5 @@
-import VW from '../../../assets/img/vw.png'
-import BMW from '../../../assets/img/bmw.png'
+import {carModelCheck} from '../../../utils';
 import React from "react";
-
 
 export default function DriverOffer(props) {
 
@@ -21,9 +19,7 @@ export default function DriverOffer(props) {
     const touchEndHandler = (e) =>{
 
         if (Math.abs(touchStartPosition-touchEndPosition)>200){
-                console.log(Math.abs(touchStartPosition-touchEndPosition));
-                console.log(touchStartPosition);
-                console.log(touchEndPosition);
+
                 props.cancelTrade(props.offer.orderId, props.offer.driverId);
 
                 const el = e.currentTarget;
@@ -42,25 +38,15 @@ export default function DriverOffer(props) {
     };
 
 
-    let car_image = (<img src={VW} alt=""/>);
 
-    switch(props.offer.carModel) {
-        case 'VW':
-            car_image = (<img src={VW} alt=""/>);
-            break;
-        case 'BMW':
-            car_image = (<img src={BMW} alt=""/>);
-            break;
-    }
 
-    console.log(props,'offer props');
     return (
         <div className="driver-wrapper" onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler}>
             <div className="run-line"></div>
             <div className="flex-wrapp">
                 <div className="driver-info">
                     <div className="driver-img">
-                        {car_image}
+                        {carModelCheck(props.offer.carModel)}
                     </div>
                     <div class="driver-name">
                         <p>{props.offer.carVersion}</p>
@@ -77,7 +63,9 @@ export default function DriverOffer(props) {
 
 
             <div className="driver-buttons">
-                <button onClick={props.acceptTrade}>Принять</button>
+                <button onClick={()=>{
+                    props.acceptTrade(props.offer.orderId, props.offer.driverId);
+                }}>Принять</button>
             </div>
         </div>
     )

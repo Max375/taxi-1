@@ -1,0 +1,92 @@
+.feedback.container{
+    display: block;
+}
+
+.feedback .feedback-content{
+    padding: 40px 5% 56px 5%;
+    height: calc(100% - 232px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: scroll;
+}
+@media screen and (max-width: 500px){
+    .feedback .feedback-content{
+        padding: 20px 5%;
+    }
+}
+.feedback .flex-top{
+
+}
+
+.feedback p.h2{
+    font-size: 32px;
+    margin: 0 0 15px 0;
+    color: #abadb6;
+}
+@media screen and (max-width: 500px){
+    .feedback p.h2{
+        font-size: 25px;
+    }
+}
+
+.feedback textarea{
+    display: block;
+    width: 100%;
+    border: none;
+    min-height: 177px;
+    border-bottom: solid 1px #bdbec7;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    resize: none;
+}
+@media screen and (max-width: 500px){
+    .feedback textarea{
+        font-size: 23px;
+    }
+}
+@media screen and (max-width: 370px){
+    .feedback textarea{
+        font-size: 18px;
+    }
+}
+.feedback input{
+    display: block;
+    height: 73px;
+    width: 100%;
+    border: solid 2px #7664ca;
+    color: #7664ca;
+    font-size: 32px;
+    background: url("../../../assets/img/submit_heart.png") no-repeat left 4.3% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4.3% top 50%;
+    background-color: #fff;
+    padding: 0 40px 0 12.8%;
+    border-radius: 10px;
+    text-align: left;
+    margin: 25px 0;
+    cursor: pointer;
+    white-space: normal;
+}
+
+
+.feedback button.button-add-to-black-list{
+    display: block;
+    width: 100%;
+    height: 73px;
+    border: solid 2px #dbdde7;
+    color: #babcc8;
+    font-size: 32px;
+    background: url("../../../assets/img/black_list_cross.png") no-repeat left 4.3% top 50%;
+    background-color: #fff;
+    padding-left: 12.8%;
+    border-radius: 10px;
+    text-align: left;
+}
+@media screen and (max-width: 600px){
+    .feedback input,
+    .feedback button.button-add-to-black-list{
+        font-size: 24px;
+        /*background-position: left 10px top 50%;*/
+        padding-left: 65px;
+    }
+}
+

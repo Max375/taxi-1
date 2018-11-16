@@ -1,119 +1,181 @@
-
-.menu {
-    min-height: 100vh;
-    font-family: Ubuntu;
-    top: 0;
-    left: 0;
-    position: absolute;
-    background-color: #fff;
-    z-index: 10000;
-    overflow: auto;
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    transform: translateX(-100%);
-    -webkit-transition: -webkit-transform .2s ease;
-    transition: -webkit-transform .2s ease;
-    -o-transition: transform .2s ease;
-    transition: transform .2s ease;
-    transition: transform .2s ease, -webkit-transform .2s ease;
-    font-size: 16px;
-    width: 100%;
-    max-width: 290px;
-}
-
-.menu .name {
-    font-weight: 900;
-    font-size: 16px
-}
-
-.menu .count {
-    font-size: 14px
-}
-
-.menu .count span {
-    color: #ffac00;
-    font-size: 18px;
-    font-weight: 900
-}
-
-.menu .distance {
-    font-size: 14px
-}
-
-.menu .distance span {
-    color: #00b600;
-    font-size: 18px;
-    font-weight: 900
-}
-
-.menu ul {
-    margin: 0;
-    padding: 30px
-}
-
-.menu ul.first {
-    border-bottom: 1px solid #ced6eb
-}
-
-.menu ul li {
-    list-style-type: none;
-    display: block;
-    padding: 20px 0
-}
-
-.menu ul li a {
-    color: #000;
-    font-size: 18px
-}
-
-.menu ul li img {
-    width: 35px;
-    margin-right: 20px
-}
-
-.menu-open{
-    transform: translate(0);
-}
-
-.menu-top{
-    background-color: #710fc9;
-    color: #fff;
+.menu.container {
+    flex-direction: column;
+    background-image: -moz-linear-gradient( -170deg, rgb(100,126,249) 0%, rgb(133,75,178) 100%);
+    background-image: -webkit-linear-gradient( -170deg, rgb(100,126,249) 0%, rgb(133,75,178) 100%);
+    background-image: -ms-linear-gradient( -170deg, rgb(100,126,249) 0%, rgb(133,75,178) 100%);
+    box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.25);
     padding: 15px;
 }
 
-.menu-top--name{
-    font-weight: 900;
-    font-size: 16px;
-}
-
-.menu-top--count{
-    font-size: 14px;
-}
-
-
-.menu-top--distance{
-    font-size: 14px;
-}
-
-.menu-bonus{
-    background-color: #ffac00;
-    color: #fff;
-}
-
-.menu-bonus--count{
-    font-size: 18px;
-    padding: 0 15px;
-}
-.menu-bg{
-    width: 100%;
-    position: absolute;
+.menu{
+    position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,0.3);
-    height: 100vh;
-    display: none;
-}
-.menu-bg-open{
-    display: block;
     z-index: 10000;
+    transform: translateX(-100%);
+    transition: 0.15s ease transform;
+}
+
+.menu--open{
+    transform: translateX(0%);
+    transition: 0.3s ease transform;
+}
+
+
+.menu + .black-bg{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+.menu--open + .black-bg{
+    display: block;
+    opacity: 0;
+    animation: ease 0.15s bg;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bg {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+.menu .menu-header{
+    padding: 27px 0 50px 0;
+}
+
+.menu img{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+}
+
+.menu .driver-name{
+    font-size: 40px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+.menu .bonus-account{
+    font-size: 26px;
+    font-weight: normal;
+    color: #ffe613;
+    padding-left: 44px;
+    margin-bottom: 22px;
+    background: url("../../assets/img/gift.png") no-repeat top 35% left;
+}
+.menu .mileage{
+    font-size: 24px;
+    color: #fffefe;
+    font-weight: normal;
+}
+
+.menu .button-block{
+    height: calc(100vh - 367px);
+    overflow: scroll;
+}
+
+.menu .button-block button{
+    display: block;
+    background: none;
+    font-size: 30px;
+    color: #fffefe;
+    height: 42px;
+    padding-left: 65px;
+    margin: 0 0 51px 0;
+}
+/*.menu .button-block button.more-space-bottom{*/
+/*margin: 0 0 59px 0;*/
+/*}*/
+/*.menu .button-block button.with-border-top{*/
+/*margin: 55px 0 51px 0;*/
+/*}*/
+.menu .button-block .stripe{
+    width: 60%;
+    height: 2px;
+    background-color: #9a75c9;
+    margin: 6px 0 56px 0;
+}
+
+.menu .button-block button.taxi-request{
+    background: url("../../assets/img/taxi_request.png") no-repeat top 50% left;
+}
+.menu .button-block button.trips-history{
+    background: url("../../assets/img/trips_history.png") no-repeat top 50% left;
+}
+.menu .button-block button.favorite-addresses{
+    background: url("../../assets/img/favorite_addresses.png") no-repeat top 50% left;
+}
+.menu .button-block button.payment-method{
+    background: url("../../assets/img/payment_method.png") no-repeat top 50% left;
+}
+.menu .button-block button.settings{
+    background: url("../../assets/img/settings.png") no-repeat top 50% left;
+}
+.menu .button-block button.become-to-driver{
+    background: url("../../assets/img/become_to_driver.png") no-repeat top 50% left;
+}
+.menu .button-block button.promo-code-btn{
+    background: url("../../assets/img/promo_code_btn.png") no-repeat top 50% left;
+}
+.menu .button-block button.tech-support{
+    background: url("../../assets/img/tech_support.png") no-repeat top 50% left;
+}
+.menu .button-block button.exit{
+    background: url("../../assets/img/exit.png") no-repeat top 50% left;
+}
+
+@media screen and (max-width: 600px){
+    .menu .menu-header{
+        padding: 20px 0 30px 0;
+    }
+    .menu .driver-name{
+        font-size: 27px;
+        margin-bottom: 10px;
+    }
+    .menu .bonus-account{
+        font-size: 20px;
+        padding-left: 37px;
+        margin-bottom: 10px;
+        /*background: url("../../assets/img/gift.png") no-repeat top 35% left;*/
+    }
+    .menu .mileage{
+        font-size: 20px;
+    }
+
+    .menu .button-block{
+        height: calc(100vh - 276px);
+        overflow: scroll;
+    }
+    .menu .button-block button{
+        font-size: 20px;
+        color: #fffefe;
+        height: 32px;
+        padding-left: 50px;
+        margin: 0 0 35px 0;
+
+    }
+    .menu .button-block button.taxi-request,
+    .menu .button-block button.trips-history,
+    .menu .button-block button.favorite-addresses,
+    .menu .button-block button.payment-method,
+    .menu .button-block button.settings,
+    .menu .button-block button.become-to-driver,
+    .menu .button-block button.promo-code-btn,
+    .menu .button-block button.tech-support,
+    .menu .button-block button.exit{
+        background-size: contain;
+    }
+    .menu .button-block .stripe{
+        width: 73%;
+        margin: 6px 0 37px 0;
+    }
 }

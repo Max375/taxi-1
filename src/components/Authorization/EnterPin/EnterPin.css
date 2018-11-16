@@ -1,29 +1,65 @@
-.again{
-    color: #710fc9;
-    letter-spacing: 1px;
-    font-size: 16px;
-    margin-top: 25px;
-    display: block;
+
+.enter-pin p.clarification{
+    text-align: center;
+    width: 90%;
+    color: #292b3a;
+    font-size: 28px;
+    font-family: Roboto;
+    margin: 7vw auto 0;
+}
+@media screen and (max-width: 550px){
+    .enter-pin p.clarification{
+        font-size: 16px;
+    }
+}
+.enter-pin .inputs-wrapper{
+}
+.enter-pin .inputs-wrapper-wp{
+    display: flex;
+    justify-content: space-between;
+    width: 78.9%;
+    margin: 0.5vw auto 37px;
 }
 
-.enter-input__input::placeholder{
-    color: #ced6eb;
+@media screen and (min-width: 800px){
+    .enter-pin .inputs-wrapper{
+        margin-top: 68px;
+    }
 }
-.enter-input__input{
-    border: 1px solid #ced6eb;
+.enter-pin .inputs-wrapper input{
+    width: 88px;
+    height: 96px;
+    border: none;
+    border-bottom: solid 1px #bdbec7;
+    font-size: 52px;
+    color: #292b3a;
+    text-align: center;
+}
+.enter-pin  .inputs-wrapper--invalid input{
+    border-bottom: solid 1px #e63f3f;
 }
 
-.sms{
-    margin-top: 30px;
-    margin-bottom: 25px;
-    font-size: 16px;
-    letter-spacing: 1px;
-    color: #000000;
+.enter-pin  .inputs-wrapper-error-text{
+    opacity: 0;
+    transition: 0.3s opacity ease;
+    color: #e63f3f;
+    text-transform: none;
+    font-weight: 600;
+    margin: 10px 0 0 10.56%;
+    min-height: 22px;
+    font-size: 14px;
 }
-.sms span{
-    color: #710fc9;
+.enter-pin .inputs-wrapper--invalid .inputs-wrapper-error-text{
+    opacity: 1;
+}
+@media screen and (max-width: 500px){
+    .enter-pin .inputs-wrapper input{
+        width: 55px;
+        height: 70px;
+        font-size: 38px;
+    }
 }
 
-.enter{
-    letter-spacing: 1px;
+.enter-pin .inputs-wrapper input::placeholder{
+    color: #bdbec7;
 }

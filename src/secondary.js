@@ -13,12 +13,14 @@ import setOrderAction from "./actions/ordersActions/setOrderAction";
 import setDriverInfo from "./actions/setDriverInfoAction";
 import setFavoritePoint from "./actions/setFavoritesPoints";
 import setMinimalPrice from "./actions/setMinimalPriceAction";
-import setTradesAction from './actions/tradesAction/setTradesAction'
 import Order from "./components/Order/Order/Order";
 import SearchDriver from "./components/Driver/SearchDriver/SearchDriver";
 import {logStoreState} from './utils';
 import DriverOffers from "./components/Driver/DriverOffers/DriverOffers";
 import setTradeAction from "./actions/tradesAction/setTradesAction"
+import DriverWait from "./components/Driver/DriverWait/DriverWait";
+import DriverRoad from "./components/Driver/DriverRoad/DriverRoad";
+import Races from "./components/Ride/Races/Races";
 
 
 export const store = createStore(taxiReducer,composeWithDevTools());
@@ -107,6 +109,18 @@ export const doSync = () =>{
         return;
     }
 
+    if(state.order.status === 3){
+        dispatch(changeScreenAction(<DriverRoad />));
+    }
+
+    if(state.order.status === 4){
+        dispatch(changeScreenAction(<DriverWait />));
+    }
+
+    if(state.order.status === 5){
+        dispatch(changeScreenAction(<Races/>))
+    }
+
 };
 
 
@@ -121,6 +135,7 @@ export const updateTrades = () =>{
             customConsole.log(e);
         })
 };
+
 
 export  const setPushListener = ()=>{
     window.FCMPlugin.onNotification((data) => {
@@ -144,16 +159,38 @@ export  const setPushListener = ()=>{
         }
 
         if(data.action === 'send_time_to_driver'){
-            console.log('ACTION:: send_time_to_driver');
-            //store.dispatch(changeScreenAction(<DriverOffers/>));
+            getUserInfo(store.getState().user.token)
+                .then(data => {
+                    setUserInfo(data);
+                    doSync();
+                    console.log(store.getState());
+                })
+                .catch(err => {
+                    customConsole.error(err);
+                    store.dispatch(changeScreenAction(<Login />));
+                    store.dispatch(clearTokenAction());
+                });
         }
 
         if(data.action === 'start_ride'){
             console.log('ACTION:: start_ride');
-            //store.dispatch(changeScreenAction(<Races/>));
+            getUserInfo(store.getState().user.token)
+                .then(data => {
+                    setUserInfo(data);
+                    doSync();
+                    console.log(store.getState());
+                })
+                .catch(err => {
+                    customConsole.error(err);
+                    store.dispatch(changeScreenAction(<Login />));
+                    store.dispatch(clearTokenAction());
+                });
         }
 
         if(data.action === 'end_ride'){
+            /*
+
+
             console.log('ACTION:: end_ride');
 
             let info = JSON.parse(data.info);
@@ -169,6 +206,9 @@ export  const setPushListener = ()=>{
             else{
                 info.order_price -=info.bonus;
             }
+
+             */
+
         }
     });
 };

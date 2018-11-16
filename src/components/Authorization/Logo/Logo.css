@@ -1,9 +1,35 @@
-.logo img {
-    width: 80%
+.logo-description{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
-.logo p {
-    color: #ffac00;
-    font-size: 21px;
-    margin-top: 15px
+.logo-description .logo{
+    width: 194px;
+    height: 194px;
+    margin: 0 auto;
+}
+
+.logo-description p{
+    color: #a5a6ac;
+    font-size: 26px;
+}
+
+.logo-description p.h1{
+    font-size: 52px;
+    color: #292b3a;
+    font-family: Roboto;
+    font-weight: 600;
+    margin: 30px 0 0 0;
+}
+@media screen and (max-width: 500px){
+    .logo-description p{
+        font-size: 16px;
+    }
+    .logo-description p.h1{
+        font-size: 36px;
+    }
+    .logo-description{
+        margin-bottom: 10px;
+    }
 }

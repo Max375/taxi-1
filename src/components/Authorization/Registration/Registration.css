@@ -1,15 +1,46 @@
-.enter-inputs label input {
-    margin-right: 15px;
-    display: inline-block;
-    vertical-align: middle;
-    width: auto;
-    text-indent: 0;
+.registration input{
+    display: block;
+    margin: 0 auto;
+    height: 55px;
+    font-size: 24px;
+    border: none;
+    border-bottom: solid 1px #a5a6ac;
+    width: 78.87%;
+    text-transform: uppercase;
+}
+.registration .first-input{
+    margin: 0 auto 0;
+}
+.registration .second-input{
+    margin: 0 auto 40px;
+}
+.registration .screen-wrapper--invalid input.input--invalid{
+    border-bottom: solid 1px #e63f3f;
 }
 
-.enter-inputs label{
-    font-size: 16px;
+.registration .screen-wrapper--invalid .registration-error-text{
+    opacity: 0;
+    transition: 0.3s opacity ease;
+    color: #e63f3f;
+    text-transform: none;
+    font-weight: 600;
+    margin: 0 0 0 10.56%;
 }
-
-input{
-    font-family: Ubuntu;
+.registration .screen-wrapper--invalid .registration-error-text{
+    opacity: 1;
+}
+@media screen and (max-width: 500px){
+    .registration input{
+        height: 35px;
+        font-size: 18px;
+    }
+    .registration .first-input{
+        margin: 0 auto 0;
+    }
+    .registration .second-input{
+        margin: 20px auto 35px;
+    }
+    .registration .screen-wrapper--invalid .registration-error-text{
+        margin: 35px 0 0 10.56%;
+    }
 }
