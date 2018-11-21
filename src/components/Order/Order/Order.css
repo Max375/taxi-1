@@ -6,23 +6,19 @@
     overflow: hidden;
 }
 
-@media (orientation: landscape){
-    .route-payment.container{
-        display: block;
-    }
-}
 
 .route-payment .route-payment-content{
     padding-top: 20px;
     height: calc(100vh - 231px);
     overflow: scroll;
 }
+/*
 @media screen and (max-height: 630px){
     .route-payment .route-payment-content{
         padding-bottom: 0;
         overflow: visible;
     }
-}
+}*/
 
 .route-payment .content-data-button-wrapper{
     font-size: 0;
@@ -80,10 +76,6 @@
     }
 }
 
-.route-payment .number-of-route.close{
-    background: url("../../../assets/img/plus-route-close.png") no-repeat top 50% left 50%;
-}
-
 .route-payment .additional-buttons{
     margin: 38px auto;
     display: flex;
@@ -111,38 +103,16 @@
     font-size: 32px;
     color: #9c64e2;
 }
-@media screen and (max-width: 580px){
-    .route-payment .shadowed-button{
-        height: 90px;
-        background-color: #fff;
-        box-shadow: 5px 5px 12px 2px #d5d4d4;
-        border-radius: 7px;
-    }
-    .route-payment .shadowed-button-title{
-        font-size: 16px;
-        font-weight: normal;
-        letter-spacing: 0px;
-        text-transform: lowercase;
-        margin-bottom: 2px;
-    }
-    .route-payment .shadowed-button-text{
-        font-size: 22px;
-    }
-}
+
+
 
 .route-payment footer{
     width: 100%;
     background-color: #fff;
-    position: relative;
-    overflow: hidden;
     transition: height 0.3s ease;
-    top: 30px;
-}
-
-.route-payment footer .footer-wp{
-    box-shadow: 0px -5px 10px #e7e8ef;
+    min-height: 330px;
+    box-shadow: 0px 5px 10px #e7e8ef;
     border-top: solid 1px #e7e8ef;
-    padding-bottom: 75px;
 }
 
 .route-payment .footer-text{
@@ -159,8 +129,9 @@
     width: 87.5%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: #292b3a;
-    font-size: 52px;
+    font-size: 45px;
 }
 .route-payment .price-container button{
     width: 29%;
@@ -176,21 +147,60 @@
 .route-payment .price-container .button-plus{
     background-color: #e2faec;
     color: #3ddc80;
+
 }
-@media screen and (max-width: 600px){
+
+@media screen and (max-width: 580px){
+    .route-payment footer {
+        min-height: 270px;
+    }
+    .route-payment .number-of-route{
+        width: 50px;
+        height: 50px;
+        right: 42px;
+        bottom: -19px;
+    }
+    .route-payment .shadowed-button{
+        height: 90px;
+        background-color: #fff;
+        box-shadow: 5px 5px 12px 2px #d5d4d4;
+        border-radius: 7px;
+    }
+    .route-payment .shadowed-button-title{
+        font-size: 16px;
+        font-weight: normal;
+        letter-spacing: 0px;
+        text-transform: lowercase;
+        margin-bottom: 2px;
+    }
+    .route-payment .shadowed-button-text{
+        font-size: 22px;
+    }
     .route-payment .calculated-price{
         font-size: 30px;
         display: flex;
-        align-items: center;
         padding-bottom: 10px;
     }
     .route-payment .price-container{
-        margin: 15px auto 35px ;
+        margin: 15px auto 66px ;
     }
     .route-payment .price-container button{
         font-size: 22px;
     }
     .route-payment .footer-text{
         padding-top: 15px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .route-payment footer {
+        min-height: 230px;
+    }
+    .route-payment .price-container button{
+        font-size: 16px;
+        height: 48px;
+        min-width: 90px;
+    }
+    .route-payment .calculated-price{
+        font-size: 20px;
     }
 }

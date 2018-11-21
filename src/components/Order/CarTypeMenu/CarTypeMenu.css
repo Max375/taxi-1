@@ -85,7 +85,7 @@
     padding-bottom: 20px;
 }
 
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 650px) {
     .route-payment .popup-title{
         font-size: 19px;
         margin-top: 20px;

@@ -6,7 +6,7 @@
     font-family: Roboto;
     font-size: 34px;
     width: 100%;
-    max-width: 767px;
+    /*max-width: 767px;*/
     text-transform: uppercase;
     letter-spacing: 1px;
     position: absolute;

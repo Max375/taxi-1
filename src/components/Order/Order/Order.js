@@ -18,6 +18,7 @@ import OrderOptions from '../OrderOptions/OrderOptions'
 import Comment from "../Comment/Comment";
 import {getDistance} from "../../../fetch/fetch";
 import setOrderPriceAction from "../../../actions/ordersActions/setOrderPriceAction";
+import PaymentMenu from "../PaymentMenu/PaymentMenu";
 
 
 class Order extends Component {
@@ -245,7 +246,7 @@ class Order extends Component {
 
 
                     <div className={'content-data-button-wrapper'}>
-                        <div className={'badge badge-c'} />
+                        <div className={this.props.order.wayPoint === null ? 'badge badge-b' : 'badge badge-c' } />
                         <AddressButton
                             onClick={this.selectEndPoint}
                             title={'куда'}
@@ -256,17 +257,15 @@ class Order extends Component {
                     <div className={'content-data-button-wrapper'}>
                         <div className={'badge pen'}/>
                         <AddressButton
-                            onClick={this.selectEndPoint}
-                            title={'куда'}
-                            mainText={this.props.order.endPoint.address || 'Не выбрано'}
+                            onClick={this.selectComment}
+                            title={'комментарий'}
+                            mainText={this.props.order.comment || 'Добавьте комментарий'}
                         />
                     </div>
                     <div className={'content-data-button-wrapper'}>
                         <div className={'badge card'} />
                         <AddressButton title={'способ оплаты'} mainText={null || 'Карта ****6789'}/>
                     </div>
-
-
 
                     <div className="additional-buttons">
 
@@ -300,7 +299,7 @@ class Order extends Component {
 
                 <CarTypeMenu isVisible = {this.state.isCarTypeMenuOpen} closeMenu={this.closeCarTypeMenu}/>
                 <OrderOptions isVisible = {this.state.isOptionsMenuOpen} closeMenu={this.closeOptionsMenu} />
-
+                <PaymentMenu/>
             </div>
         );
     }

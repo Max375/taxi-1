@@ -421,18 +421,6 @@ export const getStreet = function (street, token, deviceId) {
 
 
 export const getRacesHistory = function (page, token) {
-
-    const body = JSON.stringify({
-        action: 'get_races_history',
-        token: token,
-        data: {
-            page: page
-        }
-    });
-
-
-        customConsole.log('get_races_history request:', body);
-
     return fetch(URL,{
             method: 'POST',
             body: JSON.stringify({
@@ -454,41 +442,44 @@ export const getRacesHistory = function (page, token) {
 };
 
 
-export const usePromocode = function (promocode,token) {
 
-    const body = JSON.stringify({
+
+
+
+
+
+
+
+
+
+
+
+export const usePromocode = function (promocode,token) {
+    console.log('================ addPromocode REQUEST ===============');
+    console.log('body: ', JSON.stringify({
         action: 'add_bonus',
         token: token,
         data: {
             promocode: promocode
         }
-    });
-
-    customConsole.log('add_bonus request:', body);
+    }));
+    console.log('================ addPromocode REQUEST ===============');
 
     return fetch(URL,{
-            method: 'POST',
-            body: body
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'add_bonus',
+            token: token,
+            data: {
+                promocode: promocode
+            }
         })
-        .then(res =>{
-            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
-            return res.json();
-        })
-        .then(data =>{
-            customConsole.log('add_bonus response:', JSON.stringify(data));
-            return data;
-        });
+    }).then(res =>{
+        if(res.status !== HTTP_STATUS_OK) return Promise.reject(res.text());
+
+        return res.json();
+    })
 };
-
-
-
-
-
-
-
-
-
-
 
 export const invite_exist = function (invite) {
     console.log('================ send_time_to_driver REQUEST ===============');
