@@ -5,6 +5,7 @@
     max-width: 100vw;
     overflow: hidden;
 }
+
 @media (orientation: landscape){
     .route-payment.container{
         display: block;
@@ -18,7 +19,7 @@
 }
 @media screen and (max-height: 630px){
     .route-payment .route-payment-content{
-        padding-bottom: 0px;
+        padding-bottom: 0;
         overflow: visible;
     }
 }
@@ -69,7 +70,6 @@
     bottom: -28px;
     right: 85px;
     border-radius: 50%;
-    box-shadow: 5px 5px 12px #888888;
 }
 @media screen and (max-width: 580px){
     .route-payment .number-of-route{
@@ -132,13 +132,18 @@
 
 .route-payment footer{
     width: 100%;
-    border-top: solid 1px #e7e8ef;
     background-color: #fff;
-    padding-bottom: 97px;
-    box-shadow: 0px -5px 10px #e7e8ef;
     position: relative;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    top: 30px;
 }
 
+.route-payment footer .footer-wp{
+    box-shadow: 0px -5px 10px #e7e8ef;
+    border-top: solid 1px #e7e8ef;
+    padding-bottom: 75px;
+}
 
 .route-payment .footer-text{
     text-align: center;
@@ -189,87 +194,3 @@
         padding-top: 15px;
     }
 }
-
-
-
-
-/*--------------card-payment-popup--------------*/
-
-.route-payment .card-payment-popup.card-payment-popup{
-    display: none;
-}
-.route-payment .card-payment-popup.card-payment-popup--open{
-    display: block;
-}
-
-.route-payment .card-payment-popup.card-payment-popup label{
-    margin: 0 auto 25px;
-    padding: 13px 0px 15px 86px;
-}
-@media screen and (max-width: 650px) {
-    .route-payment .card-payment-popup.card-payment-popup label{
-        padding-right: 0;
-    }
-}
-@media screen and (max-width: 500px) {
-    .route-payment .card-payment-popup.card-payment-popup label{
-        font-size: 21px;
-        padding: 9px 38px 10px 69px;
-    }
-}
-
-.route-payment .card-payment-popup input#cash + label{
-    background: url("../../../assets/img/purse_gray.png") no-repeat left 6% top 50%;
-}
-.route-payment .card-payment-popup input#first-card + label{
-    background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
-}
-.route-payment .card-payment-popup input#second-card + label{
-    background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
-}
-.route-payment .card-payment-popup input#cash:checked + label{
-    background: url("../../../assets/img/purse_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
-    border: solid 2px #7664ca;
-    color: #7664ca;
-}
-.route-payment .card-payment-popup input#first-card:checked + label{
-    background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
-    border: solid 2px #7664ca;
-    color: #7664ca;
-}
-.route-payment .card-payment-popup input#second-card:checked + label{
-    background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
-    border: solid 2px #7664ca;
-    color: #7664ca;
-}
-
-.route-payment .button-add-card{
-    display: block;
-    height: 72px;
-    width: 78.87%;
-    border-radius: 35px;
-    margin: 23px auto 0;
-    color: #7664ca;
-    font-size: 26px;
-    text-transform: uppercase;
-    padding-left: 50px;
-    background: url("../../../assets/img/button_purse.png") no-repeat left 12% top 50%;
-    background-color: #ebe8f7;
-}
-
-@media screen and (max-width: 500px){
-    .route-payment .button-add-card{
-        font-size: 18px;
-        letter-spacing: 1px;
-    }
-}
-@media screen and (max-width: 389px){
-    .route-payment .button-add-card{
-        background: none;
-        padding-left: 0;
-        background-color: #ebe8f7;
-    }
-}
-
-
-/*----------------- 04_Заказ_допуслуги ----------------*/

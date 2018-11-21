@@ -126,11 +126,11 @@ class Select extends Component {
 
 
     generateOptions = () =>{
-        const staticOptions = this.props.constOptions.map(el=> <div key={el.value} className="options__elements"  data-value={el.value}>{el.label}</div>);
+        const staticOptions = this.props.constOptions.map(el=> <div key={el.value} className="options__elements"  data-value={el.value}><div>{el.label}</div></div>);
 
         let options;
 
-        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} className="options__elements" data-value={el.value}>{el.label}</div>);
+        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} className="options__elements" data-value={el.value}><div>{el.label}</div></div>);
 
 
         if (this.state.options.length + staticOptions.length === 0) options = (<div className="select__not-found">Ничего не найдено</div>);

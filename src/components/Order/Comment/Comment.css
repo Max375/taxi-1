@@ -15,9 +15,7 @@
         padding: 20px 5%;
     }
 }
-.feedback .flex-top{
 
-}
 
 .feedback p.h2{
     font-size: 32px;
@@ -34,7 +32,7 @@
     display: block;
     width: 100%;
     border: none;
-    min-height: 177px;
+    min-height: 377px;
     border-bottom: solid 1px #bdbec7;
     font-size: 32px;
     letter-spacing: -0.5px;

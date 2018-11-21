@@ -205,6 +205,7 @@ export const getDistance = function (startPoint, endPoints, token) {
         })
         .then(data =>{
             customConsole.log('get_recommended_price response:', JSON.stringify(data));
+            data.price = parseFloat(data.price);
             return data;
         });
 };
@@ -416,6 +417,35 @@ export const getStreet = function (street, token, deviceId) {
         })
     })
 };
+
+
+
+export const getRacesHistory = function (page, token) {
+    return fetch(URL,{
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'get_races_history',
+                token: token,
+                data: {
+                    page: page
+                }
+            })
+        })
+        .then(res =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('get_races_history response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+
+
+
+
 
 
 

@@ -1,16 +1,13 @@
 .select{
     position: absolute;
+    z-index: 100;
     width: 100%;
-    z-index: 10000;
 }
 
-
 .select__options{
-    /*border: 1px solid black;*/
     position: absolute;
-    z-index: 10000;
     left: 0;
-    top: 60px;
+    top: 90px;
     width: 100%;
     display: none;
 }
@@ -22,29 +19,30 @@
 input.select__input-field{
     display: block;
     width: 89%;
-    height: 90px;
+    height: 60px;
     border-radius: 45px;
     margin: 23px auto 0;
-    padding-left: 6.5%;
+    padding-left: 3%;
+    padding-right: 3%;
     border: none;
-    font-size: 30px;
+    font-size: 24px;
     color: #292b3a;
-    box-shadow: 0px 5px 35px 0px rgba(0, 1, 2, 0.12);;
+    box-shadow: 0px 5px 35px 0px rgba(0, 1, 2, 0.12);
 }
 @media screen and (max-width: 600px){
     input.select__input-field{
-        font-size: 25px;
+        font-size: 20px;
     }
 }
 @media screen and (max-width: 500px){
     input.select__input-field{
-        height: 50px;
+        height: 45px;
         font-weight: normal;
     }
 }
 @media screen and (max-width: 400px){
     input.select__input-field{
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 
@@ -54,37 +52,53 @@ input.select__input-field{
 }
 
 .options__elements{
-    font-size: 30px;
-    font-weight: 0;
+    font-size: 24px;
+    font-weight: normal;
+    display: table;
     width: 89%;
-    background: url("../../../assets/img/select_loupe.png") no-repeat top 50% left 5%;
+    background: url("../../../assets/img/select_loupe.png") no-repeat top 50% left 15px;
     background-color: #fff;
-    height: 90px;
+    background-size: 30px 30px;
+    min-height: 55px;
     margin: 0 auto;
     border-bottom: solid 1px #e7e8ef;
-    line-height: 82px;
-    padding-left: 15%;
-    box-shadow: 0px 5px 15px #c2c2c2;
+    line-height: normal;
+    padding: 15px 15px 15px 65px;
+    box-shadow: 0px 5px 35px 0px rgba(0, 1, 2, 0.12);
 }
+
+.options__elements div{
+    display: table-cell;
+    vertical-align: middle;
+}
+
 @media screen and (max-width: 600px){
     .options__elements{
-        font-size: 25px;
+        font-size: 20px;
     }
 }
+
 @media screen and (max-width: 500px){
     .options__elements{
-        height: 35px;
-        line-height: 50px;
+        min-height: 55px;
+        line-height: normal;
         font-weight: normal;
+        background-size: 23px 23px;
         background-color: #fff;
+        padding: 5px 5px 5px 55px;
     }
 }
 @media screen and (max-width: 400px){
     .options__elements{
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 .options__elements:last-child{
     border-bottom-left-radius: 13px;
     border-bottom-right-radius: 13px;
+}
+
+.options__elements:first-child{
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
 }

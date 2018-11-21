@@ -17,17 +17,17 @@
 }
 .data-button .title{
     color: #abadb6;
-    font-size: 20px;
+    font-size: 16px;
     text-align: left;
     letter-spacing: 0.5px;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: normal;
     text-transform: uppercase;
 }
 
 .data-button .main-text{
     color: #292b3a;
-    font-size: 38px;
+    font-size: 26px;
     text-align: left;
 }
 @media screen and (max-width: 640px){
@@ -37,7 +37,7 @@
         margin-bottom: 0px;
     }
     button.data-button .main-text{
-        font-size: 30px;
+        font-size: 24px;
     }
 }
 @media screen and (max-width: 480px){
@@ -47,5 +47,9 @@
     }
     button.data-button .main-text{
         font-size: 21px;
+    }
+    button.data-button{
+        -webkit-background-size: 16px 16px;
+        background-size: 12px 25px;
     }
 }

@@ -6,6 +6,7 @@ import carClassComfort from "../../../assets/img/car_class_comfort.png";
 import carClassVan from "../../../assets/img/car_class_van.png";
 import connect from "react-redux/es/connect/connect";
 import setOrderCarTypeAction from '../../../actions/ordersActions/setOrderCarTypeAction';
+import {logStoreState} from "../../../utils";
 function CarTypeMenu(props) {
 
 
@@ -39,6 +40,7 @@ function CarTypeMenu(props) {
 
     const onChangeHandler = (e)=>{
         props.dispatch(setOrderCarTypeAction(e.target.value));
+        logStoreState();
     };
 
     return (

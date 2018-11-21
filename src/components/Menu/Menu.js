@@ -2,6 +2,8 @@ import React from 'react';
 import './Menu.css'
 import connect from "react-redux/es/connect/connect";
 import DriverMenu from '../../assets/img/driver_menu.png';
+import changeScreenAction from "../../actions/changeScreenAction";
+import TripHistory from "../MenuScreens/TripHistory/TripHistory";
 
 
 function Menu(props) {
@@ -63,7 +65,7 @@ function Menu(props) {
 
                 <div ref={(el)=>{buttons = el}} onTouchStart={onTouchStartButtons} onTouchEnd={onTouchEndButtons} className={'button-block'}>
                     <button className={'taxi-request'}>Заказ такси</button>
-                    <button className={'trips-history'}>История поездок</button>
+                    <button onClick={()=>{props.dispatch(changeScreenAction(<TripHistory/>))}} className={'trips-history'}>История поездок</button>
                     <button className={'favorite-addresses'}>Любимые адреса</button>
                     <button className={'payment-method more-space-bottom'}>Способ оплаты</button>
 

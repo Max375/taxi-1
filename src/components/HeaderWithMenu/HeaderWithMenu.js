@@ -15,7 +15,7 @@ class HeaderWithMenu extends React.Component {
         return (
             <React.Fragment>
                 <div className={'header-type-two'}>
-                    <button onClick={this.openMenu} className={'header-burger-menu'}></button>
+                    <button onClick={this.openMenu} className={'header-burger-menu'} />
                     <p className={'header__title'}> {this.props.headerTitle}</p>
                 </div>
                 <Menu closeMenu={this.closeMenu} isOpen={this.state.isMenuVisible}/>

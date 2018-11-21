@@ -1,261 +1,236 @@
 
-.order-wp{
-    padding: 0 15px;
+.route-payment.container{
+    flex-direction: column;
     width: 100%;
-    display: flex;
-    margin-bottom: 15px;
-    box-sizing: border-box;
 }
 
-.order-wp .entrance{
-    width: 100px;
-    margin: 0 0 0 15px;
-    text-align: center;
-    padding: 0 10px;
-    line-height: 38px;
-    flex-shrink: 0;
-    color: black;
-    font-size: 16px;
-    text-indent: 0;
+
+.route-payment .content-data-button-wrapper{
+    font-size: 0;
+    vertical-align: top;
+    position: relative;
 }
 
-.order-econom img,.dop-services img{
-    display: none;
-}
-
-.order-econom-active img, .dop-services-active img{
+.route-payment .content-data-button-wrapper .badge{
+    width: 118px;
+    height: 117px;
     display: inline-block;
-    width: 20px;
-    margin-left: 10px;
 }
 
-.dop-services-active img{
-    margin: 0;
+
+.route-payment .content-data-button-wrapper .badge-a{
+    background: url("../../../assets/img/route-a-bgr.png") no-repeat top 50% left 50%;
+}
+.route-payment .content-data-button-wrapper .badge-b{
+    background: url("../../../assets/img/route-b-bgr.png") no-repeat top 50% left 50%;
+}
+.route-payment .content-data-button-wrapper .badge-c{
+    background: url("../../../assets/img/route-c-bgr.png") no-repeat top 50% left 50%;
+}
+.route-payment .content-data-button-wrapper .pen{
+    background: url("../../../assets/img/pen.png") no-repeat top 50% left 50%;
+}
+.route-payment .content-data-button-wrapper .card{
+    background: url("../../../assets/img/card.png") no-repeat top 50% left 50%;
+}
+@media screen and (max-width: 580px){
+    .route-payment .content-data-button-wrapper .badge {
+        width: 93px;
+        height: 93px;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+    }
 }
 
-.dop-services-active span{
-    display: none;
+.route-payment .number-of-route{
+    display: block;
+    width: 92px;
+    height: 92px;
+    position: absolute;
+    bottom: -45px;
+    right: 85px;
+    z-index: 1;
+    background: none;
+    border-radius: 30%;
 }
-
-.order-wp .order-input{
-    width: 100%;
-    font-size: 16px;
+.route-payment .number-of-route .button-picture-btn{
+    width: 62px;
+    height: 62px;
+    margin: 0 auto;
+    background: url("../../../assets/img/plus-route.png") no-repeat top 50% left 50%;
+    border-radius: 50%;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
 }
-
-.comment-text{
-    box-sizing: border-box;
-    margin-top: 20px;
-    width: 100%;
-    border: none;
-    border-top: 1px solid #ced6eb;
-    border-bottom: 1px solid #ced6eb;
-    outline: 0;
-    height: 59px;
-    padding: 15px 17px;
-    resize: none;
-    font-size: 16px;
-    color: #ced6eb;
+.route-payment .number-of-route.close .button-picture-btn{
+    background: url("../../../assets/img/plus-route-close.png") no-repeat top 50% left 50%;
 }
-
-.order-econom{
-    background-color: #ffac00;
-    border-radius: 5px;
-    color: #fff;
-    border: 0;
-    font-size: 16px;
-    border: 1px solid #ffac00;
+@media screen and (max-width: 620px){
+    .route-payment .number-of-route{
+        width: 82px;
+        height: 82px;
+        bottom: -35px;
+        right: 35px;
+    }
+    .route-payment .number-of-route .button-picture-btn{
+        width: 50px;
+        height: 50px;
+    }
 }
-
-.dop-services,
-.order-econom {
-    text-align: center;
-    margin: 20px 10px 30px 10px;
-    width: 40%;
-    display: inline-block;
-    font-size: 16px;
-    padding: 12px 0;
+@media screen and (max-width: 500px){
+    .route-payment .number-of-route{
+        width: 70px;
+        height: 70px;
+        bottom: -28px;
+        right: 30px;
+    }
 }
+/*@media screen and (max-width: 500px){*/
+/*.route-payment .number-of-route{*/
+/*width: 92px;*/
+/*height: 92px;*/
+/*bottom: -45px;*/
+/*right: 85px;*/
+/*border: solid 1px red;*/
+/*}*/
+/*.route-payment .number-of-route .button-picture-btn{*/
+/*width: 50px;*/
+/*height: 50px;*/
 
-.order-econom {
-    background-color: #ffac00;
-    -webkit-border-radius: 5px;
-    border-radius: 5px
-}
+/*}*/
+/*}*/
 
-.order-econom-active{
-    border: 1px solid #ffac00;
-    color: #ffac00;
-    background-color: transparent;
-}
 
-.dop-services{
-    font-size: 16px;
-    background-color: #710fc9;
-    border-radius: 5px;
-    color: #fff;
-    border: 0;
-    border: 1px solid #710fc9;
-}
+/*.route-payment .number-of-route.close{*/
+/*background: url("../../assets/img/plus-route-close.png") no-repeat top 50% left 50%;*/
+/*}*/
 
-.dop-services-active{
-    border: 1px solid #710fc9;
-    background-color: transparent;
-    color: #710fc9;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.btn-wp{
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-}
-
-.price {
-    margin: 30px 0;
-    font-size: 16px;
-    color: #ced6eb;
-    text-align: left;
-    padding: 0 15px;
-}
-
-.price-count{
-    color: #710fc9;
-    font-size: 32px;
-    font-weight: 900;
-    margin-top: 10px;
-}
-
-.price-count span{
-    color: #ffab04;
-    margin-left: 10px;
-    font-size: 32px;
-}
-
-.numbers {
+.route-payment .additional-buttons{
+    margin: 38px auto;
     display: flex;
     justify-content: space-between;
+    width: 92%;
+}
+.route-payment .shadowed-button{
+    width: 47%;
+    height: 132px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+}
+.route-payment .shadowed-button-title{
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #abadb6;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.route-payment .shadowed-button-text{
+    font-size: 32px;
+    color: #9c64e2;
+}
+@media screen and (max-width: 580px){
+    .route-payment .shadowed-button{
+        height: 90px;
+        background-color: #fff;
+        box-shadow: 5px 5px 12px 2px #d5d4d4;
+        border-radius: 7px;
+    }
+    .route-payment .shadowed-button-title{
+        font-size: 16px;
+        font-weight: normal;
+        letter-spacing: 0px;
+        text-transform: lowercase;
+        margin-bottom: 2px;
+    }
+    .route-payment .shadowed-button-text{
+        font-size: 22px;
+    }
+}
+
+.route-payment footer{
     width: 100%;
-    margin-top: 20px;
-    align-items: flex-end;
+    border-top: solid 1px #e7e8ef;
+    background-color: #fff;
+    padding-bottom: 97px;
+    box-shadow: 0px -5px 10px #e7e8ef;
+    position: relative;
 }
 
-.numbers .minus, .numbers .count, .numbers .plus {
-    display: inline-block;
-    font-size: 45px;
-    color: #fff;
-    width: 80px;
-    height: 70px;
-    border: none;
-}
 
-.numbers .minus, .numbers .plus {
-    background-color: #e9ecf2;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.numbers .count{
+.route-payment .footer-text{
     text-align: center;
-    color: #e9ecf2;
-    font-size: 45px;
+    color: #abadb6;
+    font-weight: 600;
+    padding: 40px 0 14px 0;
+}
+.route-payment .footer-text.second{
+    padding: 0px;
+}
+.route-payment .price-container{
+    margin: 35px auto 49px;
+    width: 87.5%;
+    display: flex;
+    justify-content: space-between;
+    color: #292b3a;
+    font-size: 52px;
+}
+.route-payment .price-container button{
+    width: 29%;
+    min-width: 86px;
+    height: 87px;
+    border-radius: 43px;
+    font-size: 28px;
 }
 
-.numbers-active .count span{
-    font-size: 45px;
-    color: #ffab04;
+.route-payment .price-container .button-minus{
+    background-color: #f9e3e8;
+    color: #da4665;
+}
+.route-payment .price-container .button-plus{
+    background-color: #e2faec;
+    color: #3ddc80;
+}
+@media screen and (max-width: 600px){
+    .route-payment .calculated-price{
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+    .route-payment .price-container{
+        margin: 15px auto 35px ;
+    }
+    .route-payment .price-container button{
+        font-size: 22px;
+    }
+    .route-payment .footer-text{
+        padding-top: 15px;
+    }
+}
+@media screen and (max-width: 500px){
+    .route-payment .price-container button{
+        height: 46px;
+        border-radius: 23px;
+        font-size: 18px;
+    }
+    .route-payment .footer-text{
+        padding: 15px 0 0 0;
+        font-weight: normal;
+        font-size: 14px;
+
+    }
+    .route-payment footer{
+        padding-bottom: 45px;
+    }
+    .route-payment .calculated-price{
+        font-size: 22px;
+        padding: 0 0 0 0 ;
+    }
 }
 
-
-
-body .react-select__control{
-    background-color: transparent;
-    border: 1px solid #ced6eb;
+@media screen and (max-height: 500px){
+    .route-payment.container{
+        display: block;
+    }
 }
-
-body .react-select__control:hover{
-    border: 1px solid #ced6eb;
-}
-
-body .react-select__control--is-focused{
-    box-shadow: none;
-    border: 1px solid #ced6eb;
-}
-
-.pay-type .select__control {
-    background-color: transparent;
-    border: 1px solid #ced6eb;
-    border-width: 1px 0 1px 0;
-    border-radius: 0;
-}
-
-
-.pay-type .select__control:hover{
-    background-color: transparent;
-    border: 1px solid #ced6eb;
-}
-
-
-body .select__control--is-focused{
-    box-shadow: none;
-    border: 1px solid #ced6eb;
-}
-
-body .select__dropdown-indicator{
-    display: none;
-}
-
-body .select__indicators{
-    display: none;
-}
-.numbers .plus-active{
-    display: inline-block;
-    font-size: 45px;
-    color: #fff;
-    width: 80px;
-    height: 70px;
-    border: none;
-    background-color: #00b600;
-}
-
-.numbers .minus-active{
-    display: inline-block;
-    font-size: 45px;
-    color: #fff;
-    width: 80px;
-    height: 70px;
-    border: none;
-    background-color: #f24841;
-}
-
-.to-order {
-    width: 100%;
-    background-color: #710fc9;
-    text-align: center;
-    display: inline-block;
-    padding: 25px 0;
-    font-size: 16px;
-    color: #ffffff;
-    font-size: 24px;
-    border: none;
-}
-
-.plus-dot {
-    font-size: 16px;
-    text-align: right;
-    color: #710fc9;
-    margin: 5px 0;
-    background-color: transparent;
-    border: 0px;
-    float: right;
-}
-
-.plus-dot:focus{
-    outline: 0px;
-}
-
-.plus-dot-invisible{
-    visibility: hidden;
-}
-

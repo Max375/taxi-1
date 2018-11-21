@@ -1,6 +1,6 @@
 .map-marker{
     position: absolute;
-    z-index: 10000;
+    z-index: 99;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-100%);

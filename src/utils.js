@@ -3,6 +3,8 @@ import {store} from "./secondary";
 
 const isDebug = true;
 
+export const PRICE_STAP = 0.5;
+
 export const customConsole = {
     log: (...args) => {
         if (isDebug){
@@ -228,3 +230,37 @@ export const isEnterPressed = (e) => {
 
         return false;
 };
+
+
+export function collapseSection(element) {
+    let sectionHeight = element.scrollHeight;
+
+    let elementTransition = element.style.transition;
+    element.style.transition = '';
+
+    requestAnimationFrame(function() {
+        element.style.height = sectionHeight + 'px';
+        element.style.transition = elementTransition;
+
+        requestAnimationFrame(function() {
+            element.style.height = 0 + 'px';
+        });
+    });
+}
+
+
+export  function expandSection(element) {
+    let sectionHeight = element.scrollHeight;
+
+
+    function expandSectionListener(){
+        element.removeEventListener('transitionend', expandSectionListener);
+        element.classList.remove('task-block--close');
+        element.style.height = 'auto';
+    }
+
+
+    element.style.height = sectionHeight + 'px';
+
+    element.addEventListener('transitionend', expandSectionListener);
+}

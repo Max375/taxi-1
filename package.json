@@ -21,6 +21,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-multi": "^0.1.12",
     "require": "^2.4.20",
+    "throttle-debounce": "^2.0.1",
     "underscore": "^1.9.1"
   },
   "scripts": {
