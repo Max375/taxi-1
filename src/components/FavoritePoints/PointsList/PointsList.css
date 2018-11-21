@@ -1,0 +1,60 @@
+.my-addresses .calc-content{
+    padding: 19px 74px 0 74px;
+    font-weight: normal;
+}
+
+.my-addresses .saved-address{
+    height: 135px;
+    display: flex;
+    align-items: center;
+}
+
+.my-addresses .star-area{
+    width: 70px;
+}
+
+.my-addresses .address-area{
+    border-bottom: solid 2px #e7e8ef;
+    width: 100%;
+    height: 100%;
+}
+
+.my-addresses .your-address-name{
+    font-size: 37px;
+    padding: 21px 0 1px 0;
+}
+
+.my-addresses .map-point{
+    font-size: 26px;
+    padding: 0;
+    color: #abadb6;
+}
+
+@media screen and (max-width: 600px){
+    .my-addresses .calc-content{
+        padding: 15px 45px 0 45px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .my-addresses .calc-content{
+        padding: 15px 25px 0 15px;
+    }
+    .my-addresses .saved-address{
+        height: 90px;
+    }
+    .my-addresses .your-address-name{
+        font-size: 25px;
+        padding: 14px 0 1px 0;
+    }
+
+    .my-addresses .map-point{
+        font-size: 16px;
+    }
+    .my-addresses .star-area {
+        width: 60px;
+    }
+    .my-addresses .star-area img{
+        transform: scale(0.7);
+    }
+}

@@ -5,6 +5,11 @@ import connect from "react-redux/es/connect/connect";
 import './Promocodes.css';
 import {getUserInfo, usePromocode} from '../../fetch/fetch'
 import setUserInfoAction from "../../actions/setUserInfoAction";
+import {customConsole} from "../../utils";
+import changeScreenAction from "../../actions/changeScreenAction";
+import Login from "../Authorization/Login/Login";
+import clearTokenAction from "../../actions/clearTokenAction";
+import {doSync, setUserInfo} from "../../secondary";
 
 class Promocodes extends Component {
 
@@ -44,8 +49,14 @@ class Promocodes extends Component {
                                         });
 
                                         getUserInfo(this.props.user.token)
-                                            .then((data)=> {
-                                                this.props.dispatch(setUserInfoAction(data.user_info.info, this.props.user.token));
+                                            .then(data => {
+                                                setUserInfo(data);
+                                                doSync();
+                                            })
+                                            .catch(err => {
+                                                customConsole.error(err);
+                                                this.props.dispatch(changeScreenAction(<Login />));
+                                                this.props.dispatch(clearTokenAction());
                                             });
 
                                     })
