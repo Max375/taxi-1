@@ -160,6 +160,25 @@ class Select extends Component {
                     onClick={options.length  === 0 ? null : this.onClickHandler}
                     className={this.state.isSelectOpen ? "select__options select__options--open" : "select__options"}
                 >
+
+                <div className={'select-favorite-point'}>
+                    Дом
+                    <div className={'favorite-point-address'}>
+                        Асаналиева 18
+                    </div>
+                </div>
+                <div className={'select-favorite-point'}>
+                    Студентка (кажется Зинка), с которой познакомились в день города у Стеллы
+                    <div className={'favorite-point-address'}>
+                        Орловская 58, копр.1
+                    </div>
+                </div>
+                <div className={'select-favorite-point'}>
+                    Вася из гаражей (чинил заднюю подвеску)
+                    <div className={'favorite-point-address'}>
+                        Стебенева 12
+                    </div>
+                </div>
                     {options}
                 </div>
             </div>

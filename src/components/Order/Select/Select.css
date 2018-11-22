@@ -46,11 +46,6 @@ input.select__input-field{
     }
 }
 
-.select__not-found{
-    font-size: 16px;
-    display: block;
-}
-
 .options__elements{
     font-size: 24px;
     font-weight: normal;
@@ -101,4 +96,50 @@ input.select__input-field{
 .options__elements:first-child{
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
+}
+
+.select .select__not-found{
+    background-color: #fff;
+    min-height: 55px;
+    color:#babcc8;
+    text-align: center;
+    border-radius: 13px;
+    width: 89%;
+    margin: 0 auto;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 0 0 0 0px;
+    line-height: 50px;
+}
+
+
+
+.select .select-favorite-point{
+    font-size: 24px;
+    font-weight: normal;
+    display: table;
+    width: 89%;
+    background: url("../../../assets/img/select_star.png") no-repeat top 50% left 15px;
+    background-color: #fff;
+    background-size: 30px 30px;
+    min-height: 55px;
+    margin: 0 auto;
+    border-bottom: solid 1px #e7e8ef;
+    line-height: normal;
+    padding: 15px 15px 15px 65px;
+    -webkit-box-shadow: 0px 5px 35px 0px rgba(0, 1, 2, 0.12);
+    box-shadow: 0px 5px 35px 0px rgba(0, 1, 2, 0.12);
+}
+
+.select .favorite-point-address{
+    font-size: 16px;
+    color: #abadb6;
+}
+@media screen and (max-width: 600px) {
+    .select .select-favorite-point{
+        font-size: 20px;
+    }
+    .select .favorite-point-address{
+        font-size: 15px;
+    }
 }
