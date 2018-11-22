@@ -5,8 +5,6 @@ import TopBar from "../../TopBar/TopBar";
 import RoadMap from '../RoadMap/RoadMap'
 import connect from "react-redux/es/connect/connect";
 import CancelOrderMenu from "../CancelOrderMenu/CancelOrderMenu"
-import {cancelOrder} from "../../../fetch/fetch";
-import changeScreenAction from "../../../actions/changeScreenAction";
 import {carModelCheck} from "../../../utils";
 
 
