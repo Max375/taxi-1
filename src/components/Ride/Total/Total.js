@@ -2,9 +2,6 @@ import React , {Component} from 'react';
 
 import './Total.css';
 import TopBar from "../TopBar/TopBar";
-import Time from '../../assets/img/time.png'
-import Phone from '../../assets/img/phone.png'
-import Vw from '../../assets/img/vw.png'
 import connect from "react-redux/es/connect/connect";
 import changeScreenAction from "../../actions/changeScreenAction";
 import clearDriverInfo from "../../actions/clearDriverInfo";

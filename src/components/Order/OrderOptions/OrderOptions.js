@@ -53,10 +53,9 @@ function OptionsMenu(props){
         logStoreState();
     };
 
-    //onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler}
         return (
             <React.Fragment>
-                <div  className={props.isVisible? "left-popup-menu additional-services additional-services--open": "left-popup-menu additional-services"}>
+                <div onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler}  className={props.isVisible? "left-popup-menu additional-services additional-services--open": "left-popup-menu additional-services"}>
                     <div className="left-popup-menu-content">
                         <div className="flex-top-wrapper">
                             <p className={'popup-title'}>Дополнительные услуги</p>

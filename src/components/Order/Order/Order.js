@@ -27,6 +27,7 @@ class Order extends Component {
     state = {
         isCarTypeMenuOpen: false,
         isOptionsMenuOpen: false,
+        isPaymentMenuOpen: false,
         recommendedPrice: null,
         orderDistance: null,
         price: 0,
@@ -55,6 +56,15 @@ class Order extends Component {
         this.setState({isOptionsMenuOpen: false});
     };
 
+
+    closePaymentMenu = ()=>{
+        this.setState({isPaymentMenuOpen: false});
+    };
+
+
+    openPaymentMenu = ()=>{
+        this.setState({isPaymentMenuOpen: true});
+    };
 
     addWayPoint = ()=>{
       this.props.dispatch(addOrderWayPointAction());
@@ -264,7 +274,10 @@ class Order extends Component {
                     </div>
                     <div className={'content-data-button-wrapper'}>
                         <div className={'badge card'} />
-                        <AddressButton title={'способ оплаты'} mainText={null || 'Карта ****6789'}/>
+                        <AddressButton
+                            onClick={this.openPaymentMenu}
+                            title={'способ оплаты'}
+                            mainText={null || 'Карта ****6789'}/>
                     </div>
 
                     <div className="additional-buttons">
@@ -299,7 +312,7 @@ class Order extends Component {
 
                 <CarTypeMenu isVisible = {this.state.isCarTypeMenuOpen} closeMenu={this.closeCarTypeMenu}/>
                 <OrderOptions isVisible = {this.state.isOptionsMenuOpen} closeMenu={this.closeOptionsMenu} />
-                <PaymentMenu/>
+                <PaymentMenu isVisible = {this.state.isPaymentMenuOpen} closeMenu={this.closePaymentMenu}/>
             </div>
         );
     }

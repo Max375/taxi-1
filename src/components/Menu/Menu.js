@@ -4,7 +4,7 @@ import connect from "react-redux/es/connect/connect";
 import DriverMenu from '../../assets/img/driver_menu.png';
 import changeScreenAction from "../../actions/changeScreenAction";
 import TripHistory from "../MenuScreens/TripHistory/TripHistory";
-import PointsList from "../FavoritePoints/PointsList/PointsList";
+import PointsList from "../MenuScreens/PointsList/PointsList";
 import PromoCode from "../MenuScreens/PromoCode/PromoCode";
 import clearTokenAction from "../../actions/clearTokenAction";
 import Login from "../Authorization/Login/Login";

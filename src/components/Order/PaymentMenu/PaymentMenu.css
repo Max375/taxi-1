@@ -1,9 +1,15 @@
 
 .route-payment .card-payment-popup{
-    /*display: none;*/
+    transform: translateX(100%);
+    transition: 0.15s ease transform;
+    z-index: 10000;
+    position: absolute;
 }
+
 .route-payment .card-payment-popup.card-payment-popup--open{
-    display: block;
+    transform: translateX(0);
+    transition: 0.3s ease transform;
+
 }
 
 .route-payment .card-payment-popup label{
@@ -15,6 +21,34 @@
     margin: 0 0 25px 0;
     padding: 13px 0px 15px 86px;
 }
+
+
+.route-payment .card-payment-popup + .black-bg{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+.route-payment .card-payment-popup.card-payment-popup--open + .black-bg{
+    display: block;
+    opacity: 0;
+    animation: ease 0.15s bg;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bg {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+
 @media screen and (max-width: 650px) {
     .route-payment .card-payment-popup label{
         padding-right: 0;
