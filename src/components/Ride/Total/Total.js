@@ -7,7 +7,6 @@ import Phone from '../../assets/img/phone.png'
 import Vw from '../../assets/img/vw.png'
 import connect from "react-redux/es/connect/connect";
 import changeScreenAction from "../../actions/changeScreenAction";
-import Order from "../OrderOld/OrderOld/OrderOld";
 import clearDriverInfo from "../../actions/clearDriverInfo";
 import clearOrderInfo from "../../actions/ordersActions/removeOrderAction";
 import {setRating} from "../../fetch/fetch"

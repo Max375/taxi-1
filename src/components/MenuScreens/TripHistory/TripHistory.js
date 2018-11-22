@@ -5,6 +5,7 @@ import connect from "react-redux/es/connect/connect";
 import {getRacesHistory} from '../../../fetch/fetch'
 import Trip from '../Trip/Trip';
 import {customConsole, throttle} from "../../../utils";
+import {doSync} from "../../../secondary";
 
 class TripHistory  extends Component {
 
@@ -13,7 +14,6 @@ class TripHistory  extends Component {
         page: 0,
     };
 
-    tripHistory = null;
 
     scrollHandler = throttle((e)=>{
         console.log(window.innerHeight - e.target.scrollTop);
@@ -30,16 +30,12 @@ class TripHistory  extends Component {
             .catch((err)=>{
                 customConsole.log(err);
             });
-        this.tripHistory.addEventListener('scroll',this.scrollHandler);
     }
 
-    componentWillUnmount(){
-        this.tripHistory.removeEventListener('scroll',this.scrollHandler);
-    }
 
     render(){
         return(
-            <div ref={el=>{this.tripHistory = el}} className={'trip-history container'}>
+            <div onClick={doSync} className={'trip-history container'}>
                 <HeaderTypeOne headerTitle={'История поездок'}/>
                 <div className="calc-content without-footer">
                     {this.state.history.map(el=><Trip key={el.id} info={el} />)}
