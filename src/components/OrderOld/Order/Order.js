@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {getDistance, createOrder, HTTP_STATUS_OK, addressAutocomplete} from '../../../fetch/fetch'
 
-import './Order.css';
 
 import TopBar from "../../TopBar/TopBar";
 

@@ -97,8 +97,8 @@ export const convertFavoritePointsFromBackEnd = (data) => {
             title: el.title,
             address: el.location_text,
             location: {
-                lat: parseFloat(el.location.lat),
-                lon: parseFloat(el.location.lon)
+                lat: parseFloat(el.lat),
+                lon: parseFloat(el.lon)
             }
         }
     });

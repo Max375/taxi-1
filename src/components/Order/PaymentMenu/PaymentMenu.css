@@ -1,47 +1,52 @@
-.route-payment .left-popup-menu.card-payment-popup{
-    display: none;
+
+.route-payment .card-payment-popup{
+    /*display: none;*/
 }
-.route-payment .left-popup-menu.card-payment-popup--open{
+.route-payment .card-payment-popup.card-payment-popup--open{
     display: block;
 }
 
-.route-payment .left-popup-menu.card-payment-popup label{
-    margin: 0 auto 25px;
+.route-payment .card-payment-popup label{
+    display: block;
+    border: solid 2px #dbdde7;
+    border-radius:10px;
+    width: 100%;
+    color:#babcc8;
+    margin: 0 0 25px 0;
     padding: 13px 0px 15px 86px;
 }
 @media screen and (max-width: 650px) {
-    .route-payment .left-popup-menu.card-payment-popup label{
-        /*padding-left: 45%;*/
+    .route-payment .card-payment-popup label{
         padding-right: 0;
     }
 }
 @media screen and (max-width: 500px) {
-    .route-payment .left-popup-menu.card-payment-popup label{
+    .route-payment .card-payment-popup label{
         font-size: 21px;
         padding: 9px 38px 10px 69px;
     }
 }
 
-.route-payment .left-popup-menu input#cash + label{
+.route-payment .card-payment-popup input#cash + label{
     background: url("../../../assets/img/purse_gray.png") no-repeat left 6% top 50%;
 }
-.route-payment .left-popup-menu input#first-card + label{
+.route-payment .card-payment-popup input#first-card + label{
     background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
 }
-.route-payment .left-popup-menu input#second-card + label{
+.route-payment .card-payment-popup input#second-card + label{
     background: url("../../../assets/img/card_gray.png") no-repeat left 6% top 50%;
 }
-.route-payment .left-popup-menu input#cash:checked + label{
+.route-payment .card-payment-popup input#cash:checked + label{
     background: url("../../../assets/img/purse_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
     border: solid 2px #7664ca;
     color: #7664ca;
 }
-.route-payment .left-popup-menu input#first-card:checked + label{
+.route-payment .card-payment-popup input#first-card:checked + label{
     background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
     border: solid 2px #7664ca;
     color: #7664ca;
 }
-.route-payment .left-popup-menu input#second-card:checked + label{
+.route-payment .card-payment-popup input#second-card:checked + label{
     background: url("../../../assets/img/card_purple.png") no-repeat left 6% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4% top 50%;
     border: solid 2px #7664ca;
     color: #7664ca;
@@ -74,3 +79,4 @@
         background-color: #ebe8f7;
     }
 }
+

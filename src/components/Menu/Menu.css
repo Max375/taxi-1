@@ -4,7 +4,7 @@
     background-image: -webkit-linear-gradient( -170deg, rgb(100,126,249) 0%, rgb(133,75,178) 100%);
     background-image: -ms-linear-gradient( -170deg, rgb(100,126,249) 0%, rgb(133,75,178) 100%);
     box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.25);
-    padding: 15px 15px 0 15px;
+    padding: 30px 35px 0 35px;
 }
 
 .menu{
@@ -48,7 +48,7 @@
 
 
 .menu .menu-header{
-    padding: 27px 0 50px 0;
+    padding: 0 0 30px 0;
 }
 
 .menu img{
@@ -58,19 +58,21 @@
 }
 
 .menu .driver-name{
-    font-size: 40px;
+    font-size: 30px;
     color: #fff;
     font-weight: 600;
-    margin-bottom: 22px;
+    margin-bottom: 14px;
 }
 
 .menu .bonus-account{
-    font-size: 26px;
+    font-size: 20px;
     font-weight: normal;
     color: #ffe613;
-    padding-left: 44px;
-    margin-bottom: 22px;
+    padding: 1px 0 0 39px;
+    margin-bottom: 17px;
     background: url("../../assets/img/gift.png") no-repeat top 35% left;
+    -webkit-background-size: contain;
+    background-size: contain;
 }
 .menu .mileage{
     font-size: 24px;
@@ -79,19 +81,11 @@
 }
 
 .menu .button-block{
-    height: calc(100vh - 367px);
+    height: calc(100vh - 307px);
     overflow: scroll;
 }
 
-.menu .button-block button{
-    display: block;
-    background: none;
-    font-size: 30px;
-    color: #fffefe;
-    height: 42px;
-    padding-left: 65px;
-    margin: 0 0 51px 0;
-}
+
 /*.menu .button-block button.more-space-bottom{*/
 /*margin: 0 0 59px 0;*/
 /*}*/
@@ -102,7 +96,17 @@
     width: 60%;
     height: 2px;
     background-color: #9a75c9;
-    margin: 6px 0 56px 0;
+    margin: 6px 0 26px 0;
+}
+
+.menu .button-block button{
+    display: block;
+    background: none;
+    font-size: 24px;
+    color: #fffefe;
+    height: 31px;
+    padding-left: 48px;
+    margin: 0 0 28px 0;
 }
 
 .menu .button-block button.taxi-request{
@@ -133,22 +137,37 @@
     background: url("../../assets/img/exit.png") no-repeat top 50% left;
 }
 
+.menu .button-block button.taxi-request,
+.menu .button-block button.trips-history,
+.menu .button-block button.favorite-addresses,
+.menu .button-block button.payment-method,
+.menu .button-block button.settings,
+.menu .button-block button.become-to-driver,
+.menu .button-block button.promo-code-btn,
+.menu .button-block button.tech-support,
+.menu .button-block button.exit{
+    background-size: contain;
+}
+
 @media screen and (max-width: 600px){
+    .menu img{
+        width: 80px;
+        height: 80px;
+    }
     .menu .menu-header{
-        padding: 20px 0 30px 0;
+        padding: 0 0 16px 0;
     }
     .menu .driver-name{
-        font-size: 27px;
+        font-size: 22px;
         margin-bottom: 10px;
     }
     .menu .bonus-account{
-        font-size: 20px;
+        font-size: 16px;
         padding-left: 37px;
         margin-bottom: 10px;
-        /*background: url("../../assets/img/gift.png") no-repeat top 35% left;*/
     }
     .menu .mileage{
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .menu .button-block{
@@ -156,11 +175,10 @@
         overflow: scroll;
     }
     .menu .button-block button{
-        font-size: 20px;
-        color: #fffefe;
-        height: 32px;
+        font-size: 18px;
+        height: 27px;
         padding-left: 50px;
-        margin: 0 0 35px 0;
+        margin: 0 0 22px 0;
 
     }
     .menu .button-block button.taxi-request,
