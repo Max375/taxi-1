@@ -91,14 +91,15 @@ export const convertUserInfoFromBackEnd = (data, token) => {
 
 
 export const convertFavoritePointsFromBackEnd = (data) => {
+    console.log(data);
     return data.map(el=>{
         return {
             id: parseInt(el.id),
             title: el.title,
             address: el.location_text,
             location: {
-                lat: parseFloat(el.lat),
-                lon: parseFloat(el.lon)
+                lat: parseFloat(el.location.lat),
+                lon: parseFloat(el.location.lon)
             }
         }
     });

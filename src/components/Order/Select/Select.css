@@ -88,12 +88,12 @@ input.select__input-field{
         font-size: 18px;
     }
 }
-.options__elements:last-child{
+.options__elements:last-child, .select .select-favorite-point:last-child{
     border-bottom-left-radius: 13px;
     border-bottom-right-radius: 13px;
 }
 
-.options__elements:first-child{
+.options__elements:first-child, .select .select-favorite-point:first-child{
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
 }

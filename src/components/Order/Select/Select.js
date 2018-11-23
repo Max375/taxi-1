@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Select.css'
+import connect from "react-redux/es/connect/connect";
+import Point from "../../MenuScreens/FavoritePoint/FavoritePoint";
 
 const VALUE_SELECT = 'VALUE_SELECT';
 
@@ -25,7 +27,6 @@ const geocode =  (address, callback) =>{
         },
         (results,status) => {
             if(status === 'OK') callback(results[0].geometry.location, address);
-
         }
     );
 };
@@ -39,7 +40,6 @@ class Select extends Component {
 
     static defaultProps = {
         isSelectOpen: false,
-        defaultOption: {value: null, label: null, geocode: false},
         defaultText: 'Введите адресс',
         onChange: null,
         loadOptions: null,
@@ -50,16 +50,33 @@ class Select extends Component {
     state = {
         isSelectOpen: this.props.isSelectOpen,
         defaultOption: this.props.defaultOption,
-        options: this.props.options,
+        options: [],
     };
 
     input = null;
 
 
+    createFavoritePoint = ()=>{
+        return this.props.favoritePoints.points.map(el => {
+            return (
+                <div data-favorite="true" data-selectpoint="true" data-value={el.address} data-lat={el.location.lat} data-lon={el.location.lon} className={'select-favorite-point'}>
+                    {el.title}
+                    <div className={'favorite-point-address'}>
+                        {el.address}
+                    </div>
+                </div>
+            )
+        })
+    };
+
+    constructor(props){
+        super(props);
+        this.favoritePoint = this.createFavoritePoint();
+    }
+
     componentDidMount(){
         document.addEventListener('click', this.documentClickHandler);
         this.input.value = this.props.defaultOption.label || '';
-        console.log(this.props);
         this.props.MyRef(this.ref());
     }
 
@@ -93,9 +110,19 @@ class Select extends Component {
 
 
     onClickHandler = (e)=>{
-            geocode(e.target.innerText,(result,address)=>{
-                this.selectValue({lat: result.lat(), lon: result.lat()}, address);
-            });
+
+        let target = e.target;
+
+        while (target.dataset.selectpoint === undefined) target = target.parentNode;
+
+        if(target.dataset.favorite !== undefined){
+            this.selectValue({lat: parseFloat(target.dataset.lat), lon: parseFloat(target.dataset.lon)}, target.dataset.value);
+            return;
+        }
+
+        geocode(e.target.innerText,(result,address)=>{
+            this.selectValue({lat: result.lat(), lon: result.lat()}, address);
+        });
     };
 
 
@@ -126,23 +153,21 @@ class Select extends Component {
 
 
     generateOptions = () =>{
-        const staticOptions = this.props.constOptions.map(el=> <div key={el.value} className="options__elements"  data-value={el.value}><div>{el.label}</div></div>);
 
-        let options;
+        let options = [];
 
-        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} className="options__elements" data-value={el.value}><div>{el.label}</div></div>);
+        if (this.state.options.length >0) options = this.state.options.map(el =><div key={el.value} className="options__elements" data-selectpoint="true" data-value={el.value}><div>{el.label}</div></div>);
 
 
-        if (this.state.options.length + staticOptions.length === 0) options = (<div className="select__not-found">Ничего не найдено</div>);
+        if (this.state.options.length +  this.favoritePoint.length === 0) options = (<div className="select__not-found">Ничего не найдено</div>);
 
-        return staticOptions.concat(options);
+        return options;
     };
 
 
     render() {
 
         const options = this.generateOptions();
-
 
         return (
             <div className="select"
@@ -157,28 +182,10 @@ class Select extends Component {
 
                 <div
                     data-select = {'my-custom-select'}
-                    onClick={options.length  === 0 ? null : this.onClickHandler}
+                    onClick={options.length + this.favoritePoint.length === 0 ? null : this.onClickHandler}
                     className={this.state.isSelectOpen ? "select__options select__options--open" : "select__options"}
                 >
-
-                <div className={'select-favorite-point'}>
-                    Дом
-                    <div className={'favorite-point-address'}>
-                        Асаналиева 18
-                    </div>
-                </div>
-                <div className={'select-favorite-point'}>
-                    Студентка (кажется Зинка), с которой познакомились в день города у Стеллы
-                    <div className={'favorite-point-address'}>
-                        Орловская 58, копр.1
-                    </div>
-                </div>
-                <div className={'select-favorite-point'}>
-                    Вася из гаражей (чинил заднюю подвеску)
-                    <div className={'favorite-point-address'}>
-                        Стебенева 12
-                    </div>
-                </div>
+                    {this.favoritePoint}
                     {options}
                 </div>
             </div>
@@ -187,4 +194,12 @@ class Select extends Component {
 }
 
 
-export default Select;
+
+const mapStateToProps = (state) => {
+    return {
+        favoritePoints: state.favoritePoints
+    };
+};
+
+export default connect(mapStateToProps)(Select);
+
