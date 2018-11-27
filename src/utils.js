@@ -134,6 +134,17 @@ export const convertApplicationInfoFromBackEnd = (data) => {
 };
 
 
+export const convertCardsInfoFromBackEnd = (data) => {
+    return data.map(el=>{
+        return {
+            id: parseInt(el.id),
+            lastDigits: el.card_last_digits,
+            brand: el.card_brand,
+        }
+    });
+};
+
+
 export const  convertTradesFromBackend = (data) =>{
     return data.map(el=>{
        return {

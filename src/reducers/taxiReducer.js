@@ -7,7 +7,7 @@ import favoritePoints from './favoritePointsReducer';
 import push from './pushReducer';
 import driver from './driverReducer'
 import trades from './tradesReducer'
-
+import cards from './cardsReducer'
 
 export default combineReducers({
     app,
@@ -16,7 +16,8 @@ export default combineReducers({
     favoritePoints,
     push,
     driver,
-    trades
+    trades,
+    cards
 })
 
 

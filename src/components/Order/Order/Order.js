@@ -16,15 +16,17 @@ import setOrderEndPointAction from "../../../actions/ordersActions/setOrderEndPo
 import setOrderCommentAction from "../../../actions/ordersActions/setOrderCommentAction";
 import OrderOptions from '../OrderOptions/OrderOptions'
 import Comment from "../Comment/Comment";
-import {getDistance} from "../../../fetch/fetch";
+import {getDistance, createOrder} from "../../../fetch/fetch";
 import setOrderPriceAction from "../../../actions/ordersActions/setOrderPriceAction";
 import PaymentMenu from "../PaymentMenu/PaymentMenu";
+import cards from "../../../reducers/cardsReducer";
 
 
 class Order extends Component {
 
 
     state = {
+        isButtonLoading: false,
         isCarTypeMenuOpen: false,
         isOptionsMenuOpen: false,
         isPaymentMenuOpen: false,
@@ -214,6 +216,22 @@ class Order extends Component {
         this.props.dispatch(setOrderPriceAction(this.props.order.price + PRICE_STAP));
     };
 
+    createOrderHandler = ()=>{
+        this.setState({isButtonLoading: true});
+        const order = this.props.order;
+
+        let endPoints = [order.endPoint];
+        if (order.wayPoint !==null) endPoints.unshift(order.wayPoint);
+
+        createOrder(order.startPoint,endPoints,order.price,order.options,order.comment,0, this.props.order.card ,this.props.user.token,this.props.app.deviceId)
+            .then(data =>{
+                this.setState({isButtonLoading: false});
+            })
+            .catch((e)=>{
+                this.setState({isButtonLoading: false});
+            })
+    };
+
 
 
     render() {
@@ -277,7 +295,7 @@ class Order extends Component {
                         <AddressButton
                             onClick={this.openPaymentMenu}
                             title={'способ оплаты'}
-                            mainText={null || 'Карта ****6789'}/>
+                            mainText={this.props.order.card === 0 ? "Наличные" : "Карта ***" + this.props.cards.find(el=> el.id === this.props.order.card).lastDigits }/>
                     </div>
 
                     <div className="additional-buttons">
@@ -308,7 +326,7 @@ class Order extends Component {
                     </div>
                 </footer>
 
-                <FooterButton nameButton={'заказать'} />
+                <FooterButton isLoading={this.state.isButtonLoading} onClick={this.createOrderHandler} nameButton={'заказать'} />
 
                 <CarTypeMenu isVisible = {this.state.isCarTypeMenuOpen} closeMenu={this.closeCarTypeMenu}/>
                 <OrderOptions isVisible = {this.state.isOptionsMenuOpen} closeMenu={this.closeOptionsMenu} />
@@ -322,7 +340,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         order: state.order,
-        app: state.app
+        app: state.app,
+        cards: state.cards.cards
     };
 };
 

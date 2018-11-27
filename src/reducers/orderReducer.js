@@ -9,7 +9,9 @@ import {
     SET_ORDER_OPTIONS,
     SET_ORDER_WAY_POINT,
     ADD_ORDER_WAY_POINT,
-    REMOVE_ORDER_WAY_POINT, SET_ORDER_CAR_TYPE,
+    REMOVE_ORDER_WAY_POINT,
+    SET_ORDER_CAR_TYPE,
+    SET_CARD_ID
 } from '../actions/ordersActions/orderActions';
 
 const initialState = {
@@ -21,6 +23,7 @@ const initialState = {
     entrance: 0,
     status: null,
     comment: '',
+    card: 0,
     options: {
         smoking : 0,
         gender : 0,
@@ -107,6 +110,12 @@ export default function order(state = initialState , action) {
                     ...state.options,
                     carType: action.payload.carType
                 }
+            }
+        }
+        case SET_CARD_ID:{
+            return{
+                ...state,
+                card: action.payload.id
             }
         }
         default:

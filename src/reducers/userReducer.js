@@ -9,7 +9,7 @@ const initialState = {
         name: '',
         numTrip: 0,
         phone: null,
-        promocode: null
+        promocode: null,
 };
 
 

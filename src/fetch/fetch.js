@@ -1,4 +1,4 @@
-﻿import {customConsole,convertTradesFromBackend, convertOrderInfoFromBackEnd,convertUserInfoFromBackEnd,convertFavoritePointsFromBackEnd, convertDriverInfoFromBackEnd,convertApplicationInfoFromBackEnd} from '../utils';
+﻿import {customConsole, convertCardsInfoFromBackEnd, convertTradesFromBackend, convertOrderInfoFromBackEnd,convertUserInfoFromBackEnd,convertFavoritePointsFromBackEnd, convertDriverInfoFromBackEnd,convertApplicationInfoFromBackEnd} from '../utils';
 
 const URL = 'https://test.kak-pravilno.by/taxi/client_api.php';
 const PROXY = 'https://test.kak-pravilno.by/taxi/proxy.php';
@@ -70,7 +70,8 @@ export const login = function(phone, pin, deviceId){
                 user: convertUserInfoFromBackEnd(data.user_info.info,data.token),
                 favoritePoints: convertFavoritePointsFromBackEnd(data.user_info.favorites_points),
                 driver: convertDriverInfoFromBackEnd(data.user_info.driver_info),
-                application: convertApplicationInfoFromBackEnd(data.user_info.application_info)
+                application: convertApplicationInfoFromBackEnd(data.user_info.application_info),
+                cards: convertCardsInfoFromBackEnd(data.user_info.cards)
             };
 
             customConsole.log('login response, formatted data:', JSON.stringify(formatData));
@@ -107,7 +108,8 @@ export const getUserInfo = function (token) {
                 user: convertUserInfoFromBackEnd(data.user_info.info,data.token),
                 favoritePoints: convertFavoritePointsFromBackEnd(data.user_info.favorites_points),
                 driver: convertDriverInfoFromBackEnd(data.user_info.driver_info),
-                application: convertApplicationInfoFromBackEnd(data.user_info.application_info)
+                application: convertApplicationInfoFromBackEnd(data.user_info.application_info),
+                cards: convertCardsInfoFromBackEnd(data.user_info.cards)
             };
 
             customConsole.log('getUserInfo response, formatted data:', JSON.stringify(formatData));
@@ -211,7 +213,7 @@ export const getDistance = function (startPoint, endPoints, token) {
 };
 
 
-export const createOrder = function (startPoint, endPoints, price, options, comment,entrance, token, deviceId) {
+export const createOrder = function (startPoint, endPoints, price, options, comment,entrance, cardId, token, deviceId) {
 
     let endPointAddress = [];
     let endPointsLocation = [];
@@ -233,7 +235,8 @@ export const createOrder = function (startPoint, endPoints, price, options, comm
             price: price,
             comment: comment,
             entrance: entrance,
-            options: options
+            options: options,
+            card: cardId
         }
     });
 
@@ -506,6 +509,8 @@ export const invite_exist = function (invite) {
     })
 
 };
+
+
 
 
 export const setRating = function (orderId, rating, token) {

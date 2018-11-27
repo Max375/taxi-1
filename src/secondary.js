@@ -13,6 +13,7 @@ import setOrderAction from "./actions/ordersActions/setOrderAction";
 import setDriverInfo from "./actions/setDriverInfoAction";
 import setFavoritePoint from "./actions/setFavoritesPoints";
 import setMinimalPrice from "./actions/setMinimalPriceAction";
+import setCardListAction from "./actions/cardsActions/setCardListAction"
 import Order from "./components/Order/Order/Order";
 import SearchDriver from "./components/Driver/SearchDriver/SearchDriver";
 import {logStoreState} from './utils';
@@ -77,7 +78,8 @@ export const setUserInfo = (data) => {
     store.dispatch(setOrderAction(data.order));
     store.dispatch(setDriverInfo(data.driver));
     store.dispatch(setFavoritePoint(data.favoritePoints));
-    store.dispatch(setMinimalPrice(data.application.minimalPrice))
+    store.dispatch(setMinimalPrice(data.application.minimalPrice));
+    store.dispatch(setCardListAction(data.cards))
 };
 
 
