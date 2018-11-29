@@ -1,4 +1,4 @@
-import {CLEAR_DRIVER_INFO} from "./actionList";
+import {CLEAR_DRIVER_INFO} from "./driverActions";
 
 export default function clearDriverInfo() {
     return{

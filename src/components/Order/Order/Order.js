@@ -11,7 +11,14 @@ import changeScreenAction from "../../../actions/changeScreenAction";
 import AddressSelect from "../AddressSelect/AddressSelect";
 import setOrderStartPointAction from "../../../actions/ordersActions/setOrderStartPointAction";
 import setOrderWayPointAction from "../../../actions/ordersActions/setOrderWayPointAction";
-import {customConsole, logStoreState, collapseSection, expandSection, PRICE_STAP} from "../../../utils";
+import {
+    customConsole,
+    logStoreState,
+    collapseSection,
+    expandSection,
+    PRICE_STAP,
+    convertOrderInfoFromBackEnd
+} from "../../../utils";
 import setOrderEndPointAction from "../../../actions/ordersActions/setOrderEndPointAction";
 import setOrderCommentAction from "../../../actions/ordersActions/setOrderCommentAction";
 import OrderOptions from '../OrderOptions/OrderOptions'
@@ -20,6 +27,8 @@ import {getDistance, createOrder} from "../../../fetch/fetch";
 import setOrderPriceAction from "../../../actions/ordersActions/setOrderPriceAction";
 import PaymentMenu from "../PaymentMenu/PaymentMenu";
 import cards from "../../../reducers/cardsReducer";
+import setOrderAction from "../../../actions/ordersActions/setOrderAction";
+import {doSync} from "../../../secondary";
 
 
 class Order extends Component {
@@ -226,8 +235,13 @@ class Order extends Component {
         createOrder(order.startPoint,endPoints,order.price,order.options,order.comment,0, this.props.order.card ,this.props.user.token,this.props.app.deviceId)
             .then(data =>{
                 this.setState({isButtonLoading: false});
+                this.props.dispatch(setOrderAction(convertOrderInfoFromBackEnd(data.order)));
+                doSync();
             })
             .catch((e)=>{
+                e.then(data=>{
+                   console.log(data);
+                });
                 this.setState({isButtonLoading: false});
             })
     };

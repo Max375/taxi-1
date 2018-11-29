@@ -1,6 +1,7 @@
 import React from "react";
 import {store} from "./secondary";
-
+import VW from './assets/img/sign_hyundai_big.png'
+import BMW from './assets/img/sign_hyundai_big.png'
 const isDebug = true;
 
 export const PRICE_STAP = 0.5;
@@ -31,12 +32,44 @@ export const logStoreState = () => {
 
 export const convertOrderInfoFromBackEnd = (data) => {
     if (data === null) return null;
+
+    let wayPoint = null;
+    let endPoint = null;
+
+    if(data.end_points.length >1){
+        wayPoint = {
+            label: data.end_points_text[0],
+            value: {
+                lat: parseFloat(data.end_points[0].lat),
+                lon: parseFloat(data.end_points[0].lon)
+            }
+        };
+
+        endPoint = {
+                label: data.end_points_text[1],
+                value: {
+                    lat: parseFloat(data.end_points[1].lat),
+                    lon: parseFloat(data.end_points[1].lon)
+                }
+        }
+    }
+    else{
+        endPoint = {
+            label: data.end_points_text[0],
+            value: {
+                lat: parseFloat(data.end_points[0].lat),
+                lon: parseFloat(data.end_points[0].lon)
+            }
+        }
+    }
+
     return {
         id: data.id,
         entrance: parseInt(data.entrance,10),
         status: parseInt(data.status,10),
         comment: data.comment,
         price: parseFloat(data.price),
+        card: parseInt(data.card),
 
 
         startPoint: {
@@ -48,15 +81,9 @@ export const convertOrderInfoFromBackEnd = (data) => {
         },
 
 
-        endPoints: data.end_points.map((el, index)=> {
-            return {
-                label: data.end_points_text[index],
-                value: {
-                    lat: parseFloat(el.lat),
-                    lon: parseFloat(el.lon)
-                }
-            }
-        }),
+
+        endPoint: endPoint,
+        wayPoint: wayPoint,
 
         options: {
             smoking : data.options.smoking,
@@ -226,9 +253,11 @@ export const debounce = (func, ms) => {
 export const carModelCheck = (carModel)=>{
     switch(carModel) {
         case 'VW':
-            //return (<img src={VW} alt=""/>);
+            return (<img src={VW} alt=""/>);
         case 'BMW':
-            //return (<img src={BMW} alt=""/>);
+            return (<img src={BMW} alt=""/>);
+        default:
+            return (<img src={BMW} alt=""/>);
     }
 };
 
@@ -245,6 +274,7 @@ export const isEnterPressed = (e) => {
 
 
 export function collapseSection(element) {
+    if (!element) return;
     let sectionHeight = element.scrollHeight;
 
     let elementTransition = element.style.transition;
@@ -262,6 +292,8 @@ export function collapseSection(element) {
 
 
 export  function expandSection(element) {
+    if (!element) return;
+
     let sectionHeight = element.scrollHeight;
 
 
@@ -276,3 +308,22 @@ export  function expandSection(element) {
 
     element.addEventListener('transitionend', expandSectionListener);
 }
+
+
+
+export const rad = function(x) {
+    return x * Math.PI / 180;
+};
+
+export const getDistanceBetweenToPoints = function(p1, p2) {
+    console.log(p1,p2);
+    const R = 6378137; // Earth’s mean radius in meter
+    const dLat = rad(p2.lat - p1.lat);
+    const  dLon = rad(p2.lon - p1.lon);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
+    return (d/1000).toFixed(0);
+};

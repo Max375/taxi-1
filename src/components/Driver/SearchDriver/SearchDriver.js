@@ -1,37 +1,69 @@
-import React , {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import changeScreenAction from "../../../actions/changeScreenAction";
 import {cancelOrder} from "../../../fetch/fetch";
-import {updateTrades} from "../../../secondary"
+import {doSync, updateTrades} from "../../../secondary"
 import './SearchDriver.css';
+
+
+import React, {Component} from 'react';
+import '../../Load/Load.css';
+import loadingLogo from '../../../assets/img/loading_logo.png';
+import {customConsole} from "../../../utils";
+import setOrderAction from "../../../actions/ordersActions/setOrderAction";
 
 
 class SearchDriver extends Component {
 
+    state = {
+       interval: null
+    };
+
     componentDidMount(){
-        updateTrades();
+        this.setState({interval : setInterval(updateTrades, 1000)});
     }
-    /*
-    onClick={() => {
-                    cancelOrder(this.props.user.token, 'Водитель не найден').then((res) => {
-                        if (res === true) this.props.dispatch(changeScreenAction(<Order/>));
-                        else {
-                            console.log('CANCELED ORDER FETCH FAILED');
-                        }
-                    });
-                }}
-                onClcik fucntion for back button
-     */
+
+    componentWillUnmount(){
+        clearInterval(this.state.interval);
+    }
+
+    //todo
+    onClickHandler = ()=> {
+        cancelOrder(this.props.user.token, 'Водитель не найден')
+            .then((res) => {
+                this.props.dispatch(setOrderAction());
+                doSync();
+            })
+            .catch(e=>{
+                customConsole.log('failed canceled order');
+            })
+    };
 
     render() {
         return (
-            <div className={"search-driver"}>
-                <div className="search">Поиск водителя</div>
-                <div className="load">
+            <div className={'loading container'}>
+                <div className={'logo-loading'}>
+                    <img src={loadingLogo} alt=""/>
                 </div>
-                <div className="back" >
+                <div style={{color: 'white',textAlign: 'center'}}>Поиск водителя</div>
+                <button onClick={this.onClickHandler}>Назад</button>
+                <div className="spinner-wrapper">
+                    <div className="lds-default">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
-            </div>);
+            </div>
+        )
     }
 }
 

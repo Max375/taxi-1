@@ -1,4 +1,4 @@
-import {SET_DRIVER_INFO,CLEAR_DRIVER_INFO} from '../actions/actionList';
+import {SET_DRIVER_INFO,CLEAR_DRIVER_INFO,SET_DRIVER_LOCATION} from '../actions/driverActions/driverActions';
 import React from "react";
 
 const initialState = {
@@ -35,6 +35,13 @@ export default function driver(state = initialState , action) {
         case CLEAR_DRIVER_INFO:
         {
             return initialState;
+        }
+        case SET_DRIVER_LOCATION:
+        {
+            return {
+                ...state,
+                location: action.payload.location
+            }
         }
         default:
             return state;

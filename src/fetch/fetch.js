@@ -405,6 +405,61 @@ export const sendTimeToDriver = function (time,token) {
 
 
 
+export const getDriverLocation = function (token) {
+
+    const body = JSON.stringify({
+        action: 'get_driver_location',
+        token: token
+    });
+
+    customConsole.log('get_driver_location request:', body);
+
+    return fetch(URL,{
+        method: 'POST',
+        body: body
+    })
+        .then(res =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('get_driver_location response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+
+export const getDriverWaitInfo = function (token) {
+
+    const body = JSON.stringify({
+        action: 'driver_wait_get_info',
+        token: token
+    });
+
+    customConsole.log('driver_wait_get_info request:', body);
+
+    return fetch(URL,{
+        method: 'POST',
+        body: body
+    })
+        .then(res =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('driver_wait_get_info response:', JSON.stringify(data));
+            return data;
+        });
+};
+
+
+
+
+
+
+
+
 
 
 export const getStreet = function (street, token, deviceId) {
@@ -425,15 +480,15 @@ export const getStreet = function (street, token, deviceId) {
 
 export const getRacesHistory = function (page, token) {
     return fetch(URL,{
-            method: 'POST',
-            body: JSON.stringify({
-                action: 'get_races_history',
-                token: token,
-                data: {
-                    page: page
-                }
-            })
+        method: 'POST',
+        body: JSON.stringify({
+            action: 'get_races_history',
+            token: token,
+            data: {
+                page: page
+            }
         })
+    })
         .then(res =>{
             if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
             return res.json();
@@ -443,16 +498,6 @@ export const getRacesHistory = function (page, token) {
             return data;
         });
 };
-
-
-
-
-
-
-
-
-
-
 
 
 

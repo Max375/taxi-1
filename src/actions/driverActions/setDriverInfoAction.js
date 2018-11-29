@@ -1,4 +1,4 @@
-import {SET_DRIVER_INFO} from './actionList';
+import {SET_DRIVER_INFO} from './driverActions';
 
 export default function setDriverInfoAction(data) {
 

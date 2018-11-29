@@ -1,7 +1,6 @@
 import React , {Component} from 'react';
 
 import './DriverOffers.css';
-import TopBar from "../../TopBar/TopBar";
 import Offer from '../Offer/Offer'
 import connect from "react-redux/es/connect/connect";
 import {cancelTrade, acceptTrade, getUserInfo} from "../../../fetch/fetch";
@@ -10,14 +9,26 @@ import {doSync, setUserInfo, store, updateTrades} from "../../../secondary";
 import changeScreenAction from "../../../actions/changeScreenAction";
 import Login from "../../Authorization/Login/Login";
 import clearTokenAction from "../../../actions/clearTokenAction";
+import HeaderWithMenu from "../../HeaderWithMenu/HeaderWithMenu";
 
 class DriverOffers extends Component{
+
+    state = {
+        interval: null
+    };
 
     constructor(props) {
         super(props);
     }
 
 
+    componentDidMount(){
+        this.setState({interval : setInterval(updateTrades, 1000)});
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.state.interval);
+    }
 
 
     cancelTradeHandler = (function (token) {
@@ -71,16 +82,16 @@ class DriverOffers extends Component{
        let offers = [];
 
        this.props.trades.forEach(el=>{
-           offers.push(<Offer key={el.id} offer={el} cancelTrade={this.cancelTradeHandler} acceptTrade={this.acceptTradeHandler}  />);
+           offers.push(<Offer key={el.id} offer={el} cancelTrade={this.cancelTradeHandler} acceptTrade={this.acceptTradeHandler} />);
        });
 
         return(
-            <React.Fragment>
-                <TopBar/>
-                <div className={'driver-wp'}>
+            <div className={'taxi-ordering container'}>
+                <HeaderWithMenu headerTitle={'Заказ такси'} />
+                <div className="calc-content without-footer">
                     {offers}
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 

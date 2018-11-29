@@ -10,7 +10,7 @@ import taxiReducer from "./reducers/taxiReducer";
 import {composeWithDevTools} from "redux-devtools-extension";
 import setUserInfoAction from "./actions/setUserInfoAction";
 import setOrderAction from "./actions/ordersActions/setOrderAction";
-import setDriverInfo from "./actions/setDriverInfoAction";
+import setDriverInfo from "./actions/driverActions/setDriverInfoAction";
 import setFavoritePoint from "./actions/setFavoritesPoints";
 import setMinimalPrice from "./actions/setMinimalPriceAction";
 import setCardListAction from "./actions/cardsActions/setCardListAction"
@@ -101,7 +101,6 @@ export const doSync = () =>{
     }
 
     if(state.order.status === 1 || state.order.status === 2){
-        console.log(state.trades.trades.length);
         if(state.trades.trades.length !== 0){
             dispatch(changeScreenAction(<DriverOffers />));
         }
@@ -137,6 +136,7 @@ export const updateTrades = () =>{
             customConsole.log(e);
         })
 };
+
 
 
 export  const setPushListener = ()=>{

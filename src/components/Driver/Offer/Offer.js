@@ -1,7 +1,10 @@
-import {carModelCheck} from '../../../utils';
-import React from "react";
+import React, { Component } from 'react';
+import './Offer.css';
+import signHyundaiBig from '../../../assets/img/sign_hyundai_big.png';
+import littleStar from '../../../assets/img/star_purple_little.png';
+import {carModelCheck} from "../../../utils";
 
-export default function DriverOffer(props) {
+function CarInfo(props){
 
     let touchStartPosition = 0;
     let touchEndPosition = 0;
@@ -12,61 +15,68 @@ export default function DriverOffer(props) {
     };
 
     const touchMoveHandler = (e) => {
-        e.currentTarget.style.transform = `translateX(${e.touches[0].clientX-touchStartPosition }px)`;
-        touchEndPosition = e.touches[0].clientX;
+        if(touchStartPosition< e.touches[0].clientX){
+            e.currentTarget.style.transform = `translateX(${e.touches[0].clientX-touchStartPosition }px)`;
+            touchEndPosition = e.touches[0].clientX;
+        }
     };
 
+    /// USE TRANSITION END
     const touchEndHandler = (e) =>{
 
         if (Math.abs(touchStartPosition-touchEndPosition)>200){
 
-                props.cancelTrade(props.offer.orderId, props.offer.driverId);
+            props.cancelTrade(props.offer.orderId, props.offer.driverId);
 
-                const el = e.currentTarget;
+            const el = e.currentTarget;
 
-                el.style.transition = `transform 0.15s ease`;
-                el.style.transform = `translateX(${-window.innerWidth}px)`;
-                setTimeout(() => {
-                    el.style.height = 0;
-                    el.style.marginTop = 0;
-                    el.style.padding = 0;
-                }, 150)
+            el.style.transition = `transform 0.15s ease`;
+            el.style.transform = `translateX(${window.innerWidth}px)`;
+            setTimeout(() => {
+                el.style.height = 0;
+                el.style.marginTop = 0;
+                el.style.padding = 0;
+            }, 150)
         }
         else{
             e.currentTarget.style.transform = `translateX(0px)`;
         }
     };
 
-
-
-
-    return (
-        <div className="driver-wrapper" onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler}>
-            <div className="run-line"></div>
-            <div className="flex-wrapp">
-                <div className="driver-info">
-                    <div className="driver-img">
-                        {carModelCheck(props.offer.carModel)}
-                    </div>
-                    <div class="driver-name">
-                        <p>{props.offer.carVersion}</p>
-                        <i className="fa fa-star" aria-hidden="true"></i>{props.offer.rating} / {props.offer.carYear} г
-                    </div>
+        return (
+            <div className={'car-info'} onTouchStart={touchStartHandler} onTouchMove={touchMoveHandler} onTouchEnd={touchEndHandler}>
+                <div className={'car-info__left-coll'}>
+                    {carModelCheck(props.offer.model)}
+                    <div className={'year-of-manufacture'}>{props.offer.carYear} г.в.</div>
                 </div>
-                <div className="car-info">
-                    <div className="kilometers">
-                        <p>{props.offer.time} мин</p>
+                <div className={'car-info__right-coll'}>
+                    <div className={'right-coll__car-model'}>{props.offer.carVersion}</div>
+                    <div className={'right-coll__car-rating'}>
+                        <img src={littleStar} alt=""/>
+                        <div className="right-coll__car-point">{props.offer.rating}</div>
                     </div>
-                    <div className="price">{props.offer.price}р</div>
+                    <div className="time-cost-flex-wrapper">
+                        <div className="time">{props.offer.time} мин.</div>
+                        <div className="right-coll__cost-trip">{props.offer.price} BYN</div>
+                    </div>
+                    <button onClick={()=>{
+                        props.acceptTrade(props.offer.orderId, props.offer.driverId);
+                    }} className={'accept-btn'}>
+                        <span></span>принять
+                    </button>
                 </div>
             </div>
-
-
-            <div className="driver-buttons">
-                <button onClick={()=>{
-                    props.acceptTrade(props.offer.orderId, props.offer.driverId);
-                }}>Принять</button>
-            </div>
-        </div>
-    )
+        );
 }
+
+export default CarInfo;
+
+carModel: "BMW"
+carVersion: "QWE"
+carYear: 1999
+driverId: 25
+id: 342
+orderId: 674
+price: 10
+rating: 3
+time: 254

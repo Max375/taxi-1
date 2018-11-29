@@ -10,15 +10,18 @@ export default function setOrderAction(order) {
 
     if (order !== null && order !== undefined)
         action.payload = {
-            id: order.id,
+                id: order.id,
                 entrance: order.entrance,
                 status: order.status,
                 comment: order.comment,
                 price: order.price,
                 startPoint: order.startPoint,
-                endPoints: order.endPoints,
-                options: order.options
+                endPoint: order.endPoint,
+                wayPoint: order.wayPoint,
+                options: order.options,
+                card: order.card,
         };
+
 
     return action;
 }

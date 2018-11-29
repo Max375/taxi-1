@@ -1,52 +1,109 @@
-.message-menu{
-    width: 90%;
-    background-color: #fff;
-    border-radius: 5px;
-    color: #000000;
-    font-size: 16px;
-    text-align: center;
-    margin: 15px auto;
-    padding: 20px;
-    box-sizing: border-box;
-    display: inline-block;
-    vertical-align: middle;
-}
 
-.message-menu-bg{
-    display: none;
-    overflow-y: scroll;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
+.waiting-for-taxi .left-popup-menu{
+    transform: translateX(100%);
+    z-index: 200;
+    position: absolute;
     top: 0;
-    background-color: rgba(0,0,0,0.5);
-    text-align: center;
-}
-
-.message-menu-bg--open{
-    display: block;
-}
-
-
-.message-menu-bg:before {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    content: "";
-}
-
-
-.message-menu button{
+    right: 0;
+    max-width: 320px;
     width: 100%;
-    display: block;
-    margin-top: 20px;
-    border: 0;
-    background-color: #710fc9;
-    border-radius: 5px;
-    color: #fff;
-    padding: 10px;
-    height: 30px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    transition: 0.15s ease transform;
 }
+
+.waiting-for-taxi .left-popup-menu + .black-bg{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 150;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+.waiting-for-taxi .left-popup-menu.left-popup-menu--open + .black-bg{
+    display: block;
+    opacity: 0;
+    animation: ease 0.15s bg;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bg {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.waiting-for-taxi .left-popup-menu--open{
+    transform: translateX(0);
+    transition: 0.3s ease transform;
+}
+
+.waiting-for-taxi .left-popup-menu-content{
+    width: 100%;
+    height: 100%;
+    min-height: 690px;
+    background-color: #fff;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+
+.waiting-for-taxi .press-down{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 45px;
+}
+
+.waiting-for-taxi .popup-title{
+    font-size: 32px;
+    color: #abadb6;
+    font-weight: 600;
+    margin-top: 30px;
+    padding-left: 9%;
+}
+@media screen and (max-width: 510px) {
+    .waiting-for-taxi .popup-title{
+        font-size: 20px;
+        margin-top: 20px;
+    }
+}
+
+.waiting-for-taxi .left-popup-menu input{
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0;
+}
+
+.waiting-for-taxi .left-popup-menu label{
+    font-size: 30px;
+    margin-left: 9%;
+    padding-left: 50px;
+    background: url('../../../assets/img/input_cancellation_bgr.png') no-repeat bottom 5px left;
+}
+@media screen and (max-width: 510px) {
+    .waiting-for-taxi .left-popup-menu label{
+        font-size: 20px;
+        font-weight: normal;
+        padding-left: 30px;
+        background: url('../../../assets/img/input_cancellation_bgr_little.png') no-repeat bottom 2px left;
+    }
+}
+
+.waiting-for-taxi .left-popup-menu input:checked + label{
+    background: url('../../../assets/img/input_cancellation_active_bgr.png') no-repeat bottom 2px left;
+}
+@media screen and (max-width: 510px) {
+    .waiting-for-taxi .left-popup-menu input:checked + label{
+        background: url('../../../assets/img/input_cancellation_active_bgr_little.png') no-repeat bottom 2px left;
+    }
+}
+.waiting-for-taxi .left-popup-menu .push-button-bottom{
+    display: block;
+    margin-bottom: 60px;
+}
+
+
