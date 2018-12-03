@@ -54,16 +54,8 @@ class PromoCode extends Component {
     render(){
         return(
             <div className={'promo-code container'}>
-                <HeaderBack onClick={doSync} headerTitle={'История поездок'}/>
+                <HeaderBack onClick={doSync} headerTitle={'Промокод'}/>
                 <div className="calc-content without-footer">
-                    <div className={'enter-promo-code-wrapper'}>
-                        <img src={promocodeCard} alt=""/>
-                        <p className="h1">Ввести промокод</p>
-                        <p className="text">Промокод позволяет получить бонусы, которые можно использовать для оплаты</p>
-                        <div>{this.state.message}</div>
-                        <input ref={el =>{this.input = el;}} type="text" className={'enter-promo-code'} placeholder={'промокод'}/>
-                        <Button isLoading={this.state.isLoading} onClick={this.sendPromocode} text={'ввести'}/>
-                    </div>
                     <div className="your-promo-code-wrapper">
                         <p className="h1">Ваш промокод</p>
                         <p className="text">Используйте этот промокод для того, чтобы приглашать друзей в наше приложение.
@@ -71,6 +63,15 @@ class PromoCode extends Component {
                         <div className="your-promo-code">
                             {this.props.user.promocode}
                         </div>
+                    </div>
+
+                    <div className={'enter-promo-code-wrapper'}>
+                        <img src={promocodeCard} alt=""/>
+                        <p className="h1">Ввести промокод</p>
+                        <p className="text">Промокод позволяет получить бонусы, которые можно использовать для оплаты</p>
+                        <div className={'warning'}>{this.state.message}</div>
+                        <input ref={el =>{this.input = el;}} type="text" className={'enter-promo-code'} placeholder={'промокод'}/>
+                        <Button isLoading={this.state.isLoading} onClick={this.sendPromocode} text={'ввести'}/>
                     </div>
 
                     <p className="send-code-friends">Отправить код друзьям</p>

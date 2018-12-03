@@ -239,10 +239,11 @@ class Order extends Component {
                 doSync();
             })
             .catch((e)=>{
-                e.then(data=>{
+                this.setState({isButtonLoading: false});
+                console.log(e.status);
+                e.error.then(data=>{
                    console.log(data);
                 });
-                this.setState({isButtonLoading: false});
             })
     };
 
