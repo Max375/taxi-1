@@ -27,3 +27,8 @@
         font-size: 20px;
     }
 }
+
+img{
+    display: block;
+    max-height: 90%;
+}

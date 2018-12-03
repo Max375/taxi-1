@@ -25,7 +25,7 @@ class Comment extends Component {
     render() {
         return (
             <div className={'feedback container'}>
-                <HeaderBack onClick={this.back} headerTitle={'Отзыв о поездке'}/>
+                <HeaderBack onClick={this.back} headerTitle={'Комментарий'}/>
                 <div className="feedback-content">
                     <div className="flex-top">
                         <p className={'h2'}>Текст отзыва</p>
@@ -35,7 +35,7 @@ class Comment extends Component {
                 <FooterButton onClick={()=>{
                     this.props.onChange(this.textArea.value);
                     this.back();
-                }} nameButton={'отправить отзыв'}/>
+                }} nameButton={'отправить'}/>
             </div>
         );
     }
