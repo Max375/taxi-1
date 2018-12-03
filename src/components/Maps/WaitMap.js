@@ -15,10 +15,20 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )((props) =>{
+
+        let lat =  53.90453979999999,
+            lon = 27.5615244;
+
+        try {
+            lat = props.location.lat;
+            lon = props.location.lon;
+        }
+        catch (e) {}
+
         return(
             <GoogleMap
                 defaultZoom={8}
-                defaultCenter={{ lat:  props.location.lat || -34.397, lng: props.location.lon ||  150.644 }}
+                defaultCenter={{ lat:  lat, lng: lon }}
                 options = {{
                     disableDefaultUI: true,
                     gestureHandling: 'greedy',

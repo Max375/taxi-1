@@ -9,12 +9,37 @@ import bigStarEmpty from '../../../assets/img/big_star_empty.png';
 import Button from "../../Button/Button";
 import changeScreenAction from "../../../actions/changeScreenAction";
 import Feedback from "../Feedback/Feedback";
+import {getFinishInfo} from '../../../fetch/fetch';
+import clearTokenAction from "../../../actions/clearTokenAction";
+import {doSync} from "../../../secondary";
+
 class Total extends Component{
 
 
     state = {
-        rating: 0
+        rating: 0,
+        bonusPayment: 0,
+        distance: 0,
+        time: 0,
+        totalPayment: 0
     };
+
+    componentDidMount(){
+        getFinishInfo(this.props.user.token)
+            .then(data=>{
+                console.log(data);
+                this.setState({
+                    bonusPayment: data.bonusPayment,
+                    distance: data.distance,
+                    time: data.time,
+                    totalPayment: data.totalPayment
+                })
+            })
+            .catch(e=>{
+                this.props.dispatch(clearTokenAction());
+                doSync();
+            })
+    }
 
     render(){
         let elements = [];
@@ -29,15 +54,16 @@ class Total extends Component{
                     <div className="flex-inner">
                         <div className="header-total-sum">
                             <p>Сумма к оплате</p>
-                            25 Br
-                            <p>Наличные</p>
+                            <div>{this.state.totalPayment} BYN</div>
+                            {this.state.bonusPayment} Бонусов
+                            <p>{this.props.order.card === 0 ? 'Наличные': 'Карта'}</p>
                         </div>
                         <div className="distance-time">
                             <div className="distance-time-distance">
-                                Расстояние: <span>15 км</span>
+                                Расстояние: <span>{this.state.distance} км</span>
                             </div>
                             <div className="distance-time-time">
-                                Время: <span>20 мин</span>
+                                Время: <span>{this.state.time} мин</span>
                             </div>
                         </div>
                         <p className={'h1'}>Оцените поездку</p>

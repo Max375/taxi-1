@@ -1,0 +1,296 @@
+.expectation{
+    width: 92%;
+    background-color: #fff;
+    border-radius: 14px;
+    margin: 0 auto;
+    padding: 36px 0;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-width: 600px){
+    .expectation{
+        width: 95%;
+        padding: 26px 0;
+    }
+}
+
+.expectation .expectation__top-row{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+}
+.expectation .top-row__left-coll{
+    width: 138px;
+    text-align: center;
+}
+.expectation .top-row__left-coll img{
+    width: 100%;
+    height: auto;
+}
+@media screen and (max-width: 500px){
+    .expectation .top-row__left-coll{
+        width: 22%;
+    }
+}
+.expectation .year-of-manufacture{
+    margin: 24px auto 0;
+    width: 106px;
+    height: 40px;
+    text-align: center;
+    padding-top: 5px;
+    border: solid 2px #e1e1e5;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #abadb6;
+}
+@media screen and (max-width: 500px){
+    .expectation .year-of-manufacture{
+        width: 80px;
+        font-size: 16px;
+        padding-top: 7px;
+    }
+}
+@media screen and (max-width: 400px){
+    .expectation .year-of-manufacture{
+        width: 70px;
+        font-size: 15px;
+    }
+}
+
+.expectation .top-row__right-coll{
+    width: 68%;
+    color: #292b3a;
+    padding-left: 7px;
+}
+@media screen and (max-width: 500px){
+    .expectation .top-row__right-coll{
+        width: 68%;
+    }
+}
+
+.expectation .waiting-time-wrapper{
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+    margin: 0 0 25px 0;
+    line-height: 40px;
+}
+@media screen and (max-width: 700px){
+    .expectation .waiting-time-wrapper{
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 500px){
+    .expectation .waiting-time-wrapper{
+        flex-direction: column;
+        line-height: 28px;
+        margin: 0 0 0 0;
+    }
+}
+.expectation .right-coll__car-color{
+    width: 106px;
+    text-align: center;
+}
+@media screen and (max-width: 500px){
+    .expectation .right-coll__car-color{
+        width: 86px;
+    }
+}
+
+.expectation .waiting-time-wrapper .expecting-time{
+    white-space: nowrap;
+    padding: 0 0 0 40px;
+    background: url("../../../assets/img/clock.png") no-repeat top 50% left;
+}
+@media screen and (max-width: 600px){
+    .expectation .waiting-time-wrapper .expecting-time{
+        font-size: 21px;
+    }
+}
+.expectation .expecting-time-value{
+    width: 106px;
+    text-align: center;
+}
+@media screen and (max-width: 500px){
+    .expectation .expecting-time-value{
+        text-align: left;
+        margin: 8px 0 0 0;
+    }
+}
+
+
+.expectation .model-color-flex-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+@media screen and (max-width: 700px){
+    .expectation .model-color-flex-wrapper{
+        flex-direction: column;
+    }
+}
+.expectation .right-coll__car-model{
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 39px;
+}
+@media screen and (max-width: 600px){
+    .expectation .right-coll__car-model{
+        font-size: 25px;
+    }
+}
+.expectation .right-coll__car-color{
+    /*margin: 24px auto 0;*/
+    width: 106px;
+    height: 40px;
+    text-align: center;
+    padding-top: 4px;
+    border: solid 2px #e1e1e5;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #abadb6;
+    margin: 0 0 0 8px;
+}
+@media screen and (max-width: 700px){
+    .expectation .right-coll__car-color{
+        margin: 14px 0 0 0;
+    }
+}
+@media screen and (max-width: 500px){
+    .expectation .right-coll__car-color{
+        font-size: 16px;
+        width: 86px;
+        padding-top: 6px;
+    }
+}
+
+.expectation .rating-number-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 21px 0 0 0;
+}
+@media screen and (max-width: 700px){
+    .expectation .rating-number-wrapper{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.expectation .state-number{
+    font-size: 38px;
+    white-space: nowrap;
+    line-height: 30px;
+}
+
+.expectation .right-coll__car-rating{
+    margin: 16px 0 16px 0;
+}
+@media screen and (max-width: 700px){
+    .expectation .right-coll__car-rating{
+        margin: 0 0 13px 0;
+    }
+}
+.expectation .right-coll__car-rating .little-star{
+    width: 22px;
+    height: 20px;
+    background: url("../../../assets/img/little_star.png");
+    display: inline-block;
+    margin-right: 6px;
+}
+.expectation .right-coll__car-rating .little-star.little-star-empty{
+    background: url("../../../assets/img/little_star_empty.png");
+}
+
+.expectation .right-coll__car-point{
+    display: inline-block;
+    font-size: 22px;
+    color: #868891;
+    vertical-align: bottom;
+    margin-left: 6px;
+}
+
+.expectation .buttons-time-left{
+    padding: 70px 0 0px 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+@media screen and (max-width: 700px){
+    .expectation .buttons-time-left{
+        padding: 20px 0 0 0;
+    }
+}
+.expectation .buttons-time-left button{
+    display: block;
+    font-size: 38px;
+    color: #fff;
+    background-color: #9656c8;
+    width: 292px;
+    height: 72px;
+    -webkit-border-radius: 36px;
+    -moz-border-radius: 36px;
+    border-radius: 36px;
+    margin: 0 auto 42px;
+}
+@media screen and (max-width: 650px){
+    .expectation .buttons-time-left button{
+        font-size: 25px;
+        width: 190px;
+        height: 50px;
+        margin: 0 auto 20px;
+    }
+}
+.expectation .expectation__bottom-row{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 35px auto 0;
+}
+.expectation .expectation__bottom-row button, .expectation .expectation__bottom-row a{
+    width: 47%;
+    height: 72px;
+    line-height: 72px;
+    border-radius: 35px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.expectation .expectation__bottom-row a{
+    text-align: center;
+}
+@media screen and (max-width: 650px){
+    .expectation .expectation__bottom-row button, .expectation .expectation__bottom-row a{
+        font-size: 20px;
+        font-weight: normal;
+        letter-spacing: 0;
+    }
+}
+@media screen and (max-width: 500px){
+    .expectation .expectation__bottom-row button, .expectation .expectation__bottom-row a{
+        font-size: 16px;
+        height: 45px;
+        line-height: 45px;
+    }
+}
+.expectation a.button-call{
+    background: url("../../../assets/img/handset.png") no-repeat top 50% left 10%;
+    background-color: #3ddc80;
+    padding-left: 8%;
+}
+@media screen and (max-width: 430px){
+    .expectation a.button-call{
+        background: none;
+        background-color: #3ddc80;
+        padding-left: 0;
+    }
+}
+.expectation button.button-cancel{
+    background-color: #f9e3e8;
+    color: #da4665;
+}

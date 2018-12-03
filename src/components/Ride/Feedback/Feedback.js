@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Feedback.css';
 import FooterButton from '../../FooterButton/FooterButton';
 import HeaderWithMenu from "../../HeaderWithMenu/HeaderWithMenu";
+import HeaderBack from "../../HeaderBack/HeaderBack";
+import {doSync} from "../../../secondary";
 
 class Feedback extends Component {
 
@@ -29,7 +31,7 @@ class Feedback extends Component {
     render() {
         return (
             <div className={'feedback container'}>
-                <HeaderWithMenu headerTitle={'Отзыв о поездке'}/>
+                <HeaderBack onClick={doSync} headerTitle={'Отзыв о поездке'}/>
                 <div className="feedback-content">
                     <div className="flex-top">
                         <p className={'h2'}>Текст отзыва</p>
