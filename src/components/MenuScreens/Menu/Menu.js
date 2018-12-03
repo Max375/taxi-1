@@ -1,13 +1,13 @@
 import React from 'react';
 import './Menu.css'
 import connect from "react-redux/es/connect/connect";
-import DriverMenu from '../../assets/img/driver_menu.png';
-import changeScreenAction from "../../actions/changeScreenAction";
-import TripHistory from "../MenuScreens/TripHistory/TripHistory";
-import PointsList from "../MenuScreens/PointsList/PointsList";
-import PromoCode from "../MenuScreens/PromoCode/PromoCode";
-import clearTokenAction from "../../actions/clearTokenAction";
-import Login from "../Authorization/Login/Login";
+import DriverMenu from '../../../assets/img/driver_menu.png';
+import changeScreenAction from "../../../actions/changeScreenAction";
+import TripHistory from "../TripHistory/TripHistory";
+import PointsList from "../PointsList/PointsList";
+import PromoCode from "../PromoCode/PromoCode";
+import clearTokenAction from "../../../actions/clearTokenAction";
+import Login from "../../Authorization/Login/Login";
 
 
 function Menu(props) {

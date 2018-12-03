@@ -430,31 +430,6 @@ export const getDriverLocation = function (token) {
 
 
 
-export const getDriverWaitInfo = function (token) {
-
-    const body = JSON.stringify({
-        action: 'driver_wait_get_info',
-        token: token
-    });
-
-    customConsole.log('driver_wait_get_info request:', body);
-
-    return fetch(URL,{
-        method: 'POST',
-        body: body
-    })
-        .then(res =>{
-            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
-            return res.json();
-        })
-        .then(data =>{
-            customConsole.log('driver_wait_get_info response:', JSON.stringify(data));
-            return data;
-        });
-};
-
-
-
 
 
 

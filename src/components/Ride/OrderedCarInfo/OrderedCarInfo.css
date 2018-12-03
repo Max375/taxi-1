@@ -155,7 +155,7 @@
     width: 90%;
     margin: 35px auto 0;
 }
-.ordered-car-info__bottom-row button{
+.ordered-car-info__bottom-row button, .ordered-car-info__bottom-row a{
     width: 47%;
     height: 72px;
     border-radius: 35px;
@@ -164,27 +164,39 @@
     font-size: 26px;
     font-weight: 600;
     letter-spacing: 1px;
+    line-height: 72px;
 }
+.ordered-car-info__bottom-row a
+{
+    padding-left: 65px;
+    text-align: center;
+}
+
 @media screen and (max-width: 650px){
-    .ordered-car-info__bottom-row button{
+    .ordered-car-info__bottom-row button,   .ordered-car-info__bottom-row a{
         font-size: 20px;
         font-weight: normal;
         letter-spacing: 0;
     }
 }
 @media screen and (max-width: 500px){
-    .ordered-car-info__bottom-row button{
+    .ordered-car-info__bottom-row button, .ordered-car-info__bottom-row a{
         font-size: 16px;
         height: 45px;
+        line-height: 45px;
     }
 }
-button.button-call{
+
+a.button-call{
+    display: block;
+    color: #fff;
+    text-decoration: none;
     background: url("../../../assets/img/handset.png") no-repeat top 50% left 10%;
     background-color: #3ddc80;
     padding-left: 8%;
 }
 @media screen and (max-width: 430px){
-    button.button-call{
+    a.button-call{
         background: none;
         background-color: #3ddc80;
         padding-left: 0;

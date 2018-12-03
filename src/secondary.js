@@ -1,7 +1,7 @@
 import setDeviceIdAction from "./actions/setDeviceIdAction";
 import changeScreenAction from "./actions/changeScreenAction";
 import Login from "./components/Authorization/Login/Login";
-import {getUserInfo, getTradeList} from "./fetch/fetch";
+import {getUserInfo, getTradeList, getDriverLocation} from "./fetch/fetch";
 import clearTokenAction from "./actions/clearTokenAction";
 import React from "react";
 import {customConsole} from "./utils";
@@ -15,13 +15,15 @@ import setFavoritePoint from "./actions/setFavoritesPoints";
 import setMinimalPrice from "./actions/setMinimalPriceAction";
 import setCardListAction from "./actions/cardsActions/setCardListAction"
 import Order from "./components/Order/Order/Order";
-import SearchDriver from "./components/Driver/SearchDriver/SearchDriver";
+import SearchDriver from "./components/DriverSearching/SearchDriver/SearchDriver";
 import {logStoreState} from './utils';
-import DriverOffers from "./components/Driver/DriverOffers/DriverOffers";
+import DriverOffers from "./components/DriverSearching/DriverOffers/DriverOffers";
 import setTradeAction from "./actions/tradesAction/setTradesAction"
-import DriverWait from "./components/Driver/DriverWait/DriverWait";
-import DriverRoad from "./components/Driver/DriverRoad/DriverRoad";
+import DriverWait from "./components/Ride/DriverWait/DriverWait";
+import DriverRoad from "./components/Ride/DriverRoad/DriverRoad";
 import Races from "./components/Ride/Races/Races";
+import Total from './components/Ride/Total/Total'
+import setDriverLocationAction from "./actions/driverActions/setDriverLocationAction";
 
 
 export const store = createStore(taxiReducer,composeWithDevTools());
@@ -122,6 +124,10 @@ export const doSync = () =>{
         dispatch(changeScreenAction(<Races/>))
     }
 
+    if(state.order.status === 50){
+        dispatch(changeScreenAction(<Total/>))
+    }
+
 };
 
 
@@ -214,5 +220,4 @@ export  const setPushListener = ()=>{
         }
     });
 };
-
 

@@ -73,7 +73,7 @@
     color: #ffe613;
     padding: 1px 0 0 39px;
     margin-bottom: 17px;
-    background: url("../../assets/img/gift.png") no-repeat top 35% left;
+    background: url("../../../assets/img/gift.png") no-repeat top 35% left;
     -webkit-background-size: contain;
     background-size: contain;
 }
@@ -113,31 +113,31 @@
 }
 
 .menu .button-block button.taxi-request{
-    background: url("../../assets/img/taxi_request.png") no-repeat top 50% left;
+    background: url("../../../assets/img/taxi_request.png") no-repeat top 50% left;
 }
 .menu .button-block button.trips-history{
-    background: url("../../assets/img/trips_history.png") no-repeat top 50% left;
+    background: url("../../../assets/img/trips_history.png") no-repeat top 50% left;
 }
 .menu .button-block button.favorite-addresses{
-    background: url("../../assets/img/favorite_addresses.png") no-repeat top 50% left;
+    background: url("../../../assets/img/favorite_addresses.png") no-repeat top 50% left;
 }
 .menu .button-block button.payment-method{
-    background: url("../../assets/img/payment_method.png") no-repeat top 50% left;
+    background: url("../../../assets/img/payment_method.png") no-repeat top 50% left;
 }
 .menu .button-block button.settings{
-    background: url("../../assets/img/settings.png") no-repeat top 50% left;
+    background: url("../../../assets/img/settings.png") no-repeat top 50% left;
 }
 .menu .button-block button.become-to-driver{
-    background: url("../../assets/img/become_to_driver.png") no-repeat top 50% left;
+    background: url("../../../assets/img/become_to_driver.png") no-repeat top 50% left;
 }
 .menu .button-block button.promo-code-btn{
-    background: url("../../assets/img/promo_code_btn.png") no-repeat top 50% left;
+    background: url("../../../assets/img/promo_code_btn.png") no-repeat top 50% left;
 }
 .menu .button-block button.tech-support{
-    background: url("../../assets/img/tech_support.png") no-repeat top 50% left;
+    background: url("../../../assets/img/tech_support.png") no-repeat top 50% left;
 }
 .menu .button-block button.exit{
-    background: url("../../assets/img/exit.png") no-repeat top 50% left;
+    background: url("../../../assets/img/exit.png") no-repeat top 50% left;
 }
 
 .menu .button-block button.taxi-request,

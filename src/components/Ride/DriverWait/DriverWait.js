@@ -2,23 +2,24 @@ import React , {Component} from 'react';
 
 import './DriverWait.css';
 import connect from "react-redux/es/connect/connect";
-import OrderedCarInfo from '../OrderedCarInfo/OrderedCarInfo'
 import HeaderWithMenu from "../../HeaderWithMenu/HeaderWithMenu";
-import WaitMap from '../Maps/WaitMap'
-import {getDriverWaitInfo, getUserInfo} from '../../../fetch/fetch'
+import WaitMap from '../../Maps/WaitMap'
+import {getDriverLocation, getUserInfo} from '../../../fetch/fetch'
 import setDriverLocationAction from "../../../actions/driverActions/setDriverLocationAction";
 import CancelOrderMenu from '../CancelOrderMenu/CancelOrderMenu';
-import {doSync, setUserInfo, store} from "../../../secondary";
-import {carModelCheck, customConsole, getDistanceBetweenToPoints} from "../../../utils";
+import {doSync, setUserInfo} from "../../../secondary";
+import {carModelCheck, customConsole} from "../../../utils";
 import changeScreenAction from "../../../actions/changeScreenAction";
 import Login from "../../Authorization/Login/Login";
 import clearTokenAction from "../../../actions/clearTokenAction";
 
 class DriverRoad extends Component{
 
+    interval = null;
+    timer = null;
+
     state = {
         isCancelOrderMenuOpen: false,
-        interval: null,
     };
 
     closeMenuCancel = () =>{
@@ -35,8 +36,13 @@ class DriverRoad extends Component{
     };
 
 
+    tick = () => {
+        this.setState({time: this.state.time+1});
+    };
+
+
     updateDriverLocation =()=>{
-        getDriverWaitInfo(this.props.user.token)
+        getDriverLocation(this.props.user.token)
             .then(data=>{
                 console.log(data);
                 this.props.dispatch(setDriverLocationAction(data.location));
@@ -54,6 +60,12 @@ class DriverRoad extends Component{
                             this.props.dispatch(clearTokenAction());
                         });
                 }
+
+                if(this.state.time < parseInt(data.last_modification)-10 || this.state.time > parseInt(data.last_modification)+10){
+
+                    this.setState({time: parseInt(data.last_modification)})
+                }
+
             })
             .catch(()=>{
 
@@ -62,24 +74,21 @@ class DriverRoad extends Component{
 
 
     componentDidMount(){
-        this.setState({interval : setInterval(this.updateDriverLocation, 1000)});
+        this.setState({
+            time: 0
+        });
+
+        this.interval = setInterval(this.updateDriverLocation, 1000);
+        this.timer = setInterval(this.tick, 1000);
     }
 
     componentWillUnmount(){
-        clearInterval(this.state.interval);
+        clearInterval(this.interval);
+        clearInterval(this.timer);
     }
 
-
     render(){
-        let time = 0;
 
-        try{
-            time = getDistanceBetweenToPoints(this.props.driver.location,this.props.order.startPoint.value)*2;
-            if (time <= 1) time = 1;
-        }
-        catch (e) {
-            time = 5;
-        }
 
         return(
             <div className="waiting-for-taxi container">
@@ -94,6 +103,7 @@ class DriverRoad extends Component{
                             </div>
                             <div className={'top-row__right-coll'}>
                                 <div className={'model-color-flex-wrapper'}>
+                                    Время: {(this.state.time/60).toFixed(0)} : {this.state.time%60}
                                     <div className={'right-coll__car-model'}>{this.props.driver.car.version}</div>
                                     <div  style={{backgroundColor: this.props.driver.car.colorCode}} className={'right-coll__car-color'}>{this.props.driver.car.color}</div>
                                 </div>
@@ -103,7 +113,7 @@ class DriverRoad extends Component{
                                 </div>
 
                                 <div className="arrival-time">
-                                    Будет через: <span>{time} мин.</span>
+                                    Будет через: <span>{} мин.</span>
                                 </div>
                             </div>
                         </div>

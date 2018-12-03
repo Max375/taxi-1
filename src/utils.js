@@ -1,7 +1,12 @@
 import React from "react";
-import {store} from "./secondary";
+import {doSync, setUserInfo, store} from "./secondary";
 import VW from './assets/img/sign_hyundai_big.png'
 import BMW from './assets/img/sign_hyundai_big.png'
+import {getDriverLocation, getUserInfo} from "./fetch/fetch";
+import setDriverLocationAction from "./actions/driverActions/setDriverLocationAction";
+import changeScreenAction from "./actions/changeScreenAction";
+import Login from "./components/Authorization/Login/Login";
+import clearTokenAction from "./actions/clearTokenAction";
 const isDebug = true;
 
 export const PRICE_STAP = 0.5;
@@ -38,16 +43,16 @@ export const convertOrderInfoFromBackEnd = (data) => {
 
     if(data.end_points.length >1){
         wayPoint = {
-            label: data.end_points_text[0],
-            value: {
+            address: data.end_points_text[0],
+            location: {
                 lat: parseFloat(data.end_points[0].lat),
                 lon: parseFloat(data.end_points[0].lon)
             }
         };
 
         endPoint = {
-                label: data.end_points_text[1],
-                value: {
+            address: data.end_points_text[1],
+                location: {
                     lat: parseFloat(data.end_points[1].lat),
                     lon: parseFloat(data.end_points[1].lon)
                 }
@@ -55,8 +60,8 @@ export const convertOrderInfoFromBackEnd = (data) => {
     }
     else{
         endPoint = {
-            label: data.end_points_text[0],
-            value: {
+            address: data.end_points_text[0],
+            location: {
                 lat: parseFloat(data.end_points[0].lat),
                 lon: parseFloat(data.end_points[0].lon)
             }
@@ -73,8 +78,8 @@ export const convertOrderInfoFromBackEnd = (data) => {
 
 
         startPoint: {
-            label: data.start_point_text,
-            value: {
+            address: data.start_point_text,
+            location: {
                 lat: parseFloat(data.start_point.lat),
                 lon: parseFloat(data.start_point.lon)
             }
@@ -142,12 +147,14 @@ export const convertDriverInfoFromBackEnd = (data) => {
         },
         rating: parseInt(data.rating),
         phone: parseInt(data.phone),
+        name: data.name,
         car: {
             color: data.car.color,
             version: data.car.version,
             colorCode: data.car.color_code,
             year: parseInt(data.car.year),
-            model: data.car.model
+            model: data.car.model,
+            carNumber: data.car.car_number
         }
     }
 };
@@ -326,4 +333,28 @@ export const getDistanceBetweenToPoints = function(p1, p2) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
     return (d/1000).toFixed(0);
+};
+
+
+
+export const updateDriverLocation =()=>{
+    getDriverLocation(store.getState().user.token)
+        .then(data=>{
+            store.dispatch(setDriverLocationAction(data.location));
+            if(parseInt(data.status) !== store.getState().order.status){
+                getUserInfo(store.getState().user.token)
+                    .then(data => {
+                        setUserInfo(data);
+                        doSync();
+                    })
+                    .catch(err => {
+                        customConsole.error(err);
+                        store.dispatch(changeScreenAction(<Login />));
+                        store.dispatch(clearTokenAction());
+                    });
+            }
+        })
+        .catch(()=>{
+
+        })
 };

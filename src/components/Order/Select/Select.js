@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Select.css'
 import connect from "react-redux/es/connect/connect";
-import Point from "../../MenuScreens/FavoritePoint/FavoritePoint";
 
 const VALUE_SELECT = 'VALUE_SELECT';
 

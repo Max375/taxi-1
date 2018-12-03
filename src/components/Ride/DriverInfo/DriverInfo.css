@@ -1,0 +1,175 @@
+.driver-process{
+    width: 92%;
+    background-color: #fff;
+    border-radius: 14px;
+    margin: 0 auto;
+    padding: 0 36px 42px;
+}
+@media screen and (max-width: 430px){
+    .driver-process{
+        width: 95%;
+        padding: 0 18px 25px;
+    }
+}
+
+.driver-process .driver-process-top-row{
+    height: 172px;
+    border-bottom: solid 1px #e7e8ef;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 30px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .driver-process-top-row{
+        height: 120px;
+        margin-bottom: 15px;
+    }
+}
+@media screen and (max-width: 430px){
+    .driver-process .driver-process-top-row{
+        height: 70px;
+        margin-bottom: 10px;
+    }
+}
+.driver-process .top-row-coll{
+    text-align: center;
+}
+
+.driver-process .top-row-coll .title{
+    font-size: 46px;
+    font-weight: 600;
+}
+@media screen and (max-width: 600px){
+    .driver-process .top-row-coll .title{
+        font-size: 38px;
+    }
+}
+@media screen and (max-width: 430px){
+    .driver-process .top-row-coll .title{
+        font-size: 25px;
+        font-weight: 600;
+    }
+}
+
+.driver-process .top-row-coll p{
+    font-size: 26px;
+    font-weight: normal;
+    color: #abadb6;
+    margin: 0;
+}
+@media screen and (max-width: 600px){
+    .driver-process .top-row-coll p{
+        font-size: 16px;
+    }
+
+}
+.driver-process .route-point{
+    font-size: 32px;
+    margin: 10px 0;
+    word-wrap: break-word;
+    background: url("../../../assets/img/route_point_bgr.png") no-repeat top 64% left 0;
+    padding-left: 30px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .route-point{
+        font-size: 26px;
+        padding-left: 20px;
+    }
+}
+@media screen and (max-width: 430px){
+    .driver-process .route-point{
+        font-size: 18px;
+        margin: 10px 0;
+    }
+}
+
+.driver-process .driver-rating-model-block{
+    margin: 37px 0 47px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .driver-rating-model-block{
+        margin: 5px 0;
+    }
+}
+
+.driver-process .driver-rating-model-block img{
+    display: inline-block;
+    vertical-align: top;
+}
+@media screen and (max-width: 600px){
+    .driver-process .driver-rating-model-block img{
+        transform: scale(0.8);
+    }
+}
+.driver-process .name-rating-model-subblock{
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 33px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .name-rating-model-subblock{
+        padding-left: 15px;
+    }
+    .driver-process .driver-rating-model-block img{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .driver-process .name-rating-model-subblock{
+        display: block;
+        padding-left: 0;
+    }
+}
+
+.driver-process .name-rating-model-subblock .driver-name{
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 35px;
+    margin-bottom: 18px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .name-rating-model-subblock .driver-name{
+        font-size: 25px;
+        margin-bottom: 5px;
+    }
+}
+
+.driver-process .car-rating{
+    margin-bottom: 17px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .car-rating{
+        margin-bottom: 5px;
+    }
+}
+.driver-process .car-rating .little-star{
+    width: 22px;
+    height: 20px;
+    background: url("../../../assets/img/little_star.png");
+    display: inline-block;
+    margin-right: 6px;
+}
+.driver-process .car-rating .little-star.little-star-empty{
+    background: url("../../../assets/img/little_star_empty.png");
+}
+.driver-process .name-rating-model-subblock .car-point{
+    display: inline-block;
+    font-size: 22px;
+    color: #868891;
+}
+.driver-process .car-sign-model-subblock img{
+    display: inline-block;
+}
+.driver-process .car-sign-model-subblock .car-model{
+    display: inline-block;
+    font-size: 32px;
+    line-height: 31px;
+    vertical-align: top;
+    padding-left: 16px;
+}
+@media screen and (max-width: 600px){
+    .driver-process .car-sign-model-subblock .car-model{
+        font-size: 22px;
+        line-height: 30px;
+    }
+}

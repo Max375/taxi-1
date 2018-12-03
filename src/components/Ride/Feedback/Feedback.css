@@ -1,0 +1,98 @@
+.feedback.container{
+    flex-direction: column;
+}
+
+.feedback .feedback-content{
+    padding: 40px 5% 0 5%;
+    height: calc(100vh - 232px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: scroll;
+}
+
+.feedback .flex-bottom{
+    margin: 25px 0 30px 0;
+}
+
+.feedback p.h2{
+    font-size: 32px;
+    margin: 0 0 15px 0;
+    color: #abadb6;
+}
+@media screen and (max-width: 500px){
+    .feedback p.h2{
+        font-size: 25px;
+    }
+}
+
+.feedback textarea{
+    display: block;
+    width: 100%;
+    border: none;
+    min-height: 177px;
+    border-bottom: solid 1px #bdbec7;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    resize: none;
+}
+@media screen and (max-width: 500px){
+    .feedback textarea{
+        font-size: 23px;
+    }
+}
+@media screen and (max-width: 370px){
+    .feedback textarea{
+        font-size: 18px;
+    }
+}
+
+.feedback input{
+    display: none;
+}
+.feedback input + label{
+    display: block;
+    width: 100%;
+    min-height: 73px;
+    border: solid 2px #dbdde7;
+    color: #babcc8;
+    font-size: 32px;
+    background-color: #fff;
+    padding: 11px 0 0 12.8%;
+    margin: 0 0 25px 0;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0px 3px 5px 0px rgba(200, 160, 234, 0.2);
+}
+.feedback label[for='add-to-favorites']{
+    background: url("../../../assets/img/favorite.png") no-repeat left 4.3% top 50%;
+}
+.feedback input:checked + label[for='add-to-favorites']{
+    background: url("../../../assets/img/favorite_checked.png") no-repeat left 4.3% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4.3% top 50%;
+}
+.feedback label[for='add-to-black-list']{
+    background: url("../../../assets/img/black_list_cross.png") no-repeat left 4.3% top 50%;
+}
+.feedback input:checked + label[for='add-to-black-list']{
+    background: url("../../../assets/img/black_list_cross_cheked.png") no-repeat left 4.3% top 50%, url("../../../assets/img/car_class_mark.png") no-repeat right 4.3% top 50%;
+}
+
+.feedback input:checked + label{
+    border: solid 2px #7664ca;
+    color: #7664ca;
+}
+
+@media screen and (max-width: 600px){
+    .feedback-content{
+        padding: 20px 5% 10px; ;
+    }
+    .feedback input + label{
+        font-size: 24px;
+        margin: 0 0 15px 0;
+        padding: 16px 50px 21px 72px;
+    }
+    .feedback .flex-bottom{
+        margin: 25px 0 10px 0;
+    }
+}
+

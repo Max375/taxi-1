@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
-
 import Load from '../Load/Load'
-
-
-
-
-
 import {connect} from 'react-redux'
 
 

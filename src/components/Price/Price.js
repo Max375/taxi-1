@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 
 import './Price.css';
-import TopBar from "../TopBar/TopBar";
+import  from "..//";
 import connect from "react-redux/es/connect/connect";
 
 import setOrderPice from '../../actions/ordersActions/setOrderPriceAction';
@@ -22,7 +22,7 @@ class Price extends Component{
         return(
 
             <React.Fragment>
-            <TopBar/>
+            </>
                 <div class="wait">Предлагаем вашу цену водителям, ожидайте</div>
                 <div class="red"></div>
                 <div class="offer">
