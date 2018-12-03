@@ -1,66 +1,87 @@
 import React , {Component} from 'react';
 
 import './Total.css';
-import TopBar from "../TopBar/TopBar";
 import connect from "react-redux/es/connect/connect";
-import changeScreenAction from "../../actions/changeScreenAction";
-import clearDriverInfo from "../../actions/clearDriverInfo";
-import clearOrderInfo from "../../actions/ordersActions/removeOrderAction";
-import {setRating} from "../../fetch/fetch"
+import {setRating} from "../../../fetch/fetch"
+import HeaderWithMenu from '../../HeaderWithMenu/HeaderWithMenu';
+import bigStar from '../../../assets/img/big_star.png';
+import bigStarEmpty from '../../../assets/img/big_star_empty.png';
+import Button from "../../Button/Button";
+import changeScreenAction from "../../../actions/changeScreenAction";
+import Feedback from "../Feedback/Feedback";
+import {getFinishInfo} from '../../../fetch/fetch';
+import clearTokenAction from "../../../actions/clearTokenAction";
+import {doSync} from "../../../secondary";
 
 class Total extends Component{
 
 
     state = {
-        rating: 0
+        rating: 0,
+        bonusPayment: 0,
+        distance: 0,
+        time: 0,
+        totalPayment: 0
     };
 
+    componentDidMount(){
+        getFinishInfo(this.props.user.token)
+            .then(data=>{
+                console.log(data);
+                this.setState({
+                    bonusPayment: data.bonusPayment,
+                    distance: data.distance,
+                    time: data.time,
+                    totalPayment: data.totalPayment
+                })
+            })
+            .catch(e=>{
+                this.props.dispatch(clearTokenAction());
+                doSync();
+            })
+    }
+
     render(){
-        console.log(this.props);
         let elements = [];
 
-        for (let i = 0; i<this.state.rating; i++) elements.push(<i class="fa fa-star active" onClick={()=>{this.setState({rating: i+1})}} aria-hidden="true"></i>);
-        for (let i = this.state.rating; i<5; i++) elements.push(<i class="fa fa-star" aria-hidden="true" onClick={()=>{this.setState({rating: i+1})}}></i>);
+        for (let i = 0; i<this.state.rating; i++) elements.push(<img src={bigStar} onClick={()=>{this.setState({rating: i+1})}} />);
+        for (let i = this.state.rating; i<5; i++) elements.push(<img src={bigStarEmpty} onClick={()=>{this.setState({rating: i+1})}} />);
 
         return(
-            <React.Fragment>
-                <TopBar/>
-               <div class="total-price">
-                   <div>К оплате, руб</div>
-                   <span>{this.props.data.order_price}</span>
-                   <div>К оплате, бонусы</div>
-                   <span>{this.props.data.bonus}</span>
-               </div>
-                <div class="total-wp">
-                    <div class="total-ds">
-                        Расстояние <br/>
-                        <span>{this.props.data.distance} км</span>
-                    </div>
-                    <div class="total-time">
-                        Время <br/>
-                        <span>{this.props.data.time} мин</span>
+            <div className={'trip-completed container'}>
+                <HeaderWithMenu headerTitle={'Поездка завершена'} />
+                <div className="calc-content without-footer">
+                    <div className="flex-inner">
+                        <div className="header-total-sum">
+                            <p>Сумма к оплате</p>
+                            <div>{this.state.totalPayment} BYN</div>
+                            {this.state.bonusPayment} Бонусов
+                            <p>{this.props.order.card === 0 ? 'Наличные': 'Карта'}</p>
+                        </div>
+                        <div className="distance-time">
+                            <div className="distance-time-distance">
+                                Расстояние: <span>{this.state.distance} км</span>
+                            </div>
+                            <div className="distance-time-time">
+                                Время: <span>{this.state.time} мин</span>
+                            </div>
+                        </div>
+                        <p className={'h1'}>Оцените поездку</p>
+                        <div className="stars-container">
+                            {elements}
+                        </div>
+
+                        <div className="press-down">
+                            <Button text={'завершить'}/>
+                            <button onClick={()=>{this.props.dispatch(changeScreenAction(<Feedback/>))}} className={'button-leave-feedback'}>
+                                <p>оставить отзыв</p>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
-                <div class="total-rating">
-                    {elements}
-                </div>
-                <button class="estimate"
-                onClick={()=>{
-
-                    if (this.state.rating != 0) setRating(this.props.order.id, this.state.rating, this.props.user.token);
-
-
-                    this.props.dispatch(clearDriverInfo());
-                    this.props.dispatch(clearOrderInfo());
-
-                    this.props.dispatch(changeScreenAction(<Order/>));
-
-                }}
-                >Оценить</button>
-            </React.Fragment>
+            </div>
         )
-
-
     }
 
 }

@@ -10,7 +10,7 @@ function OrderedCarInfo(props) {
     let time = 0;
 
     try{
-        time = getDistanceBetweenToPoints(props.driver.location,props.order.startPoint.value)*2;
+        time = getDistanceBetweenToPoints(props.driver.location,props.order.startPoint.location)*2;
         if (time <= 1) time = 1;
     }
     catch (e) {

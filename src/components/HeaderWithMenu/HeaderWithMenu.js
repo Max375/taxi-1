@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './HeaderWithMenu.css';
-import Menu from "../Menu/Menu";
+import Menu from "../MenuScreens/Menu/Menu";
 
 class HeaderWithMenu extends React.Component {
 

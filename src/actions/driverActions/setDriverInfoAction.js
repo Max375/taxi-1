@@ -13,12 +13,14 @@ export default function setDriverInfoAction(data) {
             location: data.location,
             rating: data.rating,
             phone: data.phone,
+            name: data.name,
             car:{
                 color: data.car.color,
                 version: data.car.version,
                 year: data.car.year,
                 colorCode: data.car.colorCode,
-                model: data.car.model
+                model: data.car.model,
+                carNumber: data.car.carNumber
             }
         },
     }

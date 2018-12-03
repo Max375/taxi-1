@@ -430,31 +430,6 @@ export const getDriverLocation = function (token) {
 
 
 
-export const getDriverWaitInfo = function (token) {
-
-    const body = JSON.stringify({
-        action: 'driver_wait_get_info',
-        token: token
-    });
-
-    customConsole.log('driver_wait_get_info request:', body);
-
-    return fetch(URL,{
-        method: 'POST',
-        body: body
-    })
-        .then(res =>{
-            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
-            return res.json();
-        })
-        .then(data =>{
-            customConsole.log('driver_wait_get_info response:', JSON.stringify(data));
-            return data;
-        });
-};
-
-
-
 
 
 
@@ -499,6 +474,36 @@ export const getRacesHistory = function (page, token) {
         });
 };
 
+
+
+export const getFinishInfo = (token)=>{
+    const body = JSON.stringify({
+        action: 'get_finish_ride_info',
+        token: token
+    });
+
+    customConsole.log('get_finish_ride_info request:', body);
+
+    return fetch(URL,{
+        method: 'POST',
+        body: body
+    })
+        .then(res =>{
+            if(res.status !== HTTP_STATUS_OK) throw {status: res.status, error: res.text()};
+            return res.json();
+        })
+        .then(data =>{
+            customConsole.log('get_finish_ride_info response:', JSON.stringify(data));
+            let foramttedData = {
+                bonusPayment: parseFloat(data.bonus_payment),
+                totalPayment: parseFloat(data.total_payment),
+                time: parseFloat(data.travel_time),
+                distance: (parseInt(data.order_distance)/1000).toFixed(0)
+            };
+            customConsole.log('get_finish_ride_info formatted response:', JSON.stringify(foramttedData));
+            return foramttedData;
+        });
+};
 
 
 

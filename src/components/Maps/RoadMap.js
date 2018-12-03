@@ -1,6 +1,6 @@
 import React from "react";
 
-import car from '../../../assets/img/car.png'
+import car from '../../assets/img/car.png'
 import {Marker, Polyline} from "react-google-maps";
 import connect from "react-redux/es/connect/connect";
 
@@ -30,7 +30,7 @@ const MapWithADirectionsRenderer = compose(
             const DirectionsService = new google.maps.DirectionsService();
             DirectionsService.route({
                 origin: new google.maps.LatLng(this.props.driver.location.lat,this.props.driver.location.lon),
-                destination: new google.maps.LatLng(this.props.order.startPoint.value.lat, this.props.order.startPoint.value.lon),
+                destination: new google.maps.LatLng(this.props.order.startPoint.location.lat, this.props.order.startPoint.location.lon),
                 travelMode: google.maps.TravelMode.DRIVING,
             }, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
@@ -48,7 +48,8 @@ const MapWithADirectionsRenderer = compose(
             <GoogleMap
                 defaultZoom={7}
                 options = {{
-                    disableDefaultUI: true
+                    disableDefaultUI: true,
+                    gestureHandling: 'greedy',
                 }}
             >
 

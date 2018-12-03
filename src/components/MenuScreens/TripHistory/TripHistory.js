@@ -35,8 +35,8 @@ class TripHistory  extends Component {
 
     render(){
         return(
-            <div onClick={doSync} className={'trip-history container'}>
-                <HeaderTypeOne headerTitle={'История поездок'}/>
+            <div  className={'trip-history container'}>
+                <HeaderTypeOne onClick={doSync} headerTitle={'История поездок'}/>
                 <div className="calc-content without-footer">
                     {this.state.history.map(el=><Trip key={el.id} info={el} />)}
                 </div>

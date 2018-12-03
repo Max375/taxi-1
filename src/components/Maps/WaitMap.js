@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import car from "../../../assets/img/car.png";
+import car from "../../assets/img/car.png";
 
 const MyMapComponent = compose(
     withProps({
@@ -15,13 +15,23 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )((props) =>{
-        console.log(props.location,'wait map');
+
+        let lat =  53.90453979999999,
+            lon = 27.5615244;
+
+        try {
+            lat = props.location.lat;
+            lon = props.location.lon;
+        }
+        catch (e) {}
+
         return(
             <GoogleMap
                 defaultZoom={8}
-                defaultCenter={{ lat:  props.location.lat || -34.397, lng: props.location.lon ||  150.644 }}
+                defaultCenter={{ lat:  lat, lng: lon }}
                 options = {{
-                    disableDefaultUI: true
+                    disableDefaultUI: true,
+                    gestureHandling: 'greedy',
                 }}
             >
                 <Marker options={{icon: car}} position={{ lat: props.location.lat || -34.397, lng: props.location.lon || 150.644 }} />}

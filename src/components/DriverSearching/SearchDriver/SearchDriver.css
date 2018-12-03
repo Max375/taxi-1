@@ -26,3 +26,13 @@
 .back{
     text-align: center;
 }
+
+.button-back-search{
+    color: black;
+    border: 1px solid #fff;
+    height: 70px;
+    width: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    background-color: #fff;
+}

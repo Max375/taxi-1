@@ -5,10 +5,14 @@ const initialState = {
     location: null,
     rating: 0,
     phone: null,
+    name: '',
     car: {
         color: null,
         version: null,
         year: null,
+        colorCode: "#ffffff",
+        model: 'BMW',
+        carNumber: null
     }
 };
 
@@ -23,12 +27,14 @@ export default function driver(state = initialState , action) {
                 location: action.payload.location,
                 rating: action.payload.rating,
                 phone: action.payload.phone,
+                name: action.payload.name,
                 car:{
                     color: action.payload.car.color,
                     version: action.payload.car.version,
                     year: action.payload.car.year,
                     colorCode: action.payload.car.colorCode,
-                    model: action.payload.car.model
+                    model: action.payload.car.model,
+                    carNumber: action.payload.car.carNumber
                 }
             };
         }

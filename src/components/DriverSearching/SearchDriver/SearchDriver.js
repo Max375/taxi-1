@@ -45,7 +45,7 @@ class SearchDriver extends Component {
                     <img src={loadingLogo} alt=""/>
                 </div>
                 <div style={{color: 'white',textAlign: 'center'}}>Поиск водителя</div>
-                <button onClick={this.onClickHandler}>Назад</button>
+                <button className="button-back-search" onClick={this.onClickHandler}>Назад</button>
                 <div className="spinner-wrapper">
                     <div className="lds-default">
                         <div></div>

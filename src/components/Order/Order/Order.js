@@ -241,6 +241,7 @@ class Order extends Component {
             .catch((e)=>{
                 this.setState({isButtonLoading: false});
                 console.log(e.status);
+
                 e.error.then(data=>{
                    console.log(data);
                 });
