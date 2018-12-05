@@ -54,8 +54,8 @@ class Total extends Component{
                     <div className="flex-inner">
                         <div className="header-total-sum">
                             <p>Сумма к оплате</p>
-                            <div>{this.state.totalPayment} BYN</div>
-                            {this.state.bonusPayment} Бонусов
+                            <div className={'value'}>{this.state.totalPayment} BYN</div>
+                            <div className={'numder-of-bonus'}>{this.state.bonusPayment} Бонусов</div>
                             <p>{this.props.order.card === 0 ? 'Наличные': 'Карта'}</p>
                         </div>
                         <div className="distance-time">

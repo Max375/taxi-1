@@ -28,7 +28,9 @@
     }
 }
 
-img{
+.login-submit img{
     display: block;
     max-height: 90%;
+    margin: 0 auto;
+
 }

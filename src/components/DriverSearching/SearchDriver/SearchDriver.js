@@ -3,6 +3,7 @@ import changeScreenAction from "../../../actions/changeScreenAction";
 import {cancelOrder} from "../../../fetch/fetch";
 import {doSync, updateTrades} from "../../../secondary"
 import './SearchDriver.css';
+import loaderPurple from "../../../assets/img/loader_purple.svg";
 
 
 import React, {Component} from 'react';
@@ -15,7 +16,8 @@ import setOrderAction from "../../../actions/ordersActions/setOrderAction";
 class SearchDriver extends Component {
 
     state = {
-       interval: null
+       interval: null,
+        isLoading: false
     };
 
     componentDidMount(){
@@ -28,12 +30,15 @@ class SearchDriver extends Component {
 
     //todo
     onClickHandler = ()=> {
+        this.setState({isLoading: true});
         cancelOrder(this.props.user.token, 'Водитель не найден')
             .then((res) => {
+                this.setState({isLoading: false});
                 this.props.dispatch(setOrderAction());
                 doSync();
             })
             .catch(e=>{
+                this.setState({isLoading: false});
                 customConsole.log('failed canceled order');
             })
     };
@@ -44,8 +49,9 @@ class SearchDriver extends Component {
                 <div className={'logo-loading'}>
                     <img src={loadingLogo} alt=""/>
                 </div>
-                <div style={{color: 'white',textAlign: 'center'}}>Поиск водителя</div>
-                <button className="button-back-search" onClick={this.onClickHandler}>Назад</button>
+                <div className={'text'}>Поиск водителя</div>
+                <button className="button-back-search" onClick={this.onClickHandler}>
+                    {this.state.isLoading ? (<img src={loaderPurple} alt="" className={'loader'}/>) : "Назад"}</button>
                 <div className="spinner-wrapper">
                     <div className="lds-default">
                         <div></div>

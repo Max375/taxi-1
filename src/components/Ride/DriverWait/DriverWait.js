@@ -37,7 +37,7 @@ class DriverRoad extends Component{
 
 
         return(
-            <div className="waiting-for-taxi container">
+            <div className="waiting-for-taxi container without-footer">
                 <HeaderWithMenu headerTitle={'Ожидание такси'}/>
                 <div className="calc-content without-footer container-with-bg-map">
                     <WaitMap location={this.props.driver !== null && this.props.driver.location}/>

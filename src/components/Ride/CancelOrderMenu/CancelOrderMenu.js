@@ -141,9 +141,10 @@ class CancelOrderMenu extends Component{
                                     Передумал ехать
                                 </label>
                             </div>
-                            <Button isLoading={this.state.isLoading}  onClick={this.cancelOrderHandler} text={'отменить поездку'}/>
                         </div>
                     </div>
+                    <Button isLoading={this.state.isLoading}  onClick={this.cancelOrderHandler} text={'отменить поездку'}/>
+
                 </div>
                 <div onClick={
                     ()=>{if(!this.state.isLoading) this.props.closeMenu();}

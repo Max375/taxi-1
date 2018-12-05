@@ -32,7 +32,7 @@ class Feedback extends Component {
         return (
             <div className={'feedback container'}>
                 <HeaderBack onClick={doSync} headerTitle={'Отзыв о поездке'}/>
-                <div className="feedback-content">
+                <div className="">
                     <div className="flex-top">
                         <p className={'h2'}>Текст отзыва</p>
                         <textarea onChange={(e)=>{this.setState({comment: e.target.value})}}>{this.state.comment}</textarea>

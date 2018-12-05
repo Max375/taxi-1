@@ -22,7 +22,6 @@ class Price extends Component{
         return(
 
             <React.Fragment>
-            </>
                 <div class="wait">Предлагаем вашу цену водителям, ожидайте</div>
                 <div class="red"></div>
                 <div class="offer">

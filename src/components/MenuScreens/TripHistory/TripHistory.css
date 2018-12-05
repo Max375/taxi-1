@@ -30,6 +30,7 @@
 .trip-history .route-point-a,
 .trip-history .route-point-b{
     font-size: 32px;
+    /*padding: 0 0 0 20px;*/
 }
 
 .trip-history .route-point-a{
@@ -44,13 +45,13 @@
     margin: 0 20px 0 0;
     position: relative;
 }
-.trip-history span.dot p.dashed-line{
-    position: absolute;
-    top: -19px;
-    left: 5px;
-    height: 29px;
-    border: dashed 1px #ddc4f2;
-}
+/*.trip-history span.dot p.dashed-line{*/
+    /*position: absolute;*/
+    /*top: -19px;*/
+    /*left: 5px;*/
+    /*height: 29px;*/
+    /*border: dashed 1px #ddc4f2;*/
+/*}*/
 
 .trip-history .price p{
     padding: 0;
@@ -111,7 +112,7 @@
         padding: 15px 0 0 0;
     }
     .trip-history .trip-information{
-        padding: 12px 22px 6px 22px;
+        padding: 12px 22px 12px 22px;
     }
     .trip-history .date-time {
         margin: 0 0 0 0;

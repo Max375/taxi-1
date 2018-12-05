@@ -11,21 +11,19 @@ function Trip(props) {
                 <p className="time">15 мин</p>
             </div>
             <div className="route">
-                <div className="route">
-                    <div className="route-point-a">
-                        <span className={'dot'}><p className="dashed-line"/></span>
-                        {props.info.locationFrom}
-                    </div>
-                    <div className="route-point-b">
-                        <span className={'dot'} />
-                        {props.info.locationTo.pop()}
-                    </div>
+                <div className="route-point-a">
+                    <span className={'dot'}></span>
+                    {props.info.locationFrom}
+                </div>
+                <div className="route-point-b">
+                    <span className={'dot'} />
+                    {props.info.locationTo.pop()}
                 </div>
             </div>
         </div>
         <div className="price">
             <p>{props.info.price} BYN</p>
-            <img src={reFresh} alt=""/>
+
         </div>
     </div>)
 }

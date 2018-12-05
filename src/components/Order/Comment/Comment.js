@@ -26,7 +26,7 @@ class Comment extends Component {
         return (
             <div className={'feedback container'}>
                 <HeaderBack onClick={this.back} headerTitle={'Комментарий'}/>
-                <div className="feedback-content">
+                <div className={'feedback-content'}>
                     <div className="flex-top">
                         <p className={'h2'}>Текст отзыва</p>
                         <textarea ref={this.refSetTextArea} />
